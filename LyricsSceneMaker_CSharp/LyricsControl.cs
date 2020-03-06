@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LyricsSceneMaker_CSharp
 {
-    public delegate void toScene(int opcode, string data);
+    public delegate void toScene(int opcode, string data, string data2);
 
     public partial class LyricsControl : Form
     {
@@ -19,37 +19,34 @@ namespace LyricsSceneMaker_CSharp
 
         public LyricsControl()
         {
+            this.Width = 393;
+            this.Height = 591;
             InitializeComponent();
-        }
-        
-        // 가사 검색 이벤트
-        private void searchSongTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Thread thread = new Thread(() => 
-                    webBrowser.Navigate("https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + searchSongTextBox.Text + " 가사")
-                );
-                thread.Start();
-
-                // searchSongTextBox 텍스트를 바탕으로 자료 검색 시도
-            }
         }
 
         private void initializeButton_Click(object sender, EventArgs e)
         {
-            //Song newSong = new Song();
+            // 정보 미기입 시 진행 불가능
+            if (songNameTextBox.Text.Equals("") || artistTextBox.Text.Equals("")
+                || youtubeURLTextBox.Text.Equals("") || LyricsTextBox.Text.Equals("")) return;
+
+            // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
+            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text, null);
+
+            // 가사 입력된 것을 string[] 배열에 저장해준다.
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
-            Thread thread = new Thread(() =>
+
+            // 모드 변환 (곡 정보 입력 창 -> 가사 싱크 맞추는 폼)
+            Thread newThread = new Thread(() =>
             {
-                int i = 0;
-                foreach (string line in lines_lyrics)
+                Control.ControlCollection controls = this.Controls;
+
+                foreach (Control control in controls)
                 {
-                    textBox1.Text += "[" + i++ + "] " + line + "\n";
-                    //Thread.Sleep(50);
+                    control.Left -= 380;
                 }
-            });
-            thread.Start();
+            }); newThread.Start();
+
         }
     }
 }

@@ -10,14 +10,14 @@ namespace LyricsSceneMaker_CSharp.model
         public string SongName { get; set; } = string.Empty;
         public string Artist { get; set; } = string.Empty;
         public string YoutubeURL { get; set; } = string.Empty;
-        public List<string> Lyrics { get; set; } = null;
+        public string[] Lyrics { get; set; } = null;
 
-        public Song(string SongName, string Artist, string YoutubeURL, List<string> Lyrics)
+        public Song(string SongName, string Artist, string YoutubeURL, string[] Lyrics)
         {
             this.SongName = SongName;
             this.Artist = Artist;
             this.YoutubeURL = YoutubeURL;
-
+            this.Lyrics = Lyrics;
         }
     }
 }

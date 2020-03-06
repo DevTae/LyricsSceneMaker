@@ -18,9 +18,19 @@ namespace LyricsSceneMaker_CSharp
             LyricsControl.toscene += new toScene(receive_data);
         }
 
-        void receive_data(int opcode, string data)
+        void receive_data(int opcode, string data1, string data2)
         {
-            MessageBox.Show(data);
+            if(opcode == 0)
+            {
+                // descriptor 정보 받아오기
+                descriptorTextBox.Text = data1;
+            }
+            else
+            {
+                lyricsTextBox1.Text = data1;
+                lyricsTextBox2.Text = data2;
+            }
+            // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }
 
         private void LyricsScene_Load(object sender, EventArgs e)
