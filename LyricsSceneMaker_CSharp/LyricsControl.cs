@@ -19,9 +19,9 @@ namespace LyricsSceneMaker_CSharp
 
         public LyricsControl()
         {
+            InitializeComponent();
             this.Width = 393;
             this.Height = 591;
-            InitializeComponent();
         }
 
         private void initializeButton_Click(object sender, EventArgs e)
@@ -52,5 +52,7 @@ namespace LyricsSceneMaker_CSharp
             }); newThread.Start();
             this.Width += 100;
         }
+
+        //noteInformationLabel = remained = 53 / done = 32
     }
 }

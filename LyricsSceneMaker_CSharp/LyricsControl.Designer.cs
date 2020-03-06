@@ -43,15 +43,21 @@
             this.nextSentence = new System.Windows.Forms.Label();
             this.previousSentence = new System.Windows.Forms.Label();
             this.nowSentence = new System.Windows.Forms.Label();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.noteInformationLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(12, 45);
+            this.label1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(8, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 15);
+            this.label1.Size = new System.Drawing.Size(95, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "노래 제목 : ";
             // 
@@ -59,9 +65,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(11, 15);
+            this.label2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(9, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 15);
+            this.label2.Size = new System.Drawing.Size(89, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "아티스트 : ";
             // 
@@ -69,9 +76,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Location = new System.Drawing.Point(12, 74);
+            this.label3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(6, 74);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 15);
+            this.label3.Size = new System.Drawing.Size(110, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "유튜브 URL : ";
             // 
@@ -79,9 +87,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(12, 105);
+            this.label4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Location = new System.Drawing.Point(10, 105);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.Size = new System.Drawing.Size(57, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "가사 : ";
             // 
@@ -108,15 +117,16 @@
             // 
             // LyricsTextBox
             // 
-            this.LyricsTextBox.Location = new System.Drawing.Point(70, 102);
+            this.LyricsTextBox.Location = new System.Drawing.Point(65, 102);
             this.LyricsTextBox.Multiline = true;
             this.LyricsTextBox.Name = "LyricsTextBox";
             this.LyricsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.LyricsTextBox.Size = new System.Drawing.Size(292, 395);
+            this.LyricsTextBox.Size = new System.Drawing.Size(297, 395);
             this.LyricsTextBox.TabIndex = 3;
             // 
             // initializeButton
             // 
+            this.initializeButton.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.initializeButton.Location = new System.Drawing.Point(12, 503);
             this.initializeButton.Name = "initializeButton";
             this.initializeButton.Size = new System.Drawing.Size(350, 32);
@@ -188,11 +198,69 @@
             this.nowSentence.TabIndex = 14;
             this.nowSentence.Text = "null";
             // 
+            // listBox
+            // 
+            this.listBox.FormattingEnabled = true;
+            this.listBox.ItemHeight = 15;
+            this.listBox.Location = new System.Drawing.Point(392, 163);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(455, 334);
+            this.listBox.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Location = new System.Drawing.Point(389, 145);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 15);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "TimeStamps:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label9.Location = new System.Drawing.Point(399, 512);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(440, 15);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "←, → : 싱크 이동, ↑, ↓ : 이동, SPACE : 선택한 지점 재생";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.Location = new System.Drawing.Point(391, 105);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(135, 15);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Note Information:";
+            // 
+            // noteInformationLabel
+            // 
+            this.noteInformationLabel.AutoSize = true;
+            this.noteInformationLabel.BackColor = System.Drawing.Color.Transparent;
+            this.noteInformationLabel.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.noteInformationLabel.Location = new System.Drawing.Point(532, 105);
+            this.noteInformationLabel.Name = "noteInformationLabel";
+            this.noteInformationLabel.Size = new System.Drawing.Size(29, 15);
+            this.noteInformationLabel.TabIndex = 21;
+            this.noteInformationLabel.Text = "null";
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 544);
+            this.ClientSize = new System.Drawing.Size(859, 544);
+            this.Controls.Add(this.noteInformationLabel);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.listBox);
             this.Controls.Add(this.nextSentence);
             this.Controls.Add(this.previousSentence);
             this.Controls.Add(this.nowSentence);
@@ -231,5 +299,10 @@
         private System.Windows.Forms.Label nextSentence;
         private System.Windows.Forms.Label previousSentence;
         private System.Windows.Forms.Label nowSentence;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label noteInformationLabel;
     }
 }
