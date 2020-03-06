@@ -28,7 +28,11 @@ namespace LyricsSceneMaker_CSharp
         {
             // 정보 미기입 시 진행 불가능
             if (songNameTextBox.Text.Equals("") || artistTextBox.Text.Equals("")
-                || youtubeURLTextBox.Text.Equals("") || LyricsTextBox.Text.Equals("")) return;
+                || youtubeURLTextBox.Text.Equals("") || LyricsTextBox.Text.Equals(""))
+            {
+                MessageBox.Show("곡에 대한 정보가 부족합니다.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
             toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text, null);
@@ -46,7 +50,7 @@ namespace LyricsSceneMaker_CSharp
                     control.Left -= 380;
                 }
             }); newThread.Start();
-
+            this.Width += 100;
         }
     }
 }
