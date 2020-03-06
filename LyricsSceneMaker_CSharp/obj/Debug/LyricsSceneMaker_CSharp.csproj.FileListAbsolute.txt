@@ -1,0 +1,10 @@
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\bin\Debug\LyricsSceneMaker_CSharp.exe
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\bin\Debug\LyricsSceneMaker_CSharp.pdb
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.csprojAssemblyReference.cache
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.LyricsControl.resources
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.Properties.Resources.resources
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.csproj.GenerateResource.cache
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.csproj.CoreCompileInputs.cache
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.exe
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.pdb
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.LyricsScene.resources
