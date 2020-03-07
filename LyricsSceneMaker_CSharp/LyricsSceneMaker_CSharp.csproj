@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -58,6 +61,12 @@
       <DependentUpon>LyricsScene.cs</DependentUpon>
     </Compile>
     <Compile Include="model\Song.cs" />
+    <Compile Include="MusicPlayerTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MusicPlayerTest.Designer.cs">
+      <DependentUpon>MusicPlayerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LyricsControl.resx">
@@ -65,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LyricsScene.resx">
       <DependentUpon>LyricsScene.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicPlayerTest.resx">
+      <DependentUpon>MusicPlayerTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,6 +87,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

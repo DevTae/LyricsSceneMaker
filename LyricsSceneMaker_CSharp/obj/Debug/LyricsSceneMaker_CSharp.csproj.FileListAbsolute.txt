@@ -8,3 +8,7 @@ C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.exe
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.pdb
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.LyricsScene.resources
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.MusicPlayerTest.resources
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\bin\Debug\NAudio.dll
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\bin\Debug\NAudio.xml
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneMaker_CSharp.csproj.CopyComplete

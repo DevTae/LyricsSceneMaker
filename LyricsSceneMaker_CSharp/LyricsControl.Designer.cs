@@ -206,6 +206,7 @@
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(455, 334);
             this.listBox.TabIndex = 17;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -255,7 +256,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 544);
+            this.ClientSize = new System.Drawing.Size(1256, 687);
             this.Controls.Add(this.noteInformationLabel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -278,6 +279,7 @@
             this.Controls.Add(this.label1);
             this.Name = "LyricsControl";
             this.Text = "LyricsControl";
+            this.Load += new System.EventHandler(this.LyricsControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

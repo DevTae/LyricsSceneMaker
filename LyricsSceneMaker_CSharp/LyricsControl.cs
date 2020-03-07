@@ -40,6 +40,8 @@ namespace LyricsSceneMaker_CSharp
             // 가사 입력된 것을 string[] 배열에 저장해준다.
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
 
+            // 음악 다운로드 쓰레드로 완료된 것 알려주기
+
             // 모드 변환 (곡 정보 입력 창 -> 가사 싱크 맞추는 폼)
             Thread newThread = new Thread(() =>
             {
@@ -51,6 +53,17 @@ namespace LyricsSceneMaker_CSharp
                 }
             }); newThread.Start();
             this.Width += 100;
+            this.Height += 100;
+        }
+
+        private void LyricsControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         //noteInformationLabel = remained = 53 / done = 32
