@@ -61,12 +61,6 @@
       <DependentUpon>LyricsScene.cs</DependentUpon>
     </Compile>
     <Compile Include="model\Song.cs" />
-    <Compile Include="MusicPlayerTest.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MusicPlayerTest.Designer.cs">
-      <DependentUpon>MusicPlayerTest.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LyricsControl.resx">
@@ -74,9 +68,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LyricsScene.resx">
       <DependentUpon>LyricsScene.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MusicPlayerTest.resx">
-      <DependentUpon>MusicPlayerTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -98,8 +89,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

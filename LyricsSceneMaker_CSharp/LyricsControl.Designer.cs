@@ -43,12 +43,13 @@
             this.nowSentence = new System.Windows.Forms.Label();
             this.listBox = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.noteInformationLabel = new System.Windows.Forms.Label();
             this.selectFile = new System.Windows.Forms.Button();
             this.replay = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.pause = new System.Windows.Forms.Button();
+            this.continueButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -177,9 +178,9 @@
             this.listBox.ItemHeight = 15;
             this.listBox.Location = new System.Drawing.Point(402, 118);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(274, 379);
+            this.listBox.Size = new System.Drawing.Size(274, 409);
             this.listBox.TabIndex = 17;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+            this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
             this.listBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_KeyDown);
             // 
             // label8
@@ -192,17 +193,6 @@
             this.label8.Size = new System.Drawing.Size(56, 15);
             this.label8.TabIndex = 18;
             this.label8.Text = "Notes:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label9.Location = new System.Drawing.Point(399, 512);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(440, 15);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "←, → : 싱크 이동, ↑, ↓ : 이동, SPACE : 선택한 지점 재생\r\n";
             // 
             // label10
             // 
@@ -238,29 +228,51 @@
             // 
             // replay
             // 
-            this.replay.Location = new System.Drawing.Point(461, 92);
+            this.replay.Location = new System.Drawing.Point(466, 92);
             this.replay.Name = "replay";
-            this.replay.Size = new System.Drawing.Size(75, 23);
+            this.replay.Size = new System.Drawing.Size(43, 23);
             this.replay.TabIndex = 23;
-            this.replay.Text = "replay";
+            this.replay.Text = "◀";
             this.replay.UseVisualStyleBackColor = true;
             this.replay.Click += new System.EventHandler(this.replay_Click);
             // 
             // timer
             // 
-            this.timer.Interval = 50;
+            this.timer.Enabled = true;
+            this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // pause
+            // 
+            this.pause.Location = new System.Drawing.Point(515, 92);
+            this.pause.Name = "pause";
+            this.pause.Size = new System.Drawing.Size(43, 23);
+            this.pause.TabIndex = 24;
+            this.pause.Text = "〓";
+            this.pause.UseVisualStyleBackColor = true;
+            this.pause.Click += new System.EventHandler(this.pause_Click);
+            // 
+            // continueButton
+            // 
+            this.continueButton.Location = new System.Drawing.Point(564, 92);
+            this.continueButton.Name = "continueButton";
+            this.continueButton.Size = new System.Drawing.Size(43, 23);
+            this.continueButton.TabIndex = 25;
+            this.continueButton.Text = "▶";
+            this.continueButton.UseVisualStyleBackColor = true;
+            this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 546);
+            this.ClientSize = new System.Drawing.Size(688, 546);
+            this.Controls.Add(this.continueButton);
+            this.Controls.Add(this.pause);
             this.Controls.Add(this.replay);
             this.Controls.Add(this.selectFile);
             this.Controls.Add(this.noteInformationLabel);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.nextSentence);
@@ -299,11 +311,12 @@
         private System.Windows.Forms.Label nowSentence;
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label noteInformationLabel;
         private System.Windows.Forms.Button selectFile;
         private System.Windows.Forms.Button replay;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button pause;
+        private System.Windows.Forms.Button continueButton;
     }
 }

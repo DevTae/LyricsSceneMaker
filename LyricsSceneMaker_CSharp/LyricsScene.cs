@@ -24,12 +24,13 @@ namespace LyricsSceneMaker_CSharp
             {
                 // descriptor 정보 받아오기
                 descriptorTextBox.Text = data;
-                lyricsTextBox2.Text = "간주 중...";
+                //lyricsTextBox2.Text = "간주 중..."; temp
             }
             else if(opcode == 1)
             {
-                lyricsTextBox1.Text = lyricsTextBox2.Text;
-                lyricsTextBox2.Text = data;
+                //lyricsTextBox1.Text = lyricsTextBox2.Text;
+                //lyricsTextBox2.Text = data;
+                lyricsTextBox1.Text = data; // TEMP
             }
             // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }

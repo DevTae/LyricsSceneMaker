@@ -61,9 +61,9 @@
             // lyricsTextBox1
             // 
             this.lyricsTextBox1.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lyricsTextBox1.Location = new System.Drawing.Point(432, 171);
+            this.lyricsTextBox1.Location = new System.Drawing.Point(414, 125);
             this.lyricsTextBox1.Name = "lyricsTextBox1";
-            this.lyricsTextBox1.Size = new System.Drawing.Size(249, 58);
+            this.lyricsTextBox1.Size = new System.Drawing.Size(333, 106);
             this.lyricsTextBox1.TabIndex = 2;
             this.lyricsTextBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -71,9 +71,9 @@
             // 
             this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lyricsTextBox2.Location = new System.Drawing.Point(433, 266);
+            this.lyricsTextBox2.Location = new System.Drawing.Point(424, 266);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
-            this.lyricsTextBox2.Size = new System.Drawing.Size(248, 49);
+            this.lyricsTextBox2.Size = new System.Drawing.Size(323, 108);
             this.lyricsTextBox2.TabIndex = 3;
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
