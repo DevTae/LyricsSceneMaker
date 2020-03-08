@@ -34,7 +34,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.songNameTextBox = new System.Windows.Forms.TextBox();
             this.artistTextBox = new System.Windows.Forms.TextBox();
-            this.youtubeURLTextBox = new System.Windows.Forms.TextBox();
             this.LyricsTextBox = new System.Windows.Forms.TextBox();
             this.initializeButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,13 +47,14 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.noteInformationLabel = new System.Windows.Forms.Label();
+            this.selectFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(8, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 15);
@@ -65,7 +65,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.Location = new System.Drawing.Point(9, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 15);
@@ -76,18 +76,18 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.Location = new System.Drawing.Point(6, 74);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 15);
+            this.label3.Size = new System.Drawing.Size(133, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "유튜브 URL : ";
+            this.label3.Text = "음악 파일 선택 : ";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(10, 105);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 15);
@@ -108,13 +108,6 @@
             this.artistTextBox.Size = new System.Drawing.Size(269, 25);
             this.artistTextBox.TabIndex = 0;
             // 
-            // youtubeURLTextBox
-            // 
-            this.youtubeURLTextBox.Location = new System.Drawing.Point(111, 71);
-            this.youtubeURLTextBox.Name = "youtubeURLTextBox";
-            this.youtubeURLTextBox.Size = new System.Drawing.Size(251, 25);
-            this.youtubeURLTextBox.TabIndex = 2;
-            // 
             // LyricsTextBox
             // 
             this.LyricsTextBox.Location = new System.Drawing.Point(65, 102);
@@ -123,10 +116,11 @@
             this.LyricsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.LyricsTextBox.Size = new System.Drawing.Size(297, 395);
             this.LyricsTextBox.TabIndex = 3;
+            this.LyricsTextBox.TextChanged += new System.EventHandler(this.LyricsTextBox_TextChanged);
             // 
             // initializeButton
             // 
-            this.initializeButton.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.initializeButton.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.initializeButton.Location = new System.Drawing.Point(12, 503);
             this.initializeButton.Name = "initializeButton";
             this.initializeButton.Size = new System.Drawing.Size(350, 32);
@@ -139,7 +133,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label5.Location = new System.Drawing.Point(391, 45);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 15);
@@ -150,7 +144,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label6.Location = new System.Drawing.Point(391, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(85, 15);
@@ -161,7 +155,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(391, 76);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 15);
@@ -212,7 +206,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label8.Location = new System.Drawing.Point(389, 145);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(102, 15);
@@ -223,7 +217,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label9.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label9.Location = new System.Drawing.Point(399, 512);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(440, 15);
@@ -234,7 +228,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label10.Location = new System.Drawing.Point(391, 105);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(135, 15);
@@ -245,18 +239,29 @@
             // 
             this.noteInformationLabel.AutoSize = true;
             this.noteInformationLabel.BackColor = System.Drawing.Color.Transparent;
-            this.noteInformationLabel.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.noteInformationLabel.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.noteInformationLabel.Location = new System.Drawing.Point(532, 105);
             this.noteInformationLabel.Name = "noteInformationLabel";
             this.noteInformationLabel.Size = new System.Drawing.Size(29, 15);
             this.noteInformationLabel.TabIndex = 21;
             this.noteInformationLabel.Text = "null";
             // 
+            // selectFile
+            // 
+            this.selectFile.Location = new System.Drawing.Point(136, 73);
+            this.selectFile.Name = "selectFile";
+            this.selectFile.Size = new System.Drawing.Size(226, 23);
+            this.selectFile.TabIndex = 22;
+            this.selectFile.Text = "select file";
+            this.selectFile.UseVisualStyleBackColor = true;
+            this.selectFile.Click += new System.EventHandler(this.selectFile_Click);
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1256, 687);
+            this.Controls.Add(this.selectFile);
             this.Controls.Add(this.noteInformationLabel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -270,13 +275,13 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.initializeButton);
             this.Controls.Add(this.LyricsTextBox);
-            this.Controls.Add(this.youtubeURLTextBox);
             this.Controls.Add(this.artistTextBox);
             this.Controls.Add(this.songNameTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LyricsControl";
             this.Text = "LyricsControl";
             this.Load += new System.EventHandler(this.LyricsControl_Load);
@@ -292,7 +297,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox songNameTextBox;
         private System.Windows.Forms.TextBox artistTextBox;
-        private System.Windows.Forms.TextBox youtubeURLTextBox;
         private System.Windows.Forms.TextBox LyricsTextBox;
         private System.Windows.Forms.Button initializeButton;
         private System.Windows.Forms.Label label5;
@@ -306,5 +310,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label noteInformationLabel;
+        private System.Windows.Forms.Button selectFile;
     }
 }

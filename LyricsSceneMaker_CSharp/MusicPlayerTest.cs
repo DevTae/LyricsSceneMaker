@@ -75,8 +75,9 @@ namespace LyricsSceneMaker_CSharp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(outputDevice.GetPosition().ToString());
-            outputDevice.Pause();
+            audioFile.Position = 1959159;
+            //MessageBox.Show(outputDevice.GetPosition().ToString());
+            //outputDevice.Pause();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace LyricsSceneMaker_CSharp
         {
             // 정보 미기입 시 진행 불가능
             if (songNameTextBox.Text.Equals("") || artistTextBox.Text.Equals("")
-                || youtubeURLTextBox.Text.Equals("") || LyricsTextBox.Text.Equals(""))
+                || selectFile.Text.Equals("select file") || LyricsTextBox.Text.Equals(""))
             {
                 MessageBox.Show("곡에 대한 정보가 부족합니다.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -64,6 +64,22 @@ namespace LyricsSceneMaker_CSharp
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void LyricsTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void selectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "음악 파일 (*.mp3)|*.mp3";
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                selectFile.Text = ofd.FileName;
+                selectFile.Enabled = false;
+            }
         }
 
         //noteInformationLabel = remained = 53 / done = 32
