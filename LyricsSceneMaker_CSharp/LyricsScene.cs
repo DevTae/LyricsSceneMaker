@@ -38,5 +38,38 @@ namespace LyricsSceneMaker_CSharp
             LyricsControl newControl = new LyricsControl();
             newControl.Show();
         }
+
+        Point point;
+        Boolean isMouseDown = false;
+
+        private void titlebar_MouseDown(object sender, MouseEventArgs e)
+        {
+            isMouseDown = true;
+            point = new Point(e.X, e.Y);
+        }
+
+        private void titlebar_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMouseDown = false;
+        }
+
+        private void titlebar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(isMouseDown)
+            {
+                this.Left += e.X - point.X;
+                this.Top += e.Y - point.Y;
+            }
+        }
+
+        private void albumPictureBox_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "사진 파일 (*.jpeg; *.jpg; *.png; *.gif;)|*.jpeg;*.jpg;*.png;*.gif;";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                albumPictureBox.Image = Image.FromFile(ofd.FileName);
+            }
+        }
     }
 }

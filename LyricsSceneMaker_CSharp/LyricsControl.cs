@@ -17,11 +17,24 @@ namespace LyricsSceneMaker_CSharp
     {
         public static event toScene toscene;
 
+        private Song song;
+
         public LyricsControl()
         {
             InitializeComponent();
             this.Width = 393;
             this.Height = 591;
+        }
+
+        private void selectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "음악 파일 (*.mp3)|*.mp3";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                selectFile.Text = ofd.FileName;
+                selectFile.Enabled = false;
+            }
         }
 
         private void initializeButton_Click(object sender, EventArgs e)
@@ -65,22 +78,7 @@ namespace LyricsSceneMaker_CSharp
         {
 
         }
-
-        private void LyricsTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void selectFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "음악 파일 (*.mp3)|*.mp3";
-            if(ofd.ShowDialog() == DialogResult.OK)
-            {
-                selectFile.Text = ofd.FileName;
-                selectFile.Enabled = false;
-            }
-        }
+        
 
         //noteInformationLabel = remained = 53 / done = 32
     }

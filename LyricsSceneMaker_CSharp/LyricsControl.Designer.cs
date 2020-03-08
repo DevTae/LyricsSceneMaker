@@ -116,7 +116,6 @@
             this.LyricsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.LyricsTextBox.Size = new System.Drawing.Size(297, 395);
             this.LyricsTextBox.TabIndex = 3;
-            this.LyricsTextBox.TextChanged += new System.EventHandler(this.LyricsTextBox_TextChanged);
             // 
             // initializeButton
             // 
@@ -198,7 +197,7 @@
             this.listBox.ItemHeight = 15;
             this.listBox.Location = new System.Drawing.Point(392, 163);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(455, 334);
+            this.listBox.Size = new System.Drawing.Size(468, 334);
             this.listBox.TabIndex = 17;
             this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
@@ -209,9 +208,9 @@
             this.label8.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label8.Location = new System.Drawing.Point(389, 145);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 15);
+            this.label8.Size = new System.Drawing.Size(56, 15);
             this.label8.TabIndex = 18;
-            this.label8.Text = "TimeStamps:";
+            this.label8.Text = "Notes:";
             // 
             // label9
             // 
@@ -222,7 +221,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(440, 15);
             this.label9.TabIndex = 19;
-            this.label9.Text = "←, → : 싱크 이동, ↑, ↓ : 이동, SPACE : 선택한 지점 재생";
+            this.label9.Text = "←, → : 싱크 이동, ↑, ↓ : 이동, SPACE : 선택한 지점 재생\r\n";
             // 
             // label10
             // 
