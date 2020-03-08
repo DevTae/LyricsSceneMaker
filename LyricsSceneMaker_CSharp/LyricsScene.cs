@@ -24,6 +24,7 @@ namespace LyricsSceneMaker_CSharp
             {
                 // descriptor 정보 받아오기
                 descriptorTextBox.Text = data;
+                lyricsTextBox2.Text = "간주 중...";
             }
             else if(opcode == 1)
             {

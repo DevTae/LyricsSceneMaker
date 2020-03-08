@@ -1,4 +1,5 @@
 ﻿using LyricsSceneMaker_CSharp.model;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,10 @@ namespace LyricsSceneMaker_CSharp
     {
         public static event toScene toscene;
 
+        private WaveOutEvent outputDevice;
+        private AudioFileReader audioFile;
         private Song song;
+        private int nowSelectedIndex = 0;
 
         public LyricsControl()
         {
@@ -69,21 +73,38 @@ namespace LyricsSceneMaker_CSharp
             selectFile.Enabled = false;
             LyricsTextBox.ReadOnly = true;
             initializeButton.Enabled = false;
-            MessageBox.Show(selectFile.Text);
-
             this.Width = 900;
             this.Height = 593;
 
             // Song 개체 생성
             song = new Song(songNameTextBox.Text, artistTextBox.Text, selectFile.Text, lines_lyrics);
+
+            // 첫 가사 전송 시켜 놓기
+            toscene(1, lines_lyrics[nowSelectedIndex++]);
+
+            // 노래 재생하기
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Play();
         }
-        
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
-
+            outputDevice.Dispose();
+            outputDevice = null;
+            audioFile.Dispose();
+            audioFile = null;
         }
 
-        private void label8_Click(object sender, EventArgs e)
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -99,6 +120,25 @@ namespace LyricsSceneMaker_CSharp
         private void button2_Click(object sender, EventArgs e)
         {
             toscene(1, "데이터 갑니다잉 " + i++);
+        }
+        
+        private void listBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                toscene(1, "데이터 갑니다잉 " + i++);
+            }
+            
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void replay_Click(object sender, EventArgs e)
+        {
+            audioFile.Position = 0;
         }
 
 
