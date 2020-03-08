@@ -17,7 +17,7 @@ namespace LyricsSceneMaker_CSharp
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new LyricsScene());
             //Application.Run(new MusicPlayerTest());
-            Application.Run(new LyricsScene());
+            Application.Run(new LyricsControl());
         }
     }
 }

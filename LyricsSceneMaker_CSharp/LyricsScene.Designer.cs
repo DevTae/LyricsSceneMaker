@@ -41,9 +41,10 @@
             // descriptorTextBox
             // 
             this.descriptorTextBox.AutoSize = true;
-            this.descriptorTextBox.Location = new System.Drawing.Point(172, 356);
+            this.descriptorTextBox.Font = new System.Drawing.Font("BM DoHyeon", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.descriptorTextBox.Location = new System.Drawing.Point(144, 351);
             this.descriptorTextBox.Name = "descriptorTextBox";
-            this.descriptorTextBox.Size = new System.Drawing.Size(71, 15);
+            this.descriptorTextBox.Size = new System.Drawing.Size(120, 23);
             this.descriptorTextBox.TabIndex = 0;
             this.descriptorTextBox.Text = "descriptor";
             // 
@@ -59,22 +60,20 @@
             // 
             // lyricsTextBox1
             // 
-            this.lyricsTextBox1.Font = new System.Drawing.Font("BM DoHyeon", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lyricsTextBox1.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox1.Location = new System.Drawing.Point(432, 171);
             this.lyricsTextBox1.Name = "lyricsTextBox1";
             this.lyricsTextBox1.Size = new System.Drawing.Size(249, 58);
             this.lyricsTextBox1.TabIndex = 2;
-            this.lyricsTextBox1.Text = "loading..";
             this.lyricsTextBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lyricsTextBox2
             // 
-            this.lyricsTextBox2.Font = new System.Drawing.Font("BM DoHyeon", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox2.Location = new System.Drawing.Point(433, 266);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
             this.lyricsTextBox2.Size = new System.Drawing.Size(248, 49);
             this.lyricsTextBox2.TabIndex = 3;
-            this.lyricsTextBox2.Text = "loading...";
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -111,7 +110,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LyricsScene";
             this.Text = "LyricsScene";
-            this.Load += new System.EventHandler(this.LyricsScene_Load);
             ((System.ComponentModel.ISupportInitialize)(this.albumPictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

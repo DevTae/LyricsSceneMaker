@@ -48,6 +48,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.noteInformationLabel = new System.Windows.Forms.Label();
             this.selectFile = new System.Windows.Forms.Button();
+            this.replay = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -211,6 +213,7 @@
             this.label8.Size = new System.Drawing.Size(56, 15);
             this.label8.TabIndex = 18;
             this.label8.Text = "Notes:";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
@@ -255,11 +258,32 @@
             this.selectFile.UseVisualStyleBackColor = true;
             this.selectFile.Click += new System.EventHandler(this.selectFile_Click);
             // 
+            // replay
+            // 
+            this.replay.Location = new System.Drawing.Point(451, 137);
+            this.replay.Name = "replay";
+            this.replay.Size = new System.Drawing.Size(75, 23);
+            this.replay.TabIndex = 23;
+            this.replay.Text = "replay";
+            this.replay.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(535, 137);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1256, 687);
+            this.ClientSize = new System.Drawing.Size(882, 546);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.replay);
             this.Controls.Add(this.selectFile);
             this.Controls.Add(this.noteInformationLabel);
             this.Controls.Add(this.label10);
@@ -310,5 +334,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label noteInformationLabel;
         private System.Windows.Forms.Button selectFile;
+        private System.Windows.Forms.Button replay;
+        private System.Windows.Forms.Button button2;
     }
 }

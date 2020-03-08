@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LyricsSceneMaker_CSharp
 {
-    public delegate void toScene(int opcode, string data, string data2);
+    public delegate void toScene(int opcode, string data);
 
     public partial class LyricsControl : Form
     {
@@ -23,7 +23,7 @@ namespace LyricsSceneMaker_CSharp
         {
             InitializeComponent();
             this.Width = 393;
-            this.Height = 591;
+            this.Height = 593;
         }
 
         private void selectFile_Click(object sender, EventArgs e)
@@ -33,7 +33,6 @@ namespace LyricsSceneMaker_CSharp
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 selectFile.Text = ofd.FileName;
-                selectFile.Enabled = false;
             }
         }
 
@@ -48,37 +47,60 @@ namespace LyricsSceneMaker_CSharp
             }
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text, null);
+            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text);
 
             // 가사 입력된 것을 string[] 배열에 저장해준다.
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
 
-            // 음악 다운로드 쓰레드로 완료된 것 알려주기
-
             // 모드 변환 (곡 정보 입력 창 -> 가사 싱크 맞추는 폼)
-            Thread newThread = new Thread(() =>
-            {
-                Control.ControlCollection controls = this.Controls;
+            //Thread newThread = new Thread(() =>
+            //{
+            //    Control.ControlCollection controls = this.Controls;
 
-                foreach (Control control in controls)
-                {
-                    control.Left -= 380;
-                }
-            }); newThread.Start();
-            this.Width += 100;
-            this.Height += 100;
+            //    foreach (Control control in controls)
+            //    {
+            //        control.Left -= 380;
+            //    }
+            //}); newThread.Start();
+            //this.Width += 100;
+            //this.Height += 100;
+            artistTextBox.Enabled = false;
+            songNameTextBox.Enabled = false;
+            selectFile.Enabled = false;
+            LyricsTextBox.ReadOnly = true;
+            initializeButton.Enabled = false;
+            MessageBox.Show(selectFile.Text);
+
+            this.Width = 900;
+            this.Height = 593;
+
+            // Song 개체 생성
+            song = new Song(songNameTextBox.Text, artistTextBox.Text, selectFile.Text, lines_lyrics);
         }
-
-        private void LyricsControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-        
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LyricsControl_Load(object sender, EventArgs e)
+        {
+            LyricsScene scene = new LyricsScene();
+            scene.Show();
+        }
+
+        int i = 0;
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            toscene(1, "데이터 갑니다잉 " + i++);
+        }
+
 
         //noteInformationLabel = remained = 53 / done = 32
     }
