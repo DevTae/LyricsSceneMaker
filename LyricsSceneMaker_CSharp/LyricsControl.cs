@@ -116,28 +116,31 @@ namespace LyricsSceneMaker_CSharp
         }
 
         int i = 0;
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            toscene(1, "데이터 갑니다잉 " + i++);
-        }
-        
         private void listBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 toscene(1, "데이터 갑니다잉 " + i++);
+                listBox.Items.Add(audioFile.Position);
             }
             
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            
+            //if(audioFile.Position > )
         }
 
         private void replay_Click(object sender, EventArgs e)
         {
+            // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
+            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text);
+
+            // 첫 가사 전송 시켜 놓기
+            nowSelectedIndex = 0;
+            toscene(1, song.Lyrics[nowSelectedIndex++]);
+            
+            // audio file rewind
             audioFile.Position = 0;
         }
 
