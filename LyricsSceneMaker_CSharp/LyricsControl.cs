@@ -53,9 +53,15 @@ namespace LyricsSceneMaker_CSharp
                 return;
             }
 
-            // 윈도우 특성상 생기는 \r 지워줌
-            LyricsTextBox.Text = LyricsTextBox.Text.Replace("\n\n", "\n");
+            // 공백 줄바꿈 \r\n 지워줌
+            while(LyricsTextBox.Text.Contains("\r\n\r\n"))
+                LyricsTextBox.Text = LyricsTextBox.Text.Replace("\r\n\r\n", "\r\n");
 
+            // 마지막줄의 줄바꿈 지워줌 (필수)
+            int length = LyricsTextBox.Text.Length;
+            if (LyricsTextBox.Text.Substring(length - 2, 2).Equals("\r\n"))
+                LyricsTextBox.Text = LyricsTextBox.Text.Substring(0, length - 2);
+                
             // 가사 입력된 것을 string[] 배열에 저장해준다.
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
 
@@ -77,7 +83,7 @@ namespace LyricsSceneMaker_CSharp
             LyricsTextBox.ReadOnly = true;
             initializeButton.Enabled = false;
             lyricsLoadButton.Enabled = false;
-            lyricsSaveButton.Enabled = false;
+            //lyricsSaveButton.Enabled = false;
             this.Width = 706;
             this.Height = 593;
             
