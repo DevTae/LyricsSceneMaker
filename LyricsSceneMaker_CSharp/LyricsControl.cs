@@ -259,31 +259,48 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
-        // loadButton 클립보드 작동 안함
         private void loadButton_Click(object sender, EventArgs e)
         {
-            string clipboard_data = Clipboard.GetText();
-            if (!clipboard_data.Contains("|")) return;
-            clipboard_data.Replace("||", "|");
-
             DialogResult dr;
             if (listBox.Items.Count != 0)
             {
                 dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고 새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if (dr == DialogResult.OK)
+                if (dr != DialogResult.OK) return;
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show(ofd.FileNames[0]); //지워
+
+                StringBuilder sb = new StringBuilder();
+                StreamReader sr = new StreamReader(ofd.FileNames[0]);
+
+                // 노트 데이터 읽어오기
+                if (sr.Peek() > 0)
                 {
-                    replay_Click(this, e);
-                    listBox.Items.Clear();
-                    string[] note_datas = clipboard_data.Split('|');
-                    foreach(string note_line in note_datas)
-                    {
-                        if (!note_line.Equals(""))
-                            listBox.Items.Add(note_line);
-                    }
+                    sb.Append(sr.ReadToEnd());
+                }
+
+                // 예외처리
+                if (!sb.ToString().Contains("|"))
+                {
+                    MessageBox.Show("비어있는 노트 데이터 파일을 불러올 수 없습니다.");
+                    return;
+                }
+
+                // 데이터 파싱
+                replay_Click(this, e);
+                listBox.Items.Clear();
+                string[] note_datas = sr.ToString().Split('|');
+                foreach (string note_line in note_datas)
+                {
+                    if (!note_line.Equals(""))
+                        listBox.Items.Add(note_line);
                 }
             }
-                
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -294,10 +311,40 @@ namespace LyricsSceneMaker_CSharp
                 string line_data = listBox.GetItemText(item) + "|";
                 sb.Append(line_data);
             }
-            Clipboard.SetText(sb.ToString());
-            MessageBox.Show("클립보드에 노트 데이터를 복사했습니다.\r\n" +
-                "Ctrl+V를 통해 원하는 곳에 저장하세요!", "Must Do It", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            //Clipboard.SetText(sb.ToString());
+            //MessageBox.Show("클립보드에 노트 데이터를 복사했습니다.\r\n" +
+            //    "Ctrl+V를 통해 원하는 곳에 저장하세요!", "Must Do It", MessageBoxButtons.OK,
+            //    MessageBoxIcon.Information);
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
+            sfd.InitialDirectory = @"C:\";
+            sfd.RestoreDirectory = true;
+            sfd.DefaultExt = "notes";
+            sfd.FileName = artistTextBox.Text + "-" + songNameTextBox.Text;
+            if(sfd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    fs = (FileStream)sfd.OpenFile();
+                    sw = new StreamWriter(fs);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    fs.Close();
+                    MessageBox.Show("저장 성공!", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (IOException e1)
+                {
+                    if (fs != null) fs.Close();
+                    if (sw != null) fs.Close();
+                    MessageBox.Show("저장 실패!", "Fatal Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.Write("{0}", e1.StackTrace);
+                }
+            }
         }
     }
 }
