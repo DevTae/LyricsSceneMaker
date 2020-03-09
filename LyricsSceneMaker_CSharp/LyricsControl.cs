@@ -259,6 +259,7 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
+        // loadButton 클립보드 작동 안함
         private void loadButton_Click(object sender, EventArgs e)
         {
             string clipboard_data = Clipboard.GetText();
