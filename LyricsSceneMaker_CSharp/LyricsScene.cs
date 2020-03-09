@@ -27,7 +27,12 @@ namespace LyricsSceneMaker_CSharp
                 lyricsTextBox1.Text = data1;
                 lyricsTextBox2.Text = data2;
             }
-            else if(opcode == 1)
+            else if(opcode == (int)Keys.Enter)
+            {
+                lyricsTextBox1.Text = data1;
+                lyricsTextBox2.Text = data2;
+            }
+            else if(opcode == (int)Keys.Space)
             {
                 lyricsTextBox1.Text = data1;
                 lyricsTextBox2.Text = data2;

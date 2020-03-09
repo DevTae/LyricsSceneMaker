@@ -116,17 +116,18 @@ namespace LyricsSceneMaker_CSharp
         
         private void listBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
             {
                 int size = listBox.Items.Count;
                 if (song.Lyrics.Length <= size) return;
 
                 int insertIndex = 0;
                 long nowTime = audioFile.Position;
+                string insertString = nowTime + "," + (int)e.KeyCode; // opcode
 
                 if (size == 0)
                 {
-                    listBox.Items.Insert(insertIndex, audioFile.Position);
+                    listBox.Items.Insert(insertIndex, insertString);
                 }
                 else
                 {
@@ -135,15 +136,15 @@ namespace LyricsSceneMaker_CSharp
                     Boolean isInserted = false;
                     foreach (object item in listBox.Items)
                     {
-                        if (long.Parse(listBox.GetItemText(item)) > nowTime)
+                        if (long.Parse(listBox.GetItemText(item).Split(',')[0]) > nowTime)
                         {
-                            listBox.Items.Insert(insertIndex, nowTime);
+                            listBox.Items.Insert(insertIndex, insertString);
                             isInserted = true;
                             break;
                         }
                         insertIndex++;
                     }
-                    if (!isInserted) listBox.Items.Insert(size, nowTime);
+                    if (!isInserted) listBox.Items.Insert(size, insertString);
                 }
                 nowSelectedIndex = insertIndex;
             }
@@ -167,7 +168,7 @@ namespace LyricsSceneMaker_CSharp
             if (dr == DialogResult.OK)
             {
                 nowSelectedIndex = selectedIndex;
-                audioFile.Position = long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]));
+                audioFile.Position = long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[0]);
             }
             else
             {
@@ -187,14 +188,14 @@ namespace LyricsSceneMaker_CSharp
 
             if (size == 0 || size - 1 < nowSelectedIndex || audioFile == null || outputDevice == null) return;
 
-            if(long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex])) <= audioFile.Position)
+            if(long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
                 
                 nowSentence.Text = song.Lyrics[nowSelectedIndex];
                 if (song.Lyrics.Length > nowSelectedIndex + 1) nextSentence.Text = song.Lyrics[nowSelectedIndex + 1];
                 else nextSentence.Text = "null";
                 listBox.SelectedIndex = nowSelectedIndex;
-                toscene(1, song.Lyrics[nowSelectedIndex],
+                toscene(int.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[1]), song.Lyrics[nowSelectedIndex],
                     (song.Lyrics.Length > ++nowSelectedIndex) ? song.Lyrics[nowSelectedIndex] : null);
             }
         }
