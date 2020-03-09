@@ -76,6 +76,8 @@ namespace LyricsSceneMaker_CSharp
             selectFile.Enabled = false;
             LyricsTextBox.ReadOnly = true;
             initializeButton.Enabled = false;
+            lyricsLoadButton.Enabled = false;
+            lyricsSaveButton.Enabled = false;
             this.Width = 706;
             this.Height = 593;
             
