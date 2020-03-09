@@ -55,6 +55,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.noteInformation = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.effectButton1 = new System.Windows.Forms.Button();
+            this.effectButton2 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.effectListBox = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.effectsSaveButton = new System.Windows.Forms.Button();
+            this.effectsLoadButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -200,7 +207,7 @@
             // 
             // replay
             // 
-            this.replay.Location = new System.Drawing.Point(606, 92);
+            this.replay.Location = new System.Drawing.Point(589, 87);
             this.replay.Name = "replay";
             this.replay.Size = new System.Drawing.Size(43, 28);
             this.replay.TabIndex = 23;
@@ -216,7 +223,7 @@
             // 
             // pause
             // 
-            this.pause.Location = new System.Drawing.Point(655, 92);
+            this.pause.Location = new System.Drawing.Point(638, 87);
             this.pause.Name = "pause";
             this.pause.Size = new System.Drawing.Size(43, 28);
             this.pause.TabIndex = 24;
@@ -226,7 +233,7 @@
             // 
             // continueButton
             // 
-            this.continueButton.Location = new System.Drawing.Point(704, 92);
+            this.continueButton.Location = new System.Drawing.Point(687, 87);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(43, 28);
             this.continueButton.TabIndex = 25;
@@ -236,7 +243,7 @@
             // 
             // notesLoadButton
             // 
-            this.notesLoadButton.Location = new System.Drawing.Point(583, 503);
+            this.notesLoadButton.Location = new System.Drawing.Point(583, 296);
             this.notesLoadButton.Name = "notesLoadButton";
             this.notesLoadButton.Size = new System.Drawing.Size(164, 31);
             this.notesLoadButton.TabIndex = 26;
@@ -246,7 +253,7 @@
             // 
             // notesSaveButton
             // 
-            this.notesSaveButton.Location = new System.Drawing.Point(402, 503);
+            this.notesSaveButton.Location = new System.Drawing.Point(402, 296);
             this.notesSaveButton.Name = "notesSaveButton";
             this.notesSaveButton.Size = new System.Drawing.Size(170, 31);
             this.notesSaveButton.TabIndex = 27;
@@ -281,7 +288,7 @@
             this.listBox.ItemHeight = 15;
             this.listBox.Location = new System.Drawing.Point(402, 121);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(345, 379);
+            this.listBox.Size = new System.Drawing.Size(247, 169);
             this.listBox.TabIndex = 30;
             this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
             this.listBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_KeyDown);
@@ -317,11 +324,90 @@
             this.label9.TabIndex = 33;
             this.label9.Text = "(스크롤 금지!)";
             // 
+            // effectButton1
+            // 
+            this.effectButton1.Location = new System.Drawing.Point(663, 126);
+            this.effectButton1.Name = "effectButton1";
+            this.effectButton1.Size = new System.Drawing.Size(84, 28);
+            this.effectButton1.TabIndex = 34;
+            this.effectButton1.Text = "기본 효과";
+            this.effectButton1.UseVisualStyleBackColor = true;
+            this.effectButton1.Click += new System.EventHandler(this.effectButton1_Click);
+            // 
+            // effectButton2
+            // 
+            this.effectButton2.Location = new System.Drawing.Point(663, 160);
+            this.effectButton2.Name = "effectButton2";
+            this.effectButton2.Size = new System.Drawing.Size(84, 57);
+            this.effectButton2.TabIndex = 35;
+            this.effectButton2.Text = "기본 효과(space)";
+            this.effectButton2.UseVisualStyleBackColor = true;
+            this.effectButton2.Click += new System.EventHandler(this.effectButton2_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.ForeColor = System.Drawing.Color.Maroon;
+            this.label10.Location = new System.Drawing.Point(512, 346);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(113, 15);
+            this.label10.TabIndex = 38;
+            this.label10.Text = "(스크롤 금지!)";
+            // 
+            // effectListBox
+            // 
+            this.effectListBox.FormattingEnabled = true;
+            this.effectListBox.ItemHeight = 15;
+            this.effectListBox.Location = new System.Drawing.Point(402, 367);
+            this.effectListBox.Name = "effectListBox";
+            this.effectListBox.Size = new System.Drawing.Size(247, 124);
+            this.effectListBox.TabIndex = 37;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label11.Location = new System.Drawing.Point(399, 346);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(107, 15);
+            this.label11.TabIndex = 36;
+            this.label11.Text = "Form Effects:";
+            // 
+            // effectsSaveButton
+            // 
+            this.effectsSaveButton.Location = new System.Drawing.Point(402, 503);
+            this.effectsSaveButton.Name = "effectsSaveButton";
+            this.effectsSaveButton.Size = new System.Drawing.Size(170, 31);
+            this.effectsSaveButton.TabIndex = 40;
+            this.effectsSaveButton.Text = "저장";
+            this.effectsSaveButton.UseVisualStyleBackColor = true;
+            this.effectsSaveButton.Click += new System.EventHandler(this.effectsSaveButton_Click);
+            // 
+            // effectsLoadButton
+            // 
+            this.effectsLoadButton.Location = new System.Drawing.Point(583, 503);
+            this.effectsLoadButton.Name = "effectsLoadButton";
+            this.effectsLoadButton.Size = new System.Drawing.Size(164, 31);
+            this.effectsLoadButton.TabIndex = 39;
+            this.effectsLoadButton.Text = "불러오기";
+            this.effectsLoadButton.UseVisualStyleBackColor = true;
+            this.effectsLoadButton.Click += new System.EventHandler(this.effectsLoadButton_Click);
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 546);
+            this.Controls.Add(this.effectsSaveButton);
+            this.Controls.Add(this.effectsLoadButton);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.effectListBox);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.effectButton2);
+            this.Controls.Add(this.effectButton1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.noteInformation);
             this.Controls.Add(this.label6);
@@ -383,5 +469,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label noteInformation;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button effectButton1;
+        private System.Windows.Forms.Button effectButton2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox effectListBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button effectsSaveButton;
+        private System.Windows.Forms.Button effectsLoadButton;
     }
 }

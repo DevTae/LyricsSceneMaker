@@ -27,17 +27,21 @@ namespace LyricsSceneMaker_CSharp
                 lyricsTextBox1.Text = data1;
                 lyricsTextBox2.Text = data2;
             }
-            else if(opcode == (int)Keys.Enter)
+            else if(opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
-                lyricsTextBox1.Text = data1;
-                lyricsTextBox2.Text = data2;
+                effectFunction1(data1, data2);
             }
-            else if(opcode == (int)Keys.Space)
-            {
-                lyricsTextBox1.Text = data1;
-                lyricsTextBox2.Text = data2;
-            }
+            //else if(opcode == (int)Keys.Space)
+            //{
+
+            //}
             // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
+        }
+
+        private void effectFunction1(string data1, string data2)
+        {
+            lyricsTextBox1.Text = data1;
+            lyricsTextBox2.Text = data2;
         }
 
         Point point;

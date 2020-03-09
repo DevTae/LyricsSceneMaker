@@ -127,6 +127,11 @@ namespace LyricsSceneMaker_CSharp
 
         private void listBox_KeyDown(object sender, KeyEventArgs e)
         {
+            // 폼 효과
+            //if(e.KeyCode == ?? || ...)
+            //    다른 리스트박스에 추가
+
+            // 텍스트효과
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
             {
                 int size = listBox.Items.Count;
@@ -273,101 +278,6 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
-        private void notesLoadButton_Click(object sender, EventArgs e)
-        {
-            DialogResult dr;
-            if (listBox.Items.Count != 0)
-            {
-                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고\r\n새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if (dr != DialogResult.OK) return;
-            }
-
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                StringBuilder sb = new StringBuilder();
-                StreamReader sr = File.OpenText(ofd.FileNames[0]);
-
-                // 노트 데이터 읽어오기
-                if (sr.Peek() > 0)
-                {
-                    sb.Append(sr.ReadToEnd());
-                }
-
-                // 객체 닫기
-                sr.Close();
-
-                // 데이터 유무 예외처리
-                if (!sb.ToString().Contains("|"))
-                {
-                    MessageBox.Show("비어있는 노트 데이터 파일을 불러올 수 없습니다.", "Fatal Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // 데이터 파싱
-                replay_Click(this, e);
-                listBox.Items.Clear();
-                string[] note_datas = sb.ToString().Split('|');
-
-                //// 데이터 사이즈 예외처리
-                //if (note_datas.Length > song.Lyrics.Length)
-                //{
-                //    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
-                //        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-
-                foreach (string note_line in note_datas)
-                {
-                    if (!note_line.Equals(""))
-                        listBox.Items.Add(note_line);
-                }
-            }
-        }
-
-        private void notesSaveButton_Click(object sender, EventArgs e)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach(object item in listBox.Items)
-            {
-                string line_data = listBox.GetItemText(item) + "|";
-                sb.Append(line_data);
-            }
-
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
-            sfd.InitialDirectory = @"C:\";
-            sfd.RestoreDirectory = true;
-            sfd.DefaultExt = "notes";
-            sfd.FileName = artistTextBox.Text + "-" + songNameTextBox.Text;
-            if(sfd.ShowDialog() == DialogResult.OK)
-            {
-                FileStream fs = null;
-                StreamWriter sw = null;
-                try
-                {
-                    fs = (FileStream)sfd.OpenFile();
-                    sw = new StreamWriter(fs);
-                    sw.Write(sb.ToString());
-                    sw.Close();
-                    fs.Close();
-                    MessageBox.Show("저장 성공!", "Information",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (IOException e1)
-                {
-                    if (fs != null) fs.Close();
-                    if (sw != null) fs.Close();
-                    MessageBox.Show("저장 실패!", "Fatal Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.Write("{0}", e1.StackTrace);
-                }
-            }
-        }
-
         private void lyricsLoadButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -422,6 +332,220 @@ namespace LyricsSceneMaker_CSharp
                     Console.Write("{0}", e1.StackTrace);
                 }
             }
+        }
+
+        // 가사 노트 불러오기 버튼
+        private void notesLoadButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dr;
+            if (listBox.Items.Count != 0)
+            {
+                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고\r\n새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr != DialogResult.OK) return;
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                StringBuilder sb = new StringBuilder();
+                StreamReader sr = File.OpenText(ofd.FileNames[0]);
+
+                // 노트 데이터 읽어오기
+                if (sr.Peek() > 0)
+                {
+                    sb.Append(sr.ReadToEnd());
+                }
+
+                // 객체 닫기
+                sr.Close();
+
+                // 데이터 유무 예외처리
+                if (!sb.ToString().Contains("|"))
+                {
+                    MessageBox.Show("비어있는 노트 데이터 파일을 불러올 수 없습니다.", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 데이터 파싱
+                replay_Click(this, e);
+                listBox.Items.Clear();
+                string[] note_datas = sb.ToString().Split('|');
+
+                // 데이터 사이즈 예외처리
+                if (note_datas.Length > song.Lyrics.Length)
+                {
+                    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                foreach (string note_line in note_datas)
+                {
+                    if (!note_line.Equals(""))
+                        listBox.Items.Add(note_line);
+                }
+            }
+        }
+
+        // 가사 노트 저장하기 버튼
+        private void notesSaveButton_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(object item in listBox.Items)
+            {
+                string line_data = listBox.GetItemText(item) + "|";
+                sb.Append(line_data);
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
+            sfd.InitialDirectory = @"C:\";
+            sfd.RestoreDirectory = true;
+            sfd.DefaultExt = "notes";
+            sfd.FileName = artistTextBox.Text + "-" + songNameTextBox.Text;
+            if(sfd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    fs = (FileStream)sfd.OpenFile();
+                    sw = new StreamWriter(fs);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    fs.Close();
+                    MessageBox.Show("저장 성공!", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (IOException e1)
+                {
+                    if (fs != null) fs.Close();
+                    if (sw != null) fs.Close();
+                    MessageBox.Show("저장 실패!", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.Write("{0}", e1.StackTrace);
+                }
+            }
+        }
+
+        // 폼 이펙트 불러오기 버튼
+        private void effectsLoadButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dr;
+            if (effectListBox.Items.Count != 0)
+            {
+                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고\r\n새로운 폼 이펙트 정보를 덮어씌우시겠습니까?", "Question",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr != DialogResult.OK) return;
+            }
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "폼 이펙트 데이터 파일 (*.effects)|*.effects";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                StringBuilder sb = new StringBuilder();
+                StreamReader sr = File.OpenText(ofd.FileNames[0]);
+
+                // 폼 이펙트 데이터 읽어오기
+                if (sr.Peek() > 0)
+                {
+                    sb.Append(sr.ReadToEnd());
+                }
+
+                // 객체 닫기
+                sr.Close();
+
+                // 데이터 유무 예외처리
+                if (!sb.ToString().Contains("|"))
+                {
+                    MessageBox.Show("비어있는 폼 이펙트 데이터 파일을 불러올 수 없습니다.", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 데이터 파싱
+                replay_Click(this, e);
+                effectListBox.Items.Clear();
+                string[] effect_datas = sb.ToString().Split('|');
+
+                foreach (string effect_line in effect_datas)
+                {
+                    if (!effect_line.Equals(""))
+                        effectListBox.Items.Add(effect_line);
+                }
+            }
+        }
+
+        // 폼 이펙트 저장하기 버튼
+        private void effectsSaveButton_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (object item in effectListBox.Items)
+            {
+                string line_data = effectListBox.GetItemText(item) + "|";
+                sb.Append(line_data);
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "폼 이펙트 데이터 파일 (*.effects)|*.effects";
+            sfd.InitialDirectory = @"C:\";
+            sfd.RestoreDirectory = true;
+            sfd.DefaultExt = "effects";
+            sfd.FileName = artistTextBox.Text + "-" + songNameTextBox.Text;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    fs = (FileStream)sfd.OpenFile();
+                    sw = new StreamWriter(fs);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    fs.Close();
+                    MessageBox.Show("저장 성공!", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (IOException e1)
+                {
+                    if (fs != null) fs.Close();
+                    if (sw != null) fs.Close();
+                    MessageBox.Show("저장 실패!", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.Write("{0}", e1.StackTrace);
+                }
+            }
+        }
+
+        // 텍스트 효과 변경 함수 
+        private void effect_change_function(Keys number)
+        {
+            int selectedIndex = listBox.SelectedIndex;
+            if (selectedIndex == -1) return;
+
+            DialogResult dr;
+            dr = MessageBox.Show("선택된 노트를 이 효과로 바꾸시겠습니까?", "Question",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                object note = listBox.Items[selectedIndex];
+                string noteTimeData = listBox.GetItemText(note).Split(',')[0];
+                listBox.Items.Remove(note);
+                listBox.Items.Insert(selectedIndex, noteTimeData + "," + (int)number);
+            }
+        }
+
+        private void effectButton1_Click(object sender, EventArgs e)
+        {
+            effect_change_function(Keys.Enter);
+        }
+
+        private void effectButton2_Click(object sender, EventArgs e)
+        {
+            effect_change_function(Keys.Space);
         }
     }
 }
