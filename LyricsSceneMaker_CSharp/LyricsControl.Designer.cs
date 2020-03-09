@@ -50,6 +50,8 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.pause = new System.Windows.Forms.Button();
             this.continueButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -178,7 +180,7 @@
             this.listBox.ItemHeight = 15;
             this.listBox.Location = new System.Drawing.Point(402, 118);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(274, 409);
+            this.listBox.Size = new System.Drawing.Size(274, 379);
             this.listBox.TabIndex = 17;
             this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
             this.listBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_KeyDown);
@@ -262,11 +264,33 @@
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
+            // loadButton
+            // 
+            this.loadButton.Location = new System.Drawing.Point(540, 503);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(132, 31);
+            this.loadButton.TabIndex = 26;
+            this.loadButton.Text = "불러오기";
+            this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(402, 503);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(132, 31);
+            this.saveButton.TabIndex = 27;
+            this.saveButton.Text = "저장";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 546);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.loadButton);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.pause);
             this.Controls.Add(this.replay);
@@ -318,5 +342,7 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button pause;
         private System.Windows.Forms.Button continueButton;
+        private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.Button saveButton;
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -258,6 +259,44 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
-        
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            string clipboard_data = Clipboard.GetText();
+            if (!clipboard_data.Contains("|")) return;
+            clipboard_data.Replace("||", "|");
+
+            DialogResult dr;
+            if (listBox.Items.Count != 0)
+            {
+                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고 새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr == DialogResult.OK)
+                {
+                    replay_Click(this, e);
+                    listBox.Items.Clear();
+                    string[] note_datas = clipboard_data.Split('|');
+                    foreach(string note_line in note_datas)
+                    {
+                        if (!note_line.Equals(""))
+                            listBox.Items.Add(note_line);
+                    }
+                }
+            }
+                
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(object item in listBox.Items)
+            {
+                string line_data = listBox.GetItemText(item) + "|";
+                sb.Append(line_data);
+            }
+            Clipboard.SetText(sb.ToString());
+            MessageBox.Show("클립보드에 노트 데이터를 복사했습니다.\r\n" +
+                "Ctrl+V를 통해 원하는 곳에 저장하세요!", "Must Do It", MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
     }
 }
