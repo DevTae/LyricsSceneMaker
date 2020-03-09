@@ -220,6 +220,8 @@ namespace LyricsSceneMaker_CSharp
                 // 다음 가사 기다리기 시작
                 nowSelectedIndex++;
             }
+
+            //TODO: 폼 이펙트 부분도 체크하기
         }
 
         private void replay_Click(object sender, EventArgs e)
@@ -374,16 +376,9 @@ namespace LyricsSceneMaker_CSharp
                 listBox.Items.Clear();
                 string[] note_datas = sb.ToString().Split('|');
 
-                // 데이터 사이즈 예외처리
-                if (note_datas.Length > song.Lyrics.Length)
-                {
-                    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 foreach (string note_line in note_datas)
                 {
+                    // 마지막 공백 제거
                     if (!note_line.Equals(""))
                         listBox.Items.Add(note_line);
                 }
@@ -473,6 +468,7 @@ namespace LyricsSceneMaker_CSharp
 
                 foreach (string effect_line in effect_datas)
                 {
+                    // 마지막 공백 제거
                     if (!effect_line.Equals(""))
                         effectListBox.Items.Add(effect_line);
                 }
