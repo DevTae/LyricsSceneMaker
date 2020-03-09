@@ -31,6 +31,7 @@ namespace LyricsSceneMaker_CSharp
             InitializeComponent();
             this.Width = 393;
             this.Height = 593;
+            //listBox.scroll
         }
 
         private void selectFile_Click(object sender, EventArgs e)
@@ -77,14 +78,15 @@ namespace LyricsSceneMaker_CSharp
             //}); newThread.Start();
             //this.Width += 100;
             //this.Height += 100;
+
             artistTextBox.Enabled = false;
             songNameTextBox.Enabled = false;
             selectFile.Enabled = false;
             LyricsTextBox.ReadOnly = true;
             initializeButton.Enabled = false;
             lyricsLoadButton.Enabled = false;
-            //lyricsSaveButton.Enabled = false;
-            this.Width = 706;
+            lyricsSaveButton.Enabled = true;
+            this.Width = 777;
             this.Height = 593;
             
             // Song 개체 생성
@@ -122,7 +124,7 @@ namespace LyricsSceneMaker_CSharp
             LyricsScene scene = new LyricsScene();
             scene.Show();
         }
-        
+
         private void listBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
@@ -199,13 +201,19 @@ namespace LyricsSceneMaker_CSharp
 
             if(long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
-                
+                toscene(int.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[1]), song.Lyrics[nowSelectedIndex],
+                    (song.Lyrics.Length > nowSelectedIndex + 1) ? song.Lyrics[nowSelectedIndex + 1] : null);
+
                 nowSentence.Text = song.Lyrics[nowSelectedIndex];
                 if (song.Lyrics.Length > nowSelectedIndex + 1) nextSentence.Text = song.Lyrics[nowSelectedIndex + 1];
                 else nextSentence.Text = "null";
-                listBox.SelectedIndex = nowSelectedIndex;
-                toscene(int.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[1]), song.Lyrics[nowSelectedIndex],
-                    (song.Lyrics.Length > ++nowSelectedIndex) ? song.Lyrics[nowSelectedIndex] : null);
+
+                // 현재 지점 Note 정보 알려주기
+                //listBox.SelectedIndex = nowSelectedIndex;
+                noteInformation.Text = listBox.GetItemText(listBox.Items[nowSelectedIndex]);
+
+                // 다음 가사 기다리기 시작
+                nowSelectedIndex++;
             }
         }
 
@@ -234,8 +242,6 @@ namespace LyricsSceneMaker_CSharp
 
             outputDevice.Play();
         }
-
-        
 
         private void continueButton_Click(object sender, EventArgs e)
         {
@@ -305,14 +311,14 @@ namespace LyricsSceneMaker_CSharp
                 replay_Click(this, e);
                 listBox.Items.Clear();
                 string[] note_datas = sb.ToString().Split('|');
-                /*
-                // 데이터 사이즈 예외처리
-                if (note_datas.Length > song.Lyrics.Length)
-                {
-                    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }*/
+
+                //// 데이터 사이즈 예외처리
+                //if (note_datas.Length > song.Lyrics.Length)
+                //{
+                //    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
+                //        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
 
                 foreach (string note_line in note_datas)
                 {

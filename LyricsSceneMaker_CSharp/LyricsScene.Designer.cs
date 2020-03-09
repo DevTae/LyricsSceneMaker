@@ -40,19 +40,19 @@
             // 
             // descriptorTextBox
             // 
-            this.descriptorTextBox.AutoSize = true;
             this.descriptorTextBox.Font = new System.Drawing.Font("BM DoHyeon", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.descriptorTextBox.Location = new System.Drawing.Point(144, 351);
+            this.descriptorTextBox.Location = new System.Drawing.Point(72, 341);
             this.descriptorTextBox.Name = "descriptorTextBox";
-            this.descriptorTextBox.Size = new System.Drawing.Size(120, 23);
+            this.descriptorTextBox.Size = new System.Drawing.Size(260, 49);
             this.descriptorTextBox.TabIndex = 0;
             this.descriptorTextBox.Text = "descriptor";
+            this.descriptorTextBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // albumPictureBox
             // 
-            this.albumPictureBox.Location = new System.Drawing.Point(96, 125);
+            this.albumPictureBox.Location = new System.Drawing.Point(76, 101);
             this.albumPictureBox.Name = "albumPictureBox";
-            this.albumPictureBox.Size = new System.Drawing.Size(218, 213);
+            this.albumPictureBox.Size = new System.Drawing.Size(256, 237);
             this.albumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.albumPictureBox.TabIndex = 1;
             this.albumPictureBox.TabStop = false;
@@ -61,7 +61,7 @@
             // lyricsTextBox1
             // 
             this.lyricsTextBox1.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lyricsTextBox1.Location = new System.Drawing.Point(414, 125);
+            this.lyricsTextBox1.Location = new System.Drawing.Point(405, 101);
             this.lyricsTextBox1.Name = "lyricsTextBox1";
             this.lyricsTextBox1.Size = new System.Drawing.Size(333, 106);
             this.lyricsTextBox1.TabIndex = 2;
@@ -71,9 +71,9 @@
             // 
             this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lyricsTextBox2.Location = new System.Drawing.Point(424, 266);
+            this.lyricsTextBox2.Location = new System.Drawing.Point(406, 267);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
-            this.lyricsTextBox2.Size = new System.Drawing.Size(323, 108);
+            this.lyricsTextBox2.Size = new System.Drawing.Size(332, 108);
             this.lyricsTextBox2.TabIndex = 3;
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -113,7 +113,6 @@
             this.Text = "LyricsScene";
             ((System.ComponentModel.ISupportInitialize)(this.albumPictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }

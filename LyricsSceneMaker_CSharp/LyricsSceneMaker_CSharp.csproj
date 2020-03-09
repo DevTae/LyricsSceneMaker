@@ -63,6 +63,12 @@
     <Compile Include="model\Song.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScrollDisabledListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScrollDisabledListView.Designer.cs">
+      <DependentUpon>ScrollDisabledListView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LyricsControl.resx">
       <DependentUpon>LyricsControl.cs</DependentUpon>
     </EmbeddedResource>
