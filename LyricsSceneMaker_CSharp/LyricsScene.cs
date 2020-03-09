@@ -18,19 +18,19 @@ namespace LyricsSceneMaker_CSharp
             LyricsControl.toscene += new toScene(receive_data);
         }
 
-        void receive_data(int opcode, string data)
+        void receive_data(int opcode, string data1, string data2)
         {
             if(opcode == 0)
             {
                 // descriptor 정보 받아오기
-                descriptorTextBox.Text = data;
-                //lyricsTextBox2.Text = "간주 중..."; temp
+                descriptorTextBox.Text = data1;
+                lyricsTextBox1.Text = data1;
+                lyricsTextBox2.Text = data2;
             }
             else if(opcode == 1)
             {
-                //lyricsTextBox1.Text = lyricsTextBox2.Text;
-                //lyricsTextBox2.Text = data;
-                lyricsTextBox1.Text = data; // TEMP
+                lyricsTextBox1.Text = data1;
+                lyricsTextBox2.Text = data2;
             }
             // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }

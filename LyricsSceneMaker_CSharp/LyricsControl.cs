@@ -10,9 +10,11 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+//TODO:리스트뷰 Delimeter(,) 뒤에 효과 번호 주기, 리스트뷰 하나 추가(폼 효과만을 위한)
+
 namespace LyricsSceneMaker_CSharp
 {
-    public delegate void toScene(int opcode, string data);
+    public delegate void toScene(int opcode, string data1, string data2);
 
     public partial class LyricsControl : Form
     {
@@ -50,9 +52,6 @@ namespace LyricsSceneMaker_CSharp
                 return;
             }
 
-            // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text);
-
             // 윈도우 특성상 생기는 \r 지워줌
             LyricsTextBox.Text = LyricsTextBox.Text.Replace("\n\n", "\n");
 
@@ -81,13 +80,11 @@ namespace LyricsSceneMaker_CSharp
             
             // Song 개체 생성
             song = new Song(songNameTextBox.Text, artistTextBox.Text, selectFile.Text, lines_lyrics);
-
             nowSelectedIndex = 0;
-            /*
-            // 첫 가사 전송 시켜 놓기
-            
-            toscene(1, lines_lyrics[nowSelectedIndex++]);
-            */
+
+            // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
+            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text,
+                (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
 
             // 노래 재생하기
             if (outputDevice == null)
@@ -154,6 +151,16 @@ namespace LyricsSceneMaker_CSharp
 
         private void listBox_DoubleClick(object sender, EventArgs e)
         {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
             outputDevice.Pause();
             int selectedIndex = listBox.SelectedIndex;
             DialogResult dr = MessageBox.Show("선택한 지점부터 재생하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -178,7 +185,7 @@ namespace LyricsSceneMaker_CSharp
         {
             int size = listBox.Items.Count;
 
-            if (size == 0 || size - 1 < nowSelectedIndex) return;
+            if (size == 0 || size - 1 < nowSelectedIndex || audioFile == null || outputDevice == null) return;
 
             if(long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex])) <= audioFile.Position)
             {
@@ -187,36 +194,66 @@ namespace LyricsSceneMaker_CSharp
                 if (song.Lyrics.Length > nowSelectedIndex + 1) nextSentence.Text = song.Lyrics[nowSelectedIndex + 1];
                 else nextSentence.Text = "null";
                 listBox.SelectedIndex = nowSelectedIndex;
-                toscene(1, song.Lyrics[nowSelectedIndex++]);
+                toscene(1, song.Lyrics[nowSelectedIndex],
+                    (song.Lyrics.Length > ++nowSelectedIndex) ? song.Lyrics[nowSelectedIndex] : null);
             }
         }
 
         private void replay_Click(object sender, EventArgs e)
         {
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text);
+            toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text, 
+                (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
 
-            /*
-            // 첫 가사 전송 시켜 놓기
             nowSelectedIndex = 0;
-            toscene(1, song.Lyrics[nowSelectedIndex++]);
-            */
-            // 2개씩 전송.. [nows] [nows+1]
-            nowSelectedIndex = 0;
+            
+            // 노래 재생
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
 
             // audio file rewind
             audioFile.Position = 0;
+
+            outputDevice.Play();
         }
 
         
 
         private void continueButton_Click(object sender, EventArgs e)
         {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
             outputDevice.Play();
         }
 
         private void pause_Click(object sender, EventArgs e)
         {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
             outputDevice.Pause();
         }
 
