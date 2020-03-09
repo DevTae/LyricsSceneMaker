@@ -264,7 +264,7 @@ namespace LyricsSceneMaker_CSharp
             DialogResult dr;
             if (listBox.Items.Count != 0)
             {
-                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고 새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
+                dr = MessageBox.Show("정말로 진행하시던 것을 삭제하고\r\n새로운 노트 정보를 덮어씌우시겠습니까?", "Question",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr != DialogResult.OK) return;
             }
@@ -273,10 +273,8 @@ namespace LyricsSceneMaker_CSharp
             ofd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show(ofd.FileNames[0]); //지워
-
                 StringBuilder sb = new StringBuilder();
-                StreamReader sr = new StreamReader(ofd.FileNames[0]);
+                StreamReader sr = File.OpenText(ofd.FileNames[0]);
 
                 // 노트 데이터 읽어오기
                 if (sr.Peek() > 0)
@@ -284,17 +282,30 @@ namespace LyricsSceneMaker_CSharp
                     sb.Append(sr.ReadToEnd());
                 }
 
-                // 예외처리
+                // 객체 닫기
+                sr.Close();
+
+                // 데이터 유무 예외처리
                 if (!sb.ToString().Contains("|"))
                 {
-                    MessageBox.Show("비어있는 노트 데이터 파일을 불러올 수 없습니다.");
+                    MessageBox.Show("비어있는 노트 데이터 파일을 불러올 수 없습니다.", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 // 데이터 파싱
                 replay_Click(this, e);
                 listBox.Items.Clear();
-                string[] note_datas = sr.ToString().Split('|');
+                string[] note_datas = sb.ToString().Split('|');
+
+                // 데이터 사이즈 예외처리
+                if (note_datas.Length > song.Lyrics.Length)
+                {
+                    MessageBox.Show("노트 데이터가 가사 데이터보다 많아 로딩이 불가능합니다.\r\n가사 데이터가 알맞은 것인지 확인해주세요.", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 foreach (string note_line in note_datas)
                 {
                     if (!note_line.Equals(""))
@@ -311,10 +322,6 @@ namespace LyricsSceneMaker_CSharp
                 string line_data = listBox.GetItemText(item) + "|";
                 sb.Append(line_data);
             }
-            //Clipboard.SetText(sb.ToString());
-            //MessageBox.Show("클립보드에 노트 데이터를 복사했습니다.\r\n" +
-            //    "Ctrl+V를 통해 원하는 곳에 저장하세요!", "Must Do It", MessageBoxButtons.OK,
-            //    MessageBoxIcon.Information);
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
@@ -341,7 +348,7 @@ namespace LyricsSceneMaker_CSharp
                     if (fs != null) fs.Close();
                     if (sw != null) fs.Close();
                     MessageBox.Show("저장 실패!", "Fatal Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.Write("{0}", e1.StackTrace);
                 }
             }
