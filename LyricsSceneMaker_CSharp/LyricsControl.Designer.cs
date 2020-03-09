@@ -50,8 +50,10 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.pause = new System.Windows.Forms.Button();
             this.continueButton = new System.Windows.Forms.Button();
-            this.loadButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.notesLoadButton = new System.Windows.Forms.Button();
+            this.notesSaveButton = new System.Windows.Forms.Button();
+            this.lyricsLoadButton = new System.Windows.Forms.Button();
+            this.lyricsSaveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -264,33 +266,55 @@
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
-            // loadButton
+            // notesLoadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(540, 503);
-            this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(132, 31);
-            this.loadButton.TabIndex = 26;
-            this.loadButton.Text = "불러오기";
-            this.loadButton.UseVisualStyleBackColor = true;
-            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            this.notesLoadButton.Location = new System.Drawing.Point(540, 503);
+            this.notesLoadButton.Name = "notesLoadButton";
+            this.notesLoadButton.Size = new System.Drawing.Size(132, 31);
+            this.notesLoadButton.TabIndex = 26;
+            this.notesLoadButton.Text = "불러오기";
+            this.notesLoadButton.UseVisualStyleBackColor = true;
+            this.notesLoadButton.Click += new System.EventHandler(this.notesLoadButton_Click);
             // 
-            // saveButton
+            // notesSaveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(402, 503);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(132, 31);
-            this.saveButton.TabIndex = 27;
-            this.saveButton.Text = "저장";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.notesSaveButton.Location = new System.Drawing.Point(402, 503);
+            this.notesSaveButton.Name = "notesSaveButton";
+            this.notesSaveButton.Size = new System.Drawing.Size(132, 31);
+            this.notesSaveButton.TabIndex = 27;
+            this.notesSaveButton.Text = "저장";
+            this.notesSaveButton.UseVisualStyleBackColor = true;
+            this.notesSaveButton.Click += new System.EventHandler(this.notesSaveButton_Click);
+            // 
+            // lyricsLoadButton
+            // 
+            this.lyricsLoadButton.Location = new System.Drawing.Point(13, 445);
+            this.lyricsLoadButton.Name = "lyricsLoadButton";
+            this.lyricsLoadButton.Size = new System.Drawing.Size(48, 23);
+            this.lyricsLoadButton.TabIndex = 28;
+            this.lyricsLoadButton.Text = "load";
+            this.lyricsLoadButton.UseVisualStyleBackColor = true;
+            this.lyricsLoadButton.Click += new System.EventHandler(this.lyricsLoadButton_Click);
+            // 
+            // lyricsSaveButton
+            // 
+            this.lyricsSaveButton.Location = new System.Drawing.Point(11, 474);
+            this.lyricsSaveButton.Name = "lyricsSaveButton";
+            this.lyricsSaveButton.Size = new System.Drawing.Size(50, 23);
+            this.lyricsSaveButton.TabIndex = 29;
+            this.lyricsSaveButton.Text = "save";
+            this.lyricsSaveButton.UseVisualStyleBackColor = true;
+            this.lyricsSaveButton.Click += new System.EventHandler(this.lyricsSaveButton_Click);
             // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 546);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.loadButton);
+            this.Controls.Add(this.lyricsSaveButton);
+            this.Controls.Add(this.lyricsLoadButton);
+            this.Controls.Add(this.notesSaveButton);
+            this.Controls.Add(this.notesLoadButton);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.pause);
             this.Controls.Add(this.replay);
@@ -342,7 +366,9 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button pause;
         private System.Windows.Forms.Button continueButton;
-        private System.Windows.Forms.Button loadButton;
-        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button notesLoadButton;
+        private System.Windows.Forms.Button notesSaveButton;
+        private System.Windows.Forms.Button lyricsLoadButton;
+        private System.Windows.Forms.Button lyricsSaveButton;
     }
 }

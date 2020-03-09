@@ -259,7 +259,7 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
-        private void loadButton_Click(object sender, EventArgs e)
+        private void notesLoadButton_Click(object sender, EventArgs e)
         {
             DialogResult dr;
             if (listBox.Items.Count != 0)
@@ -314,7 +314,7 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void notesSaveButton_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
             foreach(object item in listBox.Items)
@@ -338,6 +338,62 @@ namespace LyricsSceneMaker_CSharp
                     fs = (FileStream)sfd.OpenFile();
                     sw = new StreamWriter(fs);
                     sw.Write(sb.ToString());
+                    sw.Close();
+                    fs.Close();
+                    MessageBox.Show("저장 성공!", "Information",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (IOException e1)
+                {
+                    if (fs != null) fs.Close();
+                    if (sw != null) fs.Close();
+                    MessageBox.Show("저장 실패!", "Fatal Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.Write("{0}", e1.StackTrace);
+                }
+            }
+        }
+
+        private void lyricsLoadButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "가사 데이터 파일 (*.txt)|*.txt";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                StringBuilder sb = new StringBuilder();
+                StreamReader sr = File.OpenText(ofd.FileNames[0]);
+
+                // 노트 데이터 읽어오기
+                if (sr.Peek() > 0)
+                {
+                    sb.Append(sr.ReadToEnd());
+                }
+
+                // 객체 닫기
+                sr.Close();
+
+                // Text 속성 변경
+                LyricsTextBox.Text = sb.ToString();
+            }
+        }
+
+        private void lyricsSaveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "가사 데이터 파일 (*.txt)|*.txt";
+            sfd.InitialDirectory = @"C:\";
+            sfd.RestoreDirectory = true;
+            sfd.DefaultExt = "notes";
+            sfd.FileName = artistTextBox.Text + "-" + songNameTextBox.Text;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    fs = (FileStream)sfd.OpenFile();
+                    sw = new StreamWriter(fs);
+                    sw.Write(LyricsTextBox.Text);
                     sw.Close();
                     fs.Close();
                     MessageBox.Show("저장 성공!", "Information",
