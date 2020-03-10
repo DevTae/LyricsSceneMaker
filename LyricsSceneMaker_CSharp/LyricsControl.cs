@@ -11,8 +11,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-//TODO:리스트뷰 Delimeter(,) 뒤에 효과 번호 주기, 리스트뷰 하나 추가(폼 효과만을 위한)
-
 namespace LyricsSceneMaker_CSharp
 {
     public delegate void toScene(int opcode, string data1, string data2);
@@ -24,16 +22,29 @@ namespace LyricsSceneMaker_CSharp
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private Song song;
-        private int nowSelectedIndex = 0;
+        private int notesNowSelectedIndex = 0;
+        private int formEffectNowSelectedIndex = 0;
+
+        // 특수효과 키 추가하려면 이 변수를 수정하면 됨.
+        private Keys[] noteTrigger = { Keys.Enter, Keys.Space };
+        private Keys[] effectTrigger = { Keys.A, Keys.S };
 
         public LyricsControl()
         {
             InitializeComponent();
             this.Width = 393;
             this.Height = 593;
-            //listBox.scroll
+            foreach(Keys key in noteTrigger)
+            {
+                noteTriggerInformation.Text += "\r\n" + key.ToString();
+            }
+            foreach (Keys key in effectTrigger)
+            {
+                effectTriggerInformation.Text += "\r\n" + key.ToString();
+            }
         }
 
+        // 음악파일 불러오기
         private void selectFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -44,6 +55,7 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // Initialize! 버튼 이벤트
         private void initializeButton_Click(object sender, EventArgs e)
         {
             // 정보 미기입 시 진행 불가능
@@ -91,7 +103,8 @@ namespace LyricsSceneMaker_CSharp
             
             // Song 개체 생성
             song = new Song(songNameTextBox.Text, artistTextBox.Text, selectFile.Text, lines_lyrics);
-            nowSelectedIndex = 0;
+            notesNowSelectedIndex = 0;
+            formEffectNowSelectedIndex = 0;
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
             toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text,
@@ -119,20 +132,26 @@ namespace LyricsSceneMaker_CSharp
             audioFile = null;
         }
         
+        // LyricsScene 폼 호출
         private void LyricsControl_Load(object sender, EventArgs e)
         {
             LyricsScene scene = new LyricsScene();
             scene.Show();
         }
 
+        // 텍스트 애니메이션 추가 이벤트
         private void listBox_KeyDown(object sender, KeyEventArgs e)
         {
-            // 폼 효과
-            //if(e.KeyCode == ?? || ...)
-            //    다른 리스트박스에 추가
-
-            // 텍스트효과
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+            Boolean isValid = false;
+            foreach(Keys key in noteTrigger)
+            {
+                if(e.KeyCode == key)
+                {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (isValid)
             {
                 int size = listBox.Items.Count;
                 if (song.Lyrics.Length <= size) return;
@@ -162,10 +181,11 @@ namespace LyricsSceneMaker_CSharp
                     }
                     if (!isInserted) listBox.Items.Insert(size, insertString);
                 }
-                nowSelectedIndex = insertIndex;
+                notesNowSelectedIndex = insertIndex;
             }
         }
 
+        // 노트 시점 변경 및 타임스탬프 제거
         private void listBox_DoubleClick(object sender, EventArgs e)
         {
             if (outputDevice == null)
@@ -183,8 +203,10 @@ namespace LyricsSceneMaker_CSharp
             DialogResult dr = MessageBox.Show("선택한 지점부터 재생하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
             {
-                nowSelectedIndex = selectedIndex;
-                audioFile.Position = long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[0]);
+                notesNowSelectedIndex = selectedIndex;
+                long nowTime = long.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[0]);
+                formEffectNowSelectedIndex = getFormEffectNowIndex(nowTime);
+                audioFile.Position = nowTime;
             }
             else
             {
@@ -192,45 +214,174 @@ namespace LyricsSceneMaker_CSharp
                 if (dr == DialogResult.OK)
                 {
                     listBox.Items.RemoveAt(selectedIndex);
-                    nowSelectedIndex--;
+                    notesNowSelectedIndex--;
                 }
             }
             outputDevice.Play();
         }
 
+        // 폼 효과 추가 이벤트
+        private void effectListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            Boolean isValid = false;
+            foreach(Keys key in effectTrigger)
+            {
+                if(e.KeyCode == key)
+                {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (isValid)
+            {
+                int size = effectListBox.Items.Count;
+
+                int insertIndex = 0;
+                long nowTime = audioFile.Position;
+                string insertString = nowTime + "," + (int)e.KeyCode; // opcode
+
+                if (size == 0)
+                {
+                    effectListBox.Items.Insert(insertIndex, insertString);
+                }
+                else
+                {
+                    // Big-O : O(logn)
+                    // later ~ 이분탐색 구현
+                    Boolean isInserted = false;
+                    foreach (object item in effectListBox.Items)
+                    {
+                        if (long.Parse(effectListBox.GetItemText(item).Split(',')[0]) > nowTime)
+                        {
+                            effectListBox.Items.Insert(insertIndex, insertString);
+                            isInserted = true;
+                            break;
+                        }
+                        insertIndex++;
+                    }
+                    if (!isInserted) effectListBox.Items.Insert(size, insertString);
+                }
+                formEffectNowSelectedIndex = insertIndex;
+            }
+        }
+
+        // 폼 이펙트 시점 변경 및 타임스탬프 제거
+        private void effectListBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(selectFile.Text);
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Pause();
+            int selectedIndex = effectListBox.SelectedIndex;
+            DialogResult dr = MessageBox.Show("선택한 지점부터 재생하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                formEffectNowSelectedIndex = selectedIndex;
+                long nowTime = long.Parse(effectListBox.GetItemText(effectListBox.Items[formEffectNowSelectedIndex]).Split(',')[0]);
+                notesNowSelectedIndex = getNoteNowIndex(nowTime);
+                audioFile.Position = nowTime;
+            }
+            else
+            {
+                dr = MessageBox.Show("더블 클릭한 폼 이펙트를 삭제하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr == DialogResult.OK)
+                {
+                    effectListBox.Items.RemoveAt(selectedIndex);
+                    formEffectNowSelectedIndex--;
+                }
+            }
+            outputDevice.Play();
+        }
+
+        // 선택한 nowTime을 통해 노트 싱크 목적지를 찾아야 함
+        private int getNoteNowIndex(long nowTime)
+        {
+            int index = 0;
+            foreach(object note in listBox.Items)
+            {
+                long notesTime = long.Parse(listBox.GetItemText(note).Split(',')[0]);
+                if(notesTime > nowTime)
+                {
+                    return (index != 0) ? --index : 0;
+                }
+                index++;
+            }
+            return index;
+        }
+
+        // 선택한 nowTime을 통해 폼 효과 싱크 목적지를 찾아야 함
+        private int getFormEffectNowIndex(long nowTime)
+        {
+            int index = 0;
+            foreach (object note in effectListBox.Items)
+            {
+                long notesTime = long.Parse(effectListBox.GetItemText(note).Split(',')[0]);
+                if (notesTime > nowTime)
+                {
+                    return (index != 0) ? --index : 0;
+                }
+                index++;
+            }
+            return index;
+        }
+
+        // 리스트박스 두개 감시하면서 시간에 맞게 알맞은 값을 LyricsScene으로 보내줌
         private void timer_Tick(object sender, EventArgs e)
         {
             int size = listBox.Items.Count;
 
-            if (size == 0 || size - 1 < nowSelectedIndex || audioFile == null || outputDevice == null) return;
+            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null) return;
 
-            if(long.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+            // 노트 신호 보내기
+            if(long.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
-                toscene(int.Parse(listBox.GetItemText(listBox.Items[nowSelectedIndex]).Split(',')[1]), song.Lyrics[nowSelectedIndex],
-                    (song.Lyrics.Length > nowSelectedIndex + 1) ? song.Lyrics[nowSelectedIndex + 1] : null);
+                toscene(int.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
+                    (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
 
-                nowSentence.Text = song.Lyrics[nowSelectedIndex];
-                if (song.Lyrics.Length > nowSelectedIndex + 1) nextSentence.Text = song.Lyrics[nowSelectedIndex + 1];
+                nowSentence.Text = song.Lyrics[notesNowSelectedIndex];
+                if (song.Lyrics.Length > notesNowSelectedIndex + 1) nextSentence.Text = song.Lyrics[notesNowSelectedIndex + 1];
                 else nextSentence.Text = "null";
 
                 // 현재 지점 Note 정보 알려주기
-                //listBox.SelectedIndex = nowSelectedIndex;
-                noteInformation.Text = listBox.GetItemText(listBox.Items[nowSelectedIndex]);
+                noteInformation.Text = listBox.GetItemText(listBox.Items[notesNowSelectedIndex]);
 
                 // 다음 가사 기다리기 시작
-                nowSelectedIndex++;
+                notesNowSelectedIndex++;
             }
 
-            //TODO: 폼 이펙트 부분도 체크하기
+
+            if (effectListBox.Items.Count - 1 < formEffectNowSelectedIndex) return;
+
+            // 폼 이펙트 신호 보내기
+            if (long.Parse(effectListBox.GetItemText(effectListBox.Items[formEffectNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+            {
+                toscene(int.Parse(effectListBox.GetItemText(effectListBox.Items[formEffectNowSelectedIndex]).Split(',')[1]), null, null);
+
+                // 현재 지점 폼 이펙트 정보 알려주기
+                /////
+                effectInformation.Text = effectListBox.GetItemText(effectListBox.Items[formEffectNowSelectedIndex]);
+
+                // 다음 폼 이펙트 기다리기 시작
+                formEffectNowSelectedIndex++;
+            }
         }
 
+        // NAudio 라이브러리를 통한 mp3 파일 재생 함수
         private void replay_Click(object sender, EventArgs e)
         {
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
             toscene(0, artistTextBox.Text + " - " + songNameTextBox.Text, 
                 (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
 
-            nowSelectedIndex = 0;
+            notesNowSelectedIndex = 0;
+            formEffectNowSelectedIndex = 0;
             
             // 노래 재생
             if (outputDevice == null)
@@ -280,6 +431,7 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
         }
 
+        // 가사 불러오기
         private void lyricsLoadButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -303,6 +455,7 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // 가사 저장하기
         private void lyricsSaveButton_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -515,33 +668,38 @@ namespace LyricsSceneMaker_CSharp
                 }
             }
         }
+ 
+        ////// 텍스트 효과 변경 함수 
+        ////private void effect_change_function(Keys number)
+        ////{
+        ////    int selectedIndex = listBox.SelectedIndex;
+        ////    if (selectedIndex == -1) return;
 
-        // 텍스트 효과 변경 함수 
-        private void effect_change_function(Keys number)
-        {
-            int selectedIndex = listBox.SelectedIndex;
-            if (selectedIndex == -1) return;
+        ////    DialogResult dr;
+        ////    dr = MessageBox.Show("선택된 노트를 이 효과로 바꾸시겠습니까?", "Question",
+        ////        MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+        ////    if (dr == DialogResult.OK)
+        ////    {
+        ////        object note = listBox.Items[selectedIndex];
+        ////        string noteTimeData = listBox.GetItemText(note).Split(',')[0];
+        ////        listBox.Items.Remove(note);
+        ////        listBox.Items.Insert(selectedIndex, noteTimeData + "," + (int)number);
+        ////    }
+        ////}
 
-            DialogResult dr;
-            dr = MessageBox.Show("선택된 노트를 이 효과로 바꾸시겠습니까?", "Question",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (dr == DialogResult.OK)
-            {
-                object note = listBox.Items[selectedIndex];
-                string noteTimeData = listBox.GetItemText(note).Split(',')[0];
-                listBox.Items.Remove(note);
-                listBox.Items.Insert(selectedIndex, noteTimeData + "," + (int)number);
-            }
-        }
+        /////// <summary>
+        /////// 아래부분은 텍스트 효과와 폼 효과 호출하는 버튼 이벤트 모음
+        /////// </summary>
+        /////// <param name="sender"></param>
+        /////// <param name="e"></param>
+        ////private void effectButton1_Click(object sender, EventArgs e)
+        ////{
+        ////    effect_change_function(Keys.Enter);
+        ////}
 
-        private void effectButton1_Click(object sender, EventArgs e)
-        {
-            effect_change_function(Keys.Enter);
-        }
-
-        private void effectButton2_Click(object sender, EventArgs e)
-        {
-            effect_change_function(Keys.Space);
-        }
+        ////private void effectButton2_Click(object sender, EventArgs e)
+        ////{
+        ////    effect_change_function(Keys.Space);
+        ////}
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LyricsSceneMaker_CSharp
@@ -18,6 +19,7 @@ namespace LyricsSceneMaker_CSharp
             LyricsControl.toscene += new toScene(receive_data);
         }
 
+        // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
             if(opcode == 0)
@@ -31,19 +33,78 @@ namespace LyricsSceneMaker_CSharp
             {
                 effectFunction1(data1, data2);
             }
-            //else if(opcode == (int)Keys.Space)
-            //{
-
-            //}
+            else if(opcode == (int)Keys.A)
+            {
+                formEffectFunction1();
+            }
+            else if(opcode == (int)Keys.S)
+            {
+                formEffectFunction2();
+            }
             // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }
 
+        /// <summary>
+        /// 텍스트 효과 및 폼 효과 적용 함수
+        /// </summary>
+        /// <param name="data1"></param>
+        /// <param name="data2"></param>
         private void effectFunction1(string data1, string data2)
         {
             lyricsTextBox1.Text = data1;
             lyricsTextBox2.Text = data2;
         }
 
+        private void formEffectFunction1()
+        {
+            Thread thread = new Thread(() =>
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    this.Left -= 1;
+                    Thread.Sleep(10);
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    this.Left += 1;
+                    Thread.Sleep(10);
+                }
+            }); thread.Start();
+        }
+
+        private void formEffectFunction2()
+        {
+            Thread thread = new Thread(() =>
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    this.Top -= 1;
+                    Thread.Sleep(10);
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    this.Top += 1;
+                    Thread.Sleep(10);
+                }
+            }); thread.Start();
+        }
+
+
+        // 앨범 이미지 변경 버튼
+        private void albumPictureBox_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "사진 파일 (*.jpeg; *.jpg; *.png; *.gif;)|*.jpeg;*.jpg;*.png;*.gif;";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                albumPictureBox.Image = Image.FromFile(ofd.FileName);
+            }
+        }
+
+
+        /// <summary>
+        /// 창 끌기 구현 부분
+        /// </summary>
         Point point;
         Boolean isMouseDown = false;
 
@@ -64,16 +125,6 @@ namespace LyricsSceneMaker_CSharp
             {
                 this.Left += e.X - point.X;
                 this.Top += e.Y - point.Y;
-            }
-        }
-
-        private void albumPictureBox_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "사진 파일 (*.jpeg; *.jpg; *.png; *.gif;)|*.jpeg;*.jpg;*.png;*.gif;";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                albumPictureBox.Image = Image.FromFile(ofd.FileName);
             }
         }
     }

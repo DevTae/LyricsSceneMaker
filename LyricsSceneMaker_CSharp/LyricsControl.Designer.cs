@@ -55,13 +55,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.noteInformation = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.effectButton1 = new System.Windows.Forms.Button();
-            this.effectButton2 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.effectListBox = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.effectsSaveButton = new System.Windows.Forms.Button();
             this.effectsLoadButton = new System.Windows.Forms.Button();
+            this.effectInformation = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.noteTriggerInformation = new System.Windows.Forms.Label();
+            this.effectTriggerInformation = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -147,7 +149,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(399, 12);
+            this.label5.Location = new System.Drawing.Point(399, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 15);
             this.label5.TabIndex = 11;
@@ -158,7 +160,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(399, 38);
+            this.label7.Location = new System.Drawing.Point(400, 32);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 15);
             this.label7.TabIndex = 13;
@@ -168,7 +170,7 @@
             // 
             this.nextSentence.AutoSize = true;
             this.nextSentence.BackColor = System.Drawing.Color.Transparent;
-            this.nextSentence.Location = new System.Drawing.Point(452, 38);
+            this.nextSentence.Location = new System.Drawing.Point(453, 32);
             this.nextSentence.Name = "nextSentence";
             this.nextSentence.Size = new System.Drawing.Size(29, 15);
             this.nextSentence.TabIndex = 16;
@@ -178,7 +180,7 @@
             // 
             this.nowSentence.AutoSize = true;
             this.nowSentence.BackColor = System.Drawing.Color.Transparent;
-            this.nowSentence.Location = new System.Drawing.Point(451, 12);
+            this.nowSentence.Location = new System.Drawing.Point(451, 9);
             this.nowSentence.Name = "nowSentence";
             this.nowSentence.Size = new System.Drawing.Size(29, 15);
             this.nowSentence.TabIndex = 14;
@@ -288,7 +290,7 @@
             this.listBox.ItemHeight = 15;
             this.listBox.Location = new System.Drawing.Point(402, 121);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(247, 169);
+            this.listBox.Size = new System.Drawing.Size(230, 169);
             this.listBox.TabIndex = 30;
             this.listBox.DoubleClick += new System.EventHandler(this.listBox_DoubleClick);
             this.listBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_KeyDown);
@@ -297,7 +299,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(399, 65);
+            this.label6.Location = new System.Drawing.Point(400, 56);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 15);
             this.label6.TabIndex = 31;
@@ -306,7 +308,7 @@
             // noteInformation
             // 
             this.noteInformation.AutoSize = true;
-            this.noteInformation.Location = new System.Drawing.Point(453, 65);
+            this.noteInformation.Location = new System.Drawing.Point(454, 56);
             this.noteInformation.Name = "noteInformation";
             this.noteInformation.Size = new System.Drawing.Size(29, 15);
             this.noteInformation.TabIndex = 32;
@@ -323,26 +325,6 @@
             this.label9.Size = new System.Drawing.Size(113, 15);
             this.label9.TabIndex = 33;
             this.label9.Text = "(스크롤 금지!)";
-            // 
-            // effectButton1
-            // 
-            this.effectButton1.Location = new System.Drawing.Point(663, 126);
-            this.effectButton1.Name = "effectButton1";
-            this.effectButton1.Size = new System.Drawing.Size(84, 28);
-            this.effectButton1.TabIndex = 34;
-            this.effectButton1.Text = "기본 효과";
-            this.effectButton1.UseVisualStyleBackColor = true;
-            this.effectButton1.Click += new System.EventHandler(this.effectButton1_Click);
-            // 
-            // effectButton2
-            // 
-            this.effectButton2.Location = new System.Drawing.Point(663, 160);
-            this.effectButton2.Name = "effectButton2";
-            this.effectButton2.Size = new System.Drawing.Size(84, 57);
-            this.effectButton2.TabIndex = 35;
-            this.effectButton2.Text = "기본 효과(space)";
-            this.effectButton2.UseVisualStyleBackColor = true;
-            this.effectButton2.Click += new System.EventHandler(this.effectButton2_Click);
             // 
             // label10
             // 
@@ -362,8 +344,10 @@
             this.effectListBox.ItemHeight = 15;
             this.effectListBox.Location = new System.Drawing.Point(402, 367);
             this.effectListBox.Name = "effectListBox";
-            this.effectListBox.Size = new System.Drawing.Size(247, 124);
+            this.effectListBox.Size = new System.Drawing.Size(230, 124);
             this.effectListBox.TabIndex = 37;
+            this.effectListBox.DoubleClick += new System.EventHandler(this.effectListBox_DoubleClick);
+            this.effectListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.effectListBox_KeyDown);
             // 
             // label11
             // 
@@ -396,18 +380,61 @@
             this.effectsLoadButton.UseVisualStyleBackColor = true;
             this.effectsLoadButton.Click += new System.EventHandler(this.effectsLoadButton_Click);
             // 
+            // effectInformation
+            // 
+            this.effectInformation.AutoSize = true;
+            this.effectInformation.Location = new System.Drawing.Point(461, 79);
+            this.effectInformation.Name = "effectInformation";
+            this.effectInformation.Size = new System.Drawing.Size(29, 15);
+            this.effectInformation.TabIndex = 43;
+            this.effectInformation.Text = "null";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label13.Location = new System.Drawing.Point(399, 79);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 15);
+            this.label13.TabIndex = 42;
+            this.label13.Text = "Effect :";
+            // 
+            // noteTriggerInformation
+            // 
+            this.noteTriggerInformation.BackColor = System.Drawing.Color.Transparent;
+            this.noteTriggerInformation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.noteTriggerInformation.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.noteTriggerInformation.Location = new System.Drawing.Point(635, 121);
+            this.noteTriggerInformation.Name = "noteTriggerInformation";
+            this.noteTriggerInformation.Size = new System.Drawing.Size(112, 169);
+            this.noteTriggerInformation.TabIndex = 44;
+            this.noteTriggerInformation.Text = "노트 트리거";
+            // 
+            // effectTriggerInformation
+            // 
+            this.effectTriggerInformation.BackColor = System.Drawing.Color.Transparent;
+            this.effectTriggerInformation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.effectTriggerInformation.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.effectTriggerInformation.Location = new System.Drawing.Point(635, 346);
+            this.effectTriggerInformation.Name = "effectTriggerInformation";
+            this.effectTriggerInformation.Size = new System.Drawing.Size(112, 145);
+            this.effectTriggerInformation.TabIndex = 45;
+            this.effectTriggerInformation.Text = "이펙트 트리거";
+            // 
             // LyricsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 546);
+            this.Controls.Add(this.effectTriggerInformation);
+            this.Controls.Add(this.noteTriggerInformation);
+            this.Controls.Add(this.effectInformation);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.effectsSaveButton);
             this.Controls.Add(this.effectsLoadButton);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.effectListBox);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.effectButton2);
-            this.Controls.Add(this.effectButton1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.noteInformation);
             this.Controls.Add(this.label6);
@@ -469,12 +496,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label noteInformation;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button effectButton1;
-        private System.Windows.Forms.Button effectButton2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox effectListBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button effectsSaveButton;
         private System.Windows.Forms.Button effectsLoadButton;
+        private System.Windows.Forms.Label effectInformation;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label noteTriggerInformation;
+        private System.Windows.Forms.Label effectTriggerInformation;
     }
 }
