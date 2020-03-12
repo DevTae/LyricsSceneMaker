@@ -77,7 +77,7 @@
             // lyricsTextBox2
             // 
             this.lyricsTextBox2.BackColor = System.Drawing.Color.Transparent;
-            this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lyricsTextBox2.Location = new System.Drawing.Point(741, 420);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
