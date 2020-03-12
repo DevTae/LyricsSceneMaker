@@ -16,6 +16,10 @@ namespace LyricsSceneMaker_CSharp
         public LyricsScene()
         {
             InitializeComponent();
+            titlebar.Parent = scenePictureBox;
+            descriptorTextBox.Parent = scenePictureBox;
+            lyricsTextBox1.Parent = scenePictureBox;
+            lyricsTextBox2.Parent = scenePictureBox;
             LyricsControl.toscene += new toScene(receive_data);
         }
 
