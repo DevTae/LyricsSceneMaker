@@ -56,7 +56,7 @@
             // albumPictureBox
             // 
             this.albumPictureBox.BackColor = System.Drawing.Color.Black;
-            this.albumPictureBox.Location = new System.Drawing.Point(73, 157);
+            this.albumPictureBox.Location = new System.Drawing.Point(74, 157);
             this.albumPictureBox.Name = "albumPictureBox";
             this.albumPictureBox.Size = new System.Drawing.Size(441, 359);
             this.albumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -68,9 +68,9 @@
             // 
             this.lyricsTextBox1.BackColor = System.Drawing.Color.Transparent;
             this.lyricsTextBox1.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lyricsTextBox1.Location = new System.Drawing.Point(739, 219);
+            this.lyricsTextBox1.Location = new System.Drawing.Point(739, 203);
             this.lyricsTextBox1.Name = "lyricsTextBox1";
-            this.lyricsTextBox1.Size = new System.Drawing.Size(470, 149);
+            this.lyricsTextBox1.Size = new System.Drawing.Size(470, 181);
             this.lyricsTextBox1.TabIndex = 2;
             this.lyricsTextBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -79,9 +79,9 @@
             this.lyricsTextBox2.BackColor = System.Drawing.Color.Transparent;
             this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lyricsTextBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lyricsTextBox2.Location = new System.Drawing.Point(741, 420);
+            this.lyricsTextBox2.Location = new System.Drawing.Point(741, 409);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
-            this.lyricsTextBox2.Size = new System.Drawing.Size(468, 129);
+            this.lyricsTextBox2.Size = new System.Drawing.Size(468, 159);
             this.lyricsTextBox2.TabIndex = 3;
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

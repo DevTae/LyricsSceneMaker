@@ -220,7 +220,7 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 10;
+            this.timer.Interval = 1;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // pause
@@ -426,6 +426,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 546);
+            this.Controls.Add(this.lyricsSaveButton);
             this.Controls.Add(this.effectTriggerInformation);
             this.Controls.Add(this.noteTriggerInformation);
             this.Controls.Add(this.effectInformation);
@@ -439,7 +440,6 @@
             this.Controls.Add(this.noteInformation);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.listBox);
-            this.Controls.Add(this.lyricsSaveButton);
             this.Controls.Add(this.lyricsLoadButton);
             this.Controls.Add(this.notesSaveButton);
             this.Controls.Add(this.notesLoadButton);

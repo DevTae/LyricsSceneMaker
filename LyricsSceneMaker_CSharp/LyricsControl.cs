@@ -79,17 +79,12 @@ namespace LyricsSceneMaker_CSharp
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
 
             // 모드 변환 (곡 정보 입력 창 -> 가사 싱크 맞추는 폼)
-            //Thread newThread = new Thread(() =>
-            //{
-            //    Control.ControlCollection controls = this.Controls;
+            Control.ControlCollection controls = this.Controls;
 
-            //    foreach (Control control in controls)
-            //    {
-            //        control.Left -= 380;
-            //    }
-            //}); newThread.Start();
-            //this.Width += 100;
-            //this.Height += 100;
+            foreach (Control control in controls)
+            {
+                control.Left -= 380;
+            }
 
             artistTextBox.Enabled = false;
             songNameTextBox.Enabled = false;
@@ -98,8 +93,6 @@ namespace LyricsSceneMaker_CSharp
             initializeButton.Enabled = false;
             lyricsLoadButton.Enabled = false;
             lyricsSaveButton.Enabled = true;
-            this.Width = 777;
-            this.Height = 593;
             
             // Song 개체 생성
             song = new Song(songNameTextBox.Text, artistTextBox.Text, selectFile.Text, lines_lyrics);
@@ -337,10 +330,9 @@ namespace LyricsSceneMaker_CSharp
         {
             int size = listBox.Items.Count;
 
-            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null) return;
-
+            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null){}else
             // 노트 신호 보내기
-            if(long.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+            if (long.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
                 toscene(int.Parse(listBox.GetItemText(listBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
                     (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
@@ -357,8 +349,7 @@ namespace LyricsSceneMaker_CSharp
             }
 
 
-            if (effectListBox.Items.Count - 1 < formEffectNowSelectedIndex) return;
-
+            if (effectListBox.Items.Count - 1 < formEffectNowSelectedIndex){}else
             // 폼 이펙트 신호 보내기
             if (long.Parse(effectListBox.GetItemText(effectListBox.Items[formEffectNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
@@ -525,7 +516,7 @@ namespace LyricsSceneMaker_CSharp
                 }
 
                 // 데이터 파싱
-                replay_Click(this, e);
+                //replay_Click(this, e);
                 listBox.Items.Clear();
                 string[] note_datas = sb.ToString().Split('|');
 
@@ -615,7 +606,7 @@ namespace LyricsSceneMaker_CSharp
                 }
 
                 // 데이터 파싱
-                replay_Click(this, e);
+                //replay_Click(this, e);
                 effectListBox.Items.Clear();
                 string[] effect_datas = sb.ToString().Split('|');
 

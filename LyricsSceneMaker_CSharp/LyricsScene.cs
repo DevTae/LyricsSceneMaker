@@ -12,7 +12,11 @@ namespace LyricsSceneMaker_CSharp
 {
     public partial class LyricsScene : Form
     {
-
+        private int width;
+        private int height;
+        private int top;
+        private int left;
+        
         public LyricsScene()
         {
             InitializeComponent();
@@ -20,9 +24,13 @@ namespace LyricsSceneMaker_CSharp
             descriptorTextBox.Parent = scenePictureBox;
             lyricsTextBox1.Parent = scenePictureBox;
             lyricsTextBox2.Parent = scenePictureBox;
+            width = albumPictureBox.Width;
+            height = albumPictureBox.Height;
+            top = albumPictureBox.Top;
+            left = albumPictureBox.Left;
             LyricsControl.toscene += new toScene(receive_data);
         }
-
+        
         // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
@@ -63,16 +71,26 @@ namespace LyricsSceneMaker_CSharp
         {
             Thread thread = new Thread(() =>
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    this.Left -= 1;
-                    Thread.Sleep(10);
+                    albumPictureBox.Left += 1;
+                    albumPictureBox.Top += 1;
+                    albumPictureBox.Width -= 2;
+                    albumPictureBox.Height -= 2;
+                    Thread.Sleep(1);
                 }
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    this.Left += 1;
-                    Thread.Sleep(10);
+                    albumPictureBox.Left -= 1;
+                    albumPictureBox.Top -= 1;
+                    albumPictureBox.Width += 2;
+                    albumPictureBox.Height += 2;
+                    Thread.Sleep(1);
                 }
+                albumPictureBox.Width = width;
+                albumPictureBox.Height = height;
+                albumPictureBox.Top = top;
+                albumPictureBox.Left = left;
             }); thread.Start();
         }
 
