@@ -70,21 +70,6 @@ namespace LyricsSceneMaker_CSharp
         {
 
         }
-        
-        // 가사 줄바꿈 위치 선정
-        private string addNewLineFunction(string text)
-        {
-            byte[] b = Encoding.Default.GetBytes(text);
-            if (b.Length <= 24) return text;
-
-            int count_byte = 0;
-            int index = 0;
-            while(count_byte <= 24)
-            {
-                count_byte += Encoding.Default.GetByteCount(text.Substring(index++, 1));
-            }
-            return text;
-        }
 
         // 앨범 이미지 변경 버튼
         private void albumPictureBox_Click(object sender, EventArgs e)
