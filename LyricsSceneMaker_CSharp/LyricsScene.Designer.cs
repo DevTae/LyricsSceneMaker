@@ -33,9 +33,11 @@
             this.lyricsTextBox1 = new System.Windows.Forms.Label();
             this.lyricsTextBox2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.titlebar = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.titlebar = new System.Windows.Forms.Label();
             this.scenePictureBox = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.albumPictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -68,21 +70,24 @@
             // 
             this.lyricsTextBox1.BackColor = System.Drawing.Color.Transparent;
             this.lyricsTextBox1.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lyricsTextBox1.Location = new System.Drawing.Point(739, 203);
+            this.lyricsTextBox1.ForeColor = System.Drawing.Color.SlateBlue;
+            this.lyricsTextBox1.Location = new System.Drawing.Point(744, 206);
             this.lyricsTextBox1.Name = "lyricsTextBox1";
-            this.lyricsTextBox1.Size = new System.Drawing.Size(470, 181);
+            this.lyricsTextBox1.Size = new System.Drawing.Size(464, 181);
             this.lyricsTextBox1.TabIndex = 2;
+            this.lyricsTextBox1.Text = "lyricsTextBox12345678910";
             this.lyricsTextBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lyricsTextBox2
             // 
             this.lyricsTextBox2.BackColor = System.Drawing.Color.Transparent;
             this.lyricsTextBox2.Font = new System.Drawing.Font("Gmarket Sans TTF Bold", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lyricsTextBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lyricsTextBox2.Location = new System.Drawing.Point(741, 409);
+            this.lyricsTextBox2.ForeColor = System.Drawing.Color.LightSteelBlue;
+            this.lyricsTextBox2.Location = new System.Drawing.Point(745, 387);
             this.lyricsTextBox2.Name = "lyricsTextBox2";
-            this.lyricsTextBox2.Size = new System.Drawing.Size(468, 159);
+            this.lyricsTextBox2.Size = new System.Drawing.Size(463, 159);
             this.lyricsTextBox2.TabIndex = 3;
+            this.lyricsTextBox2.Text = "lyricsTextBox2";
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -94,19 +99,10 @@
             this.panel1.Size = new System.Drawing.Size(1280, 720);
             this.panel1.TabIndex = 4;
             // 
-            // titlebar
-            // 
-            this.titlebar.BackColor = System.Drawing.Color.Transparent;
-            this.titlebar.Location = new System.Drawing.Point(0, 0);
-            this.titlebar.Name = "titlebar";
-            this.titlebar.Size = new System.Drawing.Size(1280, 68);
-            this.titlebar.TabIndex = 5;
-            this.titlebar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseDown);
-            this.titlebar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseMove);
-            this.titlebar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseUp);
-            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.lyricsTextBox2);
             this.panel2.Controls.Add(this.titlebar);
             this.panel2.Controls.Add(this.lyricsTextBox1);
@@ -119,6 +115,17 @@
             this.panel2.Size = new System.Drawing.Size(1280, 720);
             this.panel2.TabIndex = 6;
             // 
+            // titlebar
+            // 
+            this.titlebar.BackColor = System.Drawing.Color.Transparent;
+            this.titlebar.Location = new System.Drawing.Point(0, 0);
+            this.titlebar.Name = "titlebar";
+            this.titlebar.Size = new System.Drawing.Size(1280, 68);
+            this.titlebar.TabIndex = 5;
+            this.titlebar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseDown);
+            this.titlebar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseMove);
+            this.titlebar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titlebar_MouseUp);
+            // 
             // scenePictureBox
             // 
             this.scenePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,6 +136,24 @@
             this.scenePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.scenePictureBox.TabIndex = 3;
             this.scenePictureBox.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(724, 125);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(384, 126);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(321, 79);
+            this.textBox1.TabIndex = 7;
             // 
             // LyricsScene
             // 
@@ -158,5 +183,7 @@
         private System.Windows.Forms.Label titlebar;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox scenePictureBox;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

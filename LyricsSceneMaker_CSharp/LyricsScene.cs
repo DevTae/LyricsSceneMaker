@@ -12,22 +12,20 @@ namespace LyricsSceneMaker_CSharp
 {
     public partial class LyricsScene : Form
     {
-        private int width;
-        private int height;
-        private int top;
-        private int left;
         
         public LyricsScene()
         {
             InitializeComponent();
+
+            // 라벨 투명하게 만들기 위해서
             titlebar.Parent = scenePictureBox;
             descriptorTextBox.Parent = scenePictureBox;
             lyricsTextBox1.Parent = scenePictureBox;
             lyricsTextBox2.Parent = scenePictureBox;
-            width = albumPictureBox.Width;
-            height = albumPictureBox.Height;
-            top = albumPictureBox.Top;
-            left = albumPictureBox.Left;
+
+            //this.ClientSize = new Size(1280, 720);
+            // clientSize는 왼쪽과 위의 공백부분을 조절할 수 있는 설정으로 보임.
+
             LyricsControl.toscene += new toScene(receive_data);
         }
         
@@ -37,6 +35,7 @@ namespace LyricsSceneMaker_CSharp
             if(opcode == 0)
             {
                 // descriptor 정보 받아오기
+                // 맨 처음 화면 효과
                 descriptorTextBox.Text = data1;
                 lyricsTextBox1.Text = data1;
                 lyricsTextBox2.Text = data2;
@@ -48,10 +47,6 @@ namespace LyricsSceneMaker_CSharp
             else if(opcode == (int)Keys.A)
             {
                 formEffectFunction1();
-            }
-            else if(opcode == (int)Keys.S)
-            {
-                formEffectFunction2();
             }
             // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }
@@ -69,48 +64,25 @@ namespace LyricsSceneMaker_CSharp
 
         private void formEffectFunction1()
         {
-            Thread thread = new Thread(() =>
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    albumPictureBox.Left += 1;
-                    albumPictureBox.Top += 1;
-                    albumPictureBox.Width -= 2;
-                    albumPictureBox.Height -= 2;
-                    Thread.Sleep(1);
-                }
-                for (int i = 0; i < 2; i++)
-                {
-                    albumPictureBox.Left -= 1;
-                    albumPictureBox.Top -= 1;
-                    albumPictureBox.Width += 2;
-                    albumPictureBox.Height += 2;
-                    Thread.Sleep(1);
-                }
-                albumPictureBox.Width = width;
-                albumPictureBox.Height = height;
-                albumPictureBox.Top = top;
-                albumPictureBox.Left = left;
-            }); thread.Start();
-        }
 
-        private void formEffectFunction2()
+        }
+        
+        // 가사 줄바꿈 위치 선정
+        private string addNewLineFunction(string text)
         {
-            Thread thread = new Thread(() =>
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    this.Top -= 1;
-                    Thread.Sleep(10);
-                }
-                for (int i = 0; i < 5; i++)
-                {
-                    this.Top += 1;
-                    Thread.Sleep(10);
-                }
-            }); thread.Start();
+            byte[] b = Encoding.Default.GetBytes(text);
+            if (b.Length < 24) return text;
+
+            
+
+            MessageBox.Show(b.Length.ToString());
+
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = addNewLineFunction(textBox1.Text);
+        }
 
         // 앨범 이미지 변경 버튼
         private void albumPictureBox_Click(object sender, EventArgs e)
@@ -149,5 +121,6 @@ namespace LyricsSceneMaker_CSharp
                 this.Top += e.Y - point.Y;
             }
         }
+
     }
 }

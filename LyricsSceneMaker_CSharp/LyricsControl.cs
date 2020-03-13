@@ -27,7 +27,7 @@ namespace LyricsSceneMaker_CSharp
 
         // 특수효과 키 추가하려면 이 변수를 수정하면 됨.
         private Keys[] noteTrigger = { Keys.Enter, Keys.Space };
-        private Keys[] effectTrigger = { Keys.A, Keys.S };
+        private Keys[] effectTrigger = { Keys.A };
 
         public LyricsControl()
         {
