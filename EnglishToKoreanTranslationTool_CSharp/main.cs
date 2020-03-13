@@ -9,35 +9,15 @@ using System.Windows.Forms;
 
 namespace EnglishToKoreanTranslationTool_CSharp
 {
-    public partial class main : Form
+    public partial class Main : Form
     {
-        public main()
+        public Main()
         {
             InitializeComponent();
         }
+        
 
-        private void loadLyricsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void getTranlatedLyricsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void main_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-        //// 공백 줄바꿈 \r\n 지워줌
+        ////  공백 줄바꿈 \r\n 지워줌
         //    while(LyricsTextBox.Text.Contains("\r\n\r\n"))
         //        LyricsTextBox.Text = LyricsTextBox.Text.Replace("\r\n\r\n", "\r\n");
 

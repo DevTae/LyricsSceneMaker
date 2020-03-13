@@ -68,7 +68,7 @@ namespace LyricsSceneMaker_CSharp
 
         private void formEffectFunction1()
         {
-
+            // mp4 혹은 gif 눈내리거나 비내리거나 사탕내리거나 천둥치거나 등등 자연효과가 제일 어울릴듯 해보임.
         }
 
         // 앨범 이미지 변경 버튼
