@@ -75,7 +75,7 @@
             this.lyricsTextBox1.Name = "lyricsTextBox1";
             this.lyricsTextBox1.Size = new System.Drawing.Size(464, 181);
             this.lyricsTextBox1.TabIndex = 2;
-            this.lyricsTextBox1.Text = "lyricsTextBox12345678910";
+            this.lyricsTextBox1.Text = "lyricsTextBox123456789101";
             this.lyricsTextBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lyricsTextBox2
@@ -87,7 +87,7 @@
             this.lyricsTextBox2.Name = "lyricsTextBox2";
             this.lyricsTextBox2.Size = new System.Drawing.Size(463, 159);
             this.lyricsTextBox2.TabIndex = 3;
-            this.lyricsTextBox2.Text = "lyricsTextBox2";
+            this.lyricsTextBox2.Text = "lyricsTextBox23456789101112131415";
             this.lyricsTextBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1

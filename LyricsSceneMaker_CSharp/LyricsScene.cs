@@ -32,10 +32,15 @@ namespace LyricsSceneMaker_CSharp
         // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
-            if(opcode == 0)
+            if(opcode == -1) // 팝송
+            {
+                lyricsTextBox2.Font = new Font("Gmarket Sans TTF Bold", 18);
+                lyricsTextBox2.ForeColor = Color.DimGray;
+            }
+            else if(opcode == 0) // K-POP
             {
                 // descriptor 정보 받아오기
-                // 맨 처음 화면 효과
+                // 맨 처음 화면
                 descriptorTextBox.Text = data1;
                 lyricsTextBox1.Text = data1;
                 lyricsTextBox2.Text = data2;
@@ -48,7 +53,6 @@ namespace LyricsSceneMaker_CSharp
             {
                 formEffectFunction1();
             }
-            // 옵코드에 따라 움직이는 애니메이션 다르게 만들 것임. 
         }
 
         /// <summary>
@@ -71,17 +75,22 @@ namespace LyricsSceneMaker_CSharp
         private string addNewLineFunction(string text)
         {
             byte[] b = Encoding.Default.GetBytes(text);
-            if (b.Length < 24) return text;
+            if (b.Length <= 24) return text;
 
-            
-
-            MessageBox.Show(b.Length.ToString());
-
+            int count_byte = 0;
+            int index = 0;
+            List<int> a = new List<int>();
+            while(count_byte <= 24)
+            {
+                count_byte += Encoding.Default.GetByteCount(text.Substring(index++, 1));
+            }
+            return text;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox1.Text = addNewLineFunction(textBox1.Text);
+            //lyricsTextBox1.Text = addNewLineFunction(textBox1.Text);
+            receive_data(-1, null, null);
         }
 
         // 앨범 이미지 변경 버튼
