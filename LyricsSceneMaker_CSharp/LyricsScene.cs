@@ -79,18 +79,11 @@ namespace LyricsSceneMaker_CSharp
 
             int count_byte = 0;
             int index = 0;
-            List<int> a = new List<int>();
             while(count_byte <= 24)
             {
                 count_byte += Encoding.Default.GetByteCount(text.Substring(index++, 1));
             }
             return text;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //lyricsTextBox1.Text = addNewLineFunction(textBox1.Text);
-            receive_data(-1, null, null);
         }
 
         // 앨범 이미지 변경 버튼
@@ -131,5 +124,9 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        private void lyricsTextBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
