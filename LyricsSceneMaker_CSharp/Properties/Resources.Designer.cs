@@ -63,9 +63,9 @@ namespace LyricsSceneMaker_CSharp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap black {
+        internal static System.Drawing.Bitmap ahdelron___black {
             get {
-                object obj = ResourceManager.GetObject("black", resourceCulture);
+                object obj = ResourceManager.GetObject("ahdelron - black", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,39 @@ namespace LyricsSceneMaker_CSharp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap scene1 {
+        internal static System.Drawing.Bitmap ahdelron___purple {
             get {
-                object obj = ResourceManager.GetObject("scene1", resourceCulture);
+                object obj = ResourceManager.GetObject("ahdelron - purple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ahdelron___while {
+            get {
+                object obj = ResourceManager.GetObject("ahdelron - while", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blur_simple_black {
+            get {
+                object obj = ResourceManager.GetObject("blur-simple-black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blur_simple_white {
+            get {
+                object obj = ResourceManager.GetObject("blur-simple-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
