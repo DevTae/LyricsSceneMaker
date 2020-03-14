@@ -103,8 +103,8 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        private Bitmap[] ahdelron_pictures = new Bitmap[] { global::LyricsSceneMaker_CSharp.Properties.Resources.ahdelron___while,
-                                                            global::LyricsSceneMaker_CSharp.Properties.Resources.ahdelron___purple
+        private Bitmap[] ahdelron_pictures = new Bitmap[] { global::LyricsSceneMaker_CSharp.Properties.Resources.아무래도_하얀색,
+                                                            global::LyricsSceneMaker_CSharp.Properties.Resources.아무레도_검은색
         };
 
         //private int ahdelron_picture_index = 0;

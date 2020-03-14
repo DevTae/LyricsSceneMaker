@@ -109,5 +109,25 @@ namespace LyricsSceneMaker_CSharp.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap 아무래도_하얀색 {
+            get {
+                object obj = ResourceManager.GetObject("아무래도_하얀색", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap 아무레도_검은색 {
+            get {
+                object obj = ResourceManager.GetObject("아무레도_검은색", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

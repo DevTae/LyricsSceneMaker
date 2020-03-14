@@ -108,6 +108,8 @@
     <Content Include="images\ahdelron - while.png" />
     <Content Include="images\blur-simple-black.png" />
     <Content Include="images\blur-simple-white.png" />
+    <Content Include="images\아무래도_하얀색.png" />
+    <Content Include="images\아무레도_검은색.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

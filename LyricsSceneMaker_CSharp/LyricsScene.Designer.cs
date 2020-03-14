@@ -109,10 +109,10 @@
             // ahdelronPictureBox
             // 
             this.ahdelronPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.ahdelronPictureBox.Image = global::LyricsSceneMaker_CSharp.Properties.Resources.ahdelron___while;
-            this.ahdelronPictureBox.Location = new System.Drawing.Point(1052, 661);
+            this.ahdelronPictureBox.Image = global::LyricsSceneMaker_CSharp.Properties.Resources.아무래도_하얀색;
+            this.ahdelronPictureBox.Location = new System.Drawing.Point(1068, 630);
             this.ahdelronPictureBox.Name = "ahdelronPictureBox";
-            this.ahdelronPictureBox.Size = new System.Drawing.Size(225, 56);
+            this.ahdelronPictureBox.Size = new System.Drawing.Size(209, 67);
             this.ahdelronPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ahdelronPictureBox.TabIndex = 6;
             this.ahdelronPictureBox.TabStop = false;
