@@ -121,8 +121,7 @@ namespace LyricsSceneMaker_CSharp
             //formEffectNowSelectedIndex = 0;
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            toscene(0, ArtistTextBox.Text + " - " + SongNameTextBox.Text,
-                (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
+            toscene(0, ArtistTextBox.Text, SongNameTextBox.Text);
 
             // 노래 재생하기
             if (outputDevice == null)
@@ -387,8 +386,7 @@ namespace LyricsSceneMaker_CSharp
         private void Replay_Click(object sender, RoutedEventArgs e)
         {
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            toscene(0, ArtistTextBox.Text + " - " + SongNameTextBox.Text,
-                (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
+            toscene(0, ArtistTextBox.Text, SongNameTextBox.Text);
 
             notesNowSelectedIndex = 0;
             //formEffectNowSelectedIndex = 0;

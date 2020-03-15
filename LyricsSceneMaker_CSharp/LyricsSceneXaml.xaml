@@ -8,13 +8,14 @@
         Title="LyricsSceneXaml" Height="720" Width="1280"
         WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-        <Label Name="Titlebar" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown" Height="50" VerticalAlignment="Top"/>
         <Grid>
             <Grid.Effect>
                 <BlurEffect x:Name="blurEffect" Radius="0" RenderingBias="Quality"/>
             </Grid.Effect>
+            <Rectangle Name="Rectangle1" Width="1280" Height="720" Fill="White"></Rectangle>
             <Image Name="ScenePictureBox" MouseDown="ScenePictureBox_MouseDown" Stretch="Uniform" Source="images/아무레도_검은색.png" />
         </Grid>
+        <Label Name="Titlebar" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown" Height="50" VerticalAlignment="Top"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
@@ -34,16 +35,20 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Label Name="DescriptorLabel" Content="Welcome our Application!" Grid.Row="0" VerticalAlignment="Top" Margin="0,10,0,0"  HorizontalAlignment="Center"
-                   FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="50" Foreground="Black"/>
-            <Label Name="LyricsLabel1" Content="Lyrics Loading..." Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-                   FontSize="35" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Background="#66000000" Foreground="White"/>
-            <Label Name="LyricsLabel2" Content="Lyrics Loading..." Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center"
-                   FontSize="30" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Foreground="White" Background="#66000000"/>
+            <TextBlock Name="DescriptorLabel" Text="Welcome our Application!" Grid.Row="0" VerticalAlignment="Top" Margin="0,10,0,0"  HorizontalAlignment="Center"
+                   FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="50" Foreground="Black"
+                   MouseDown="DescriptorLabel_MouseDown" MaxWidth="1260" Padding="5" TextWrapping="WrapWithOverflow" TextAlignment="Center"/>
+            <TextBlock Name="LyricsLabel1" Text="Lyrics Loading..." Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                   FontSize="35" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Background="#66000000" Foreground="White"
+                   MouseDown="LyricsLabel_MouseDown" MaxWidth="1260" Padding="5" TextWrapping="WrapWithOverflow" TextAlignment="Center"/>
+            <TextBlock Name="LyricsLabel2" Text="Lyrics Loading..." Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center"
+                   FontSize="30" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Foreground="White" Background="#66000000"
+                   MouseDown="LyricsLabel_MouseDown" MaxWidth="1260" Padding="5" TextWrapping="WrapWithOverflow" TextAlignment="Center"/>
             <Image Name="AhdelronPictureBox" Width="130" Height="50" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Source="images/아무레도_검은색.png"
                    MouseDown="AhdelronPictureBox_MouseDown"/>
         </Grid>
         <Label Name="FirstLastText" Content="" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden"
-                   FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="150" Background="#66000000" Foreground="White"/>
+               FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="150" Background="#66000000" Foreground="White"
+               MaxWidth="1260"/>
     </Grid>
 </Window>

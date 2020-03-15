@@ -52,8 +52,8 @@ namespace LyricsSceneMaker_CSharp
                 LyricsLabel1.Visibility = Visibility.Hidden;
                 LyricsLabel2.Visibility = Visibility.Hidden;
                 FirstLastText.Visibility = Visibility.Visible;
-                FirstLastText.Content = data1;
-                DescriptorLabel.Content = data1;
+                FirstLastText.Content = data2;
+                DescriptorLabel.Text = data1 + " - " + data2;
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
@@ -83,8 +83,8 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="data2"></param>
         private void effectFunction1(string data1, string data2)
         {
-            LyricsLabel1.Content = data1;
-            LyricsLabel2.Content = data2;
+            LyricsLabel1.Text = data1;
+            LyricsLabel2.Text = data2;
         }
 
         private void formEffectFunction1()
@@ -104,19 +104,12 @@ namespace LyricsSceneMaker_CSharp
             new BitmapImage(new Uri(@"images\아무래도_하얀색.png", UriKind.RelativeOrAbsolute))
         };
 
-        private int blur_picture_index = 0;
-
         private SolidColorBrush[] descriptor_colors = new SolidColorBrush[] {
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0, 0, 0)), // 검은색
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)) // 하얀색
         };
 
-        private SolidColorBrush[] lyrics1_colors = new SolidColorBrush[] {
-            new SolidColorBrush(Colors.White), // 하얀색
-            new SolidColorBrush(Colors.Black) // 검은색
-        };
-
-        private SolidColorBrush[] lyrics2_colors = new SolidColorBrush[] {
+        private SolidColorBrush[] lyrics_colors = new SolidColorBrush[] {
             new SolidColorBrush(Colors.White), // 하얀색
             new SolidColorBrush(Colors.Black) // 검은색
         };
@@ -126,14 +119,14 @@ namespace LyricsSceneMaker_CSharp
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x60, 0xFF, 0xFF, 0xFF)) // 하얀색
         };
 
-        private SolidColorBrush getSolidColorBrush(byte a, byte r, byte g, byte b)
-        {
-            return new SolidColorBrush(System.Windows.Media.Color.FromArgb(a, r, g, b));
-        }
+        //private SolidColorBrush getSolidColorBrush(byte a, byte r, byte g, byte b)
+        //{
+        //    return new SolidColorBrush(System.Windows.Media.Color.FromArgb(a, r, g, b));
+        //}
 
         private void ScenePictureBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DialogResult dr = System.Windows.Forms.MessageBox.Show("백그라운드 이미지 변경 : 예(Yes)\r\n텍스트 흑백 변경 : 아니요(No)\r\n해당 없음 : 취소(Cancel)", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            DialogResult dr = System.Windows.Forms.MessageBox.Show("백그라운드 이미지 변경 : 예(Yes)\r\n가우시안 블러 레디우스 변경(+10) : 아니요(No)\r\n해당 없음 : 취소(Cancel)", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (dr == System.Windows.Forms.DialogResult.Cancel) return;
 
             if (dr == System.Windows.Forms.DialogResult.Yes) // 백그라운드 이미지 변경
@@ -144,48 +137,81 @@ namespace LyricsSceneMaker_CSharp
                     try
                     {
                         ScenePictureBox.Source = new BitmapImage(new Uri(ofd.FileNames[0]));
+                        dr = System.Windows.Forms.MessageBox.Show("- 백그라운드 색깔 변경 -\r\n검은색(Black) : 예(Yes)\r\n하얀색(White) : 아니요(No)", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            Rectangle1.Fill = new SolidColorBrush(Colors.Black);
+                        }
+                        else if (dr == System.Windows.Forms.DialogResult.No)
+                        {
+                            Rectangle1.Fill = new SolidColorBrush(Colors.White);
+                        }
                     }
                     catch
                     {
                         System.Windows.Forms.MessageBox.Show("로딩 실패!", "Fatal Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
                 }
             }
             else if (dr == System.Windows.Forms.DialogResult.No)
             {
-                if (blur_picture_index >= ahdelron_pictures.Length - 1)
+                double radius = blurEffect.Radius;
+                radius += 10;
+                if (radius <= 100)
                 {
-                    blur_picture_index = 0;
+                    blurEffect.Radius = radius;
                 }
                 else
                 {
-                    ++blur_picture_index;
+                    blurEffect.Radius = 0;
                 }
-                DescriptorLabel.Foreground = descriptor_colors[blur_picture_index];
-                LyricsLabel1.Foreground = lyrics1_colors[blur_picture_index];
-                LyricsLabel2.Foreground = lyrics2_colors[blur_picture_index];
-                FirstLastText.Foreground = lyrics1_colors[blur_picture_index];
-                LyricsLabel1.Background = lyrics_border_colors[blur_picture_index];
-                LyricsLabel2.Background = lyrics_border_colors[blur_picture_index];
-                FirstLastText.Background = lyrics_border_colors[blur_picture_index];
-                AhdelronPictureBox.Source = ahdelron_pictures[blur_picture_index];
             }
         }
 
+        private int ahdelron_index = 0;
         private void AhdelronPictureBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            double radius = blurEffect.Radius;
-            radius += 10;
-            if(radius <= 100)
+            if (ahdelron_index >= ahdelron_pictures.Length - 1)
             {
-                blurEffect.Radius = radius;
-            } 
+                ahdelron_index = 0;
+            }
             else
             {
-                blurEffect.Radius = 0;
+                ++ahdelron_index;
             }
+            AhdelronPictureBox.Source = ahdelron_pictures[ahdelron_index];
+        }
+
+        private int lyricsLabel_index = 0;
+        private void LyricsLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (lyricsLabel_index >= lyrics_colors.Length - 1)
+            {
+                lyricsLabel_index = 0;
+            }
+            else
+            {
+                ++lyricsLabel_index;
+            }
+            LyricsLabel1.Foreground = lyrics_colors[lyricsLabel_index];
+            LyricsLabel2.Foreground = lyrics_colors[lyricsLabel_index];
+            LyricsLabel1.Background = lyrics_border_colors[lyricsLabel_index];
+            LyricsLabel2.Background = lyrics_border_colors[lyricsLabel_index];
+        }
+
+        private int descriptor_index = 0;
+        private void DescriptorLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (descriptor_index >= descriptor_colors.Length - 1)
+            {
+                descriptor_index = 0;
+            }
+            else
+            {
+                ++descriptor_index;
+            }
+            DescriptorLabel.Foreground = descriptor_colors[descriptor_index];
         }
     }
 }
