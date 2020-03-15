@@ -18,3 +18,5 @@ C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsControlXaml.g.cs
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\App.g.cs
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsControlXaml.baml
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneXaml.g.cs
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\LyricsSceneMaker_CSharp\obj\Debug\LyricsSceneXaml.baml
