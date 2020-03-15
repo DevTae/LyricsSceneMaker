@@ -1,0 +1,33 @@
+﻿<Window x:Class="LyricsSceneMaker_CSharp.LyricsControlXaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
+        mc:Ignorable="d"
+        Title="LyricsControlXaml" Height="593" Width="773" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="아티스트 :" Margin="11.195,42.088,676.663,490.067"/>
+        <TextBox Name="ArtistTextBox" Margin="89.737,43.85,391.632,494.825"/>
+        <Label Content="노래 제목 :" Margin="10,10,646.318,521.112"/>
+        <TextBox Name="SongNameTextBox" Margin="89.737,10,391.632,530.75"/>
+        <Label Content="음악 파일 선택 :" Margin="11.195,78.133,654.887,452.979"/>
+        <Button Name="SelectFile" Click="SelectFile_Click" Content="Select File" Margin="111.513,73.375,391.632,452.979"/>
+        <Label Content="가사 :" Grid.Row="0" Margin="12.881,110.221,711.667,422.145"/>
+        <Button Name="LyricsLoadButton" Click="LyricsLoadButton_Click" Content="Load"   Margin="10,434.589,715.41,92.505"/>
+        <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" Margin="10,475.695,715.41,52.979"/>
+        <TextBox Name="LyricsTextBox"
+                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                         AcceptsReturn="True" Margin="59.733,115.221,391.632,58.9" />
+
+        <Button Name="InitializeButton" Click="InitializeButton_Click" Content="Initialize !" Margin="10,515.221,391.632,18.449"/>
+        <Label Content="Note :" Margin="397.865,1.517,312.535,524.35"/>
+        <Label Name="NoteInformation" Content="null" Margin="439.026,1.517,10,525.216"/>
+        <Label Content="Notes:" Margin="397.865,31.423,286.402,490.067"/>
+        <ListBox Name="NotesListBox" Margin="397.865,60.469,10,18.449"
+                 KeyDown="NotesListBox_KeyDown" MouseDoubleClick="NotesListBox_MouseDoubleClick"/>
+        <Button Name="Replay" Content="◀" Click="Replay_Click" Margin="664.121,33.609,76.641,508.112"/>
+        <Button Name="Pause" Content="〓" Click="Pause_Click" Margin="694.759,33.609,42.31,508.112"/>
+        <Button Name="Play" Content="▶" Click="Play_Click" Margin="729.09,33.609,10,507.95"/>
+    </Grid>
+</Window>

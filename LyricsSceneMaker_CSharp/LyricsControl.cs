@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace LyricsSceneMaker_CSharp
 {
-    public delegate void toScene(int opcode, string data1, string data2);
+    //public delegate void toScene(int opcode, string data1, string data2);
 
     public partial class LyricsControl : Form
     {
