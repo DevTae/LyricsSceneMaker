@@ -6,8 +6,41 @@
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
         Title="LyricsSceneXaml" Height="720" Width="1280"
-        WindowStyle="None">
+        WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-        <Label Name="titlebar" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown"/>
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect x:Name="blurEffect" Radius="20" RenderingBias="Quality"/>
+            </Grid.Effect>
+            <Image Name="ScenePictureBox" MouseDown="ScenePictureBox_MouseDown" Stretch="Uniform" Source="images/아무레도_검은색.png" />
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Images/cd-shadow.png" Margin="1040,45,100,100" Width="40" Height="15"/>
+            <Image Name="CDImage" Grid.Row="0" Source="Images/cd-icon.png" Margin="1040,5,100,100" Width="40" Height="40" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform x:Name="rotationDegree" Angle="100"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Label Name="DescriptorLabel" Content="Welcome our Application!" Grid.Row="0" VerticalAlignment="Top" Margin="0,10,0,0"  HorizontalAlignment="Center"
+                   FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="50" Foreground="Black"/>
+            <Label Name="LyricsLabel1" Content="Lyrics Loading..." Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                   FontSize="24" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Background="#66000000" Foreground="White"/>
+            <Label Name="LyricsLabel2" Content="Lyrics Loading..." Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                   FontSize="18" FontFamily="/LyricsSceneMaker_CSharp;component/Fonts/#Gmarket Sans TTF Light" Foreground="White" Background="#66000000"/>
+            <Image Name="AhdelronPictureBox" Width="130" Height="50" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" Source="images/아무레도_검은색.png"/>
+        </Grid>
+        <Label Name="Titlebar" MouseLeftButtonDown="Titlebar_MouseLeftButtonDown" Height="50" VerticalAlignment="Top" Content="v"/>
     </Grid>
 </Window>

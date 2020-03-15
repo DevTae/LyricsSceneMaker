@@ -97,6 +97,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Resource Include="Fonts\BMDOHYEON_ttf.ttf" />
+    <Resource Include="Fonts\GmarketSansTTFLight.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\GmarketSansTTFMedium.ttf" />
+    <Resource Include="Fonts\Nickainley-Normal.otf" />
+    <Resource Include="Fonts\Cafe24Shiningstar.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -112,13 +121,15 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\ahdelron - black.png" />
-    <Content Include="images\ahdelron - purple.png" />
-    <Content Include="images\ahdelron - while.png" />
-    <Content Include="images\blur-simple-black.png" />
-    <Content Include="images\blur-simple-white.png" />
-    <Content Include="images\아무래도_하얀색.png" />
-    <Content Include="images\아무레도_검은색.png" />
+    <Content Include="Images\ahdelron - black.png" />
+    <Content Include="Images\ahdelron - purple.png" />
+    <Content Include="Images\ahdelron - while.png" />
+    <Content Include="Images\blur-simple-black.png" />
+    <Content Include="Images\blur-simple-white.png" />
+    <Resource Include="Images\cd-shadow.png" />
+    <Resource Include="Images\cd-icon.png" />
+    <Resource Include="Images\아무래도_하얀색.png" />
+    <Resource Include="Images\아무레도_검은색.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

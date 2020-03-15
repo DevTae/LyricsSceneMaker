@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LyricsSceneMaker_CSharp
 {
@@ -28,7 +29,7 @@ namespace LyricsSceneMaker_CSharp
         private Song song;
         private int notesNowSelectedIndex = 0;
 
-        // 특수효과 키 추가하려면 이 변수를 수정하면 됨.
+        // 특수효과 키 추가하려면 이 변수를 수정하면 됨. // 필요 없을듯
         private Keys[] noteTrigger = { Keys.Enter, Keys.Space };
         private Keys[] effectTrigger = { Keys.A };
 
@@ -37,6 +38,31 @@ namespace LyricsSceneMaker_CSharp
             InitializeComponent();
             LyricsSceneXaml scene = new LyricsSceneXaml();
             scene.Show();
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            int size = NotesListBox.Items.Count;
+
+            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null) { }
+            else
+            // 노트 신호 보내기
+            if (long.Parse(((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString().Split(',')[0]) <= audioFile.Position)
+            {
+                toscene(int.Parse(((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString().Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
+                    (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
+
+                // 현재 지점 Note 정보 알려주기
+                NoteInformation.Content = ((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString();
+
+                // 다음 가사 기다리기 시작
+                notesNowSelectedIndex++;
+            }
         }
 
         // 음악파일 불러오기
@@ -95,8 +121,8 @@ namespace LyricsSceneMaker_CSharp
             //formEffectNowSelectedIndex = 0;
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
-            //toscene(0, ArtistTextBox.Text + " - " + SongNameTextBox.Text,
-            //    (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
+            toscene(0, ArtistTextBox.Text + " - " + SongNameTextBox.Text,
+                (song.Lyrics.Length > 0) ? song.Lyrics[0] : null);
 
             // 노래 재생하기
             if (outputDevice == null)
@@ -416,7 +442,5 @@ namespace LyricsSceneMaker_CSharp
             }
             outputDevice.Play();
         }
-
-        // timer
     }
 }

@@ -13,7 +13,5 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/ahdelron%20-%20while.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/blur-simple-black.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/blur-simple-white.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/%ec%95%84%eb%ac%b4%eb%9e%98%eb%8f%84_%ed%95%98%ec%96%80%ec%83%89.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/%ec%95%84%eb%ac%b4%eb%a0%88%eb%8f%84_%ea%b2%80%ec%9d%80%ec%83%89.png")]
 
 
