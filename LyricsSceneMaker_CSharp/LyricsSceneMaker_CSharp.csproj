@@ -63,6 +63,9 @@
     <Compile Include="LyricsScene.Designer.cs">
       <DependentUpon>LyricsScene.cs</DependentUpon>
     </Compile>
+    <Compile Include="LyricsSceneXaml.xaml.cs">
+      <DependentUpon>LyricsSceneXaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="model\Song.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +113,15 @@
     <Content Include="images\blur-simple-white.png" />
     <Content Include="images\아무래도_하얀색.png" />
     <Content Include="images\아무레도_검은색.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LyricsSceneXaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

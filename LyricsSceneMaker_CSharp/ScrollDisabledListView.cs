@@ -21,6 +21,7 @@ namespace LyricsSceneMaker_CSharp
                 return cp;
             }
         }
+
         [DefaultValue(false)]
         public bool ShowScrollbar
         {
@@ -32,6 +33,7 @@ namespace LyricsSceneMaker_CSharp
                 if (this.Handle != IntPtr.Zero) RecreateHandle();
             }
         }
+
         public ScrollDisabledListView()
         {
             InitializeComponent();
