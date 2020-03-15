@@ -151,11 +151,9 @@ namespace LyricsSceneMaker_CSharp
                     // Big-O : O(logn)
                     // later ~ 이분탐색 구현
                     Boolean isInserted = false;
-                    foreach (object item in NotesListBox.Items)
+                    foreach (ListBoxItem item in NotesListBox.Items)
                     {
-                        Lb
-                        if (long.Parse(NotesListBox.GetItemText(item).Split(',')[0]) > nowTime)
-                        if (long.Parse(NotesListBox.GetItemText(item).Split(',')[0]) > nowTime)
+                        if (long.Parse(item.Content.ToString().Split(',')[0]) > nowTime)
                         {
                             NotesListBox.Items.Insert(insertIndex, insertString);
                             isInserted = true;
@@ -163,10 +161,47 @@ namespace LyricsSceneMaker_CSharp
                         }
                         insertIndex++;
                     }
-                    if (!isInserted) listBox.Items.Insert(size, insertString);
+                    if (!isInserted) NotesListBox.Items.Insert(size, insertString);
                 }
                 notesNowSelectedIndex = insertIndex;
             }
+        }
+
+        private void NotesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (outputDevice == null)
+            {
+                outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
+            }
+            if (audioFile == null)
+            {
+                audioFile = new AudioFileReader(SelectFile.Content.ToString());
+                outputDevice.Init(audioFile);
+            }
+            outputDevice.Pause();
+
+            int selectedIndex = NotesListBox.SelectedIndex;
+            ListBoxItem selectedItem = (ListBoxItem)NotesListBox.SelectedItem;
+
+            DialogResult dr = System.Windows.MessageBox.Show("선택한 지점부터 재생하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                notesNowSelectedIndex = selectedIndex;
+                long nowTime = long.Parse(selectedItem.Content.ToString().Split(',')[0]);
+                formEffectNowSelectedIndex = getFormEffectNowIndex(nowTime);
+                audioFile.Position = nowTime;
+            }
+            else
+            {
+                dr = System.Windows.MessageBox.Show("더블 클릭한 노트를 삭제하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr == System.Windows.Forms.DialogResult.OK)
+                {
+                    NotesListBox.Items.RemoveAt(selectedIndex);
+                    notesNowSelectedIndex--;
+                }
+            }
+            outputDevice.Play();
         }
 
         private void LyricsLoadButton_Click(object sender, RoutedEventArgs e)
@@ -181,10 +216,7 @@ namespace LyricsSceneMaker_CSharp
 
         
 
-        private void NotesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+        
 
         private void Replay_Click(object sender, RoutedEventArgs e)
         {
