@@ -26,4 +26,4 @@ Developer & Design : ¾Æµ¨·Ð(ahdelron)
 
 <br/>
 
-![Ä¸Ã³1](https://user-images.githubusercontent.com/55177359/76678628-d365c100-661c-11ea-9119-7587fa76c966.PNG)
+![Ä¸3Ã³](https://user-images.githubusercontent.com/55177359/76708440-27b29300-673a-11ea-8077-4c6a65ee2422.PNG)
