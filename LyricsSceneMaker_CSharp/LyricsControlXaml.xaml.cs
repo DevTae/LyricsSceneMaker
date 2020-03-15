@@ -52,13 +52,13 @@ namespace LyricsSceneMaker_CSharp
             if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null) { }
             else
             // 노트 신호 보내기
-            if (long.Parse(((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString().Split(',')[0]) <= audioFile.Position)
+            if (long.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
-                toscene(int.Parse(((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString().Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
+                toscene(int.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
                     (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
 
                 // 현재 지점 Note 정보 알려주기
-                NoteInformation.Content = ((ListBoxItem)NotesListBox.Items[notesNowSelectedIndex]).Content.ToString();
+                NoteInformation.Content = (string)NotesListBox.Items[notesNowSelectedIndex];
 
                 // 다음 가사 기다리기 시작
                 notesNowSelectedIndex++;
@@ -441,6 +441,11 @@ namespace LyricsSceneMaker_CSharp
                 outputDevice.Init(audioFile);
             }
             outputDevice.Play();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

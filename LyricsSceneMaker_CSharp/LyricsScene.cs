@@ -47,9 +47,13 @@ namespace LyricsSceneMaker_CSharp
             {
                 // descriptor 정보 받아오기
                 // 맨 처음 화면
-                descriptorTextBox.Text = data1;
-                lyricsTextBox1.Text = data1;
-                lyricsTextBox2.Text = data2;
+                if(data1 != null)
+                {
+                    descriptorTextBox.Text = data1;
+                    lyricsTextBox1.Text = data1;
+                }
+                if(data2 != null)
+                    lyricsTextBox2.Text = data2;
             }
             else if(opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
-        Title="LyricsControlXaml" Height="593" Width="773" ResizeMode="NoResize">
+        Title="LyricsControlXaml" Height="593" Width="773" ResizeMode="NoResize" Closing="Window_Closing">
     <Grid>
         <Label Content="아티스트 :" Margin="11.195,42.088,676.663,490.067"/>
         <TextBox Name="ArtistTextBox" Margin="89.737,43.85,391.632,494.825" TabIndex="1"/>

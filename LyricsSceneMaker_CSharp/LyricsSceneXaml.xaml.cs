@@ -25,7 +25,7 @@ namespace LyricsSceneMaker_CSharp
         public LyricsSceneXaml()
         {
             InitializeComponent();
-            LyricsControl.toscene += new toScene(receive_data);
+            LyricsControlXaml.toscene += new toScene(receive_data);
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
@@ -45,9 +45,13 @@ namespace LyricsSceneMaker_CSharp
             {
                 // descriptor 정보 받아오기
                 // 맨 처음 화면
-                DescriptorLabel.Content = data1;
-                LyricsLabel1.Content = data1;
-                LyricsLabel2.Content = data2;
+                if (data1 != null)
+                {
+                    DescriptorLabel.Content = data1;
+                    LyricsLabel1.Content = data1;
+                }
+                if (data2 != null)
+                    LyricsLabel2.Content = data2;
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
