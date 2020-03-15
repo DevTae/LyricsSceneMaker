@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -41,21 +42,33 @@ namespace LyricsSceneMaker_CSharp
         // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
+            if (data1 != null) data1 = data1.Replace("\r", "");
+            if (data2 != null) data2 = data2.Replace("\r", "");
             if (opcode == 0)
             {
                 // descriptor 정보 받아오기
                 // 맨 처음 화면
-                if (data1 != null)
-                {
-                    DescriptorLabel.Content = data1;
-                    LyricsLabel1.Content = data1;
-                }
-                if (data2 != null)
-                    LyricsLabel2.Content = data2;
+                DescriptorLabel.Visibility = Visibility.Hidden;
+                LyricsLabel1.Visibility = Visibility.Hidden;
+                LyricsLabel2.Visibility = Visibility.Hidden;
+                FirstLastText.Visibility = Visibility.Visible;
+                FirstLastText.Content = data1;
+                DescriptorLabel.Content = data1;
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
-                effectFunction1(data1, data2);
+                if (FirstLastText.Visibility == Visibility.Visible)
+                {
+                    FirstLastText.Visibility = Visibility.Hidden;
+                    DescriptorLabel.Visibility = Visibility.Visible;
+                    LyricsLabel1.Visibility = Visibility.Visible;
+                    LyricsLabel2.Visibility = Visibility.Visible;
+                    effectFunction1(data1, data2);
+                }
+                else
+                {
+                    effectFunction1(data1, data2);
+                }
             }
             else if (opcode == (int)Keys.A)
             {
@@ -153,9 +166,25 @@ namespace LyricsSceneMaker_CSharp
                 DescriptorLabel.Foreground = descriptor_colors[blur_picture_index];
                 LyricsLabel1.Foreground = lyrics1_colors[blur_picture_index];
                 LyricsLabel2.Foreground = lyrics2_colors[blur_picture_index];
+                FirstLastText.Foreground = lyrics1_colors[blur_picture_index];
                 LyricsLabel1.Background = lyrics_border_colors[blur_picture_index];
                 LyricsLabel2.Background = lyrics_border_colors[blur_picture_index];
+                FirstLastText.Background = lyrics_border_colors[blur_picture_index];
                 AhdelronPictureBox.Source = ahdelron_pictures[blur_picture_index];
+            }
+        }
+
+        private void AhdelronPictureBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            double radius = blurEffect.Radius;
+            radius += 10;
+            if(radius <= 100)
+            {
+                blurEffect.Radius = radius;
+            } 
+            else
+            {
+                blurEffect.Radius = 0;
             }
         }
     }

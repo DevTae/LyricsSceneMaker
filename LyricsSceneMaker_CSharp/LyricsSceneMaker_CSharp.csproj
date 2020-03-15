@@ -55,19 +55,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LyricsControl.cs">
+    <Compile Include="winforms\LyricsControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LyricsControl.Designer.cs">
+    <Compile Include="winforms\LyricsControl.Designer.cs">
       <DependentUpon>LyricsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="LyricsControlXaml.xaml.cs">
       <DependentUpon>LyricsControlXaml.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LyricsScene.cs">
+    <Compile Include="winforms\LyricsScene.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LyricsScene.Designer.cs">
+    <Compile Include="winforms\LyricsScene.Designer.cs">
       <DependentUpon>LyricsScene.cs</DependentUpon>
     </Compile>
     <Compile Include="LyricsSceneXaml.xaml.cs">
@@ -81,10 +81,10 @@
     <Compile Include="model\ScrollDisabledListView.Designer.cs">
       <DependentUpon>ScrollDisabledListView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="LyricsControl.resx">
+    <EmbeddedResource Include="winforms\LyricsControl.resx">
       <DependentUpon>LyricsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LyricsScene.resx">
+    <EmbeddedResource Include="winforms\LyricsScene.resx">
       <DependentUpon>LyricsScene.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

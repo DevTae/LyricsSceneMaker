@@ -177,9 +177,9 @@ namespace LyricsSceneMaker_CSharp
                     // Big-O : O(logn)
                     // later ~ 이분탐색 구현
                     Boolean isInserted = false;
-                    foreach (ListBoxItem item in NotesListBox.Items)
+                    foreach (string item in NotesListBox.Items)
                     {
-                        if (long.Parse(item.Content.ToString().Split(',')[0]) > nowTime)
+                        if (long.Parse(item.Split(',')[0]) > nowTime)
                         {
                             NotesListBox.Items.Insert(insertIndex, insertString);
                             isInserted = true;
@@ -209,19 +209,17 @@ namespace LyricsSceneMaker_CSharp
             outputDevice.Pause();
 
             int selectedIndex = NotesListBox.SelectedIndex;
-            if(selectedIndex == -1)
-            {
-                System.Windows.Forms.MessageBox.Show("실어");
-                return;
-            }
 
-            ListBoxItem selectedItem = (ListBoxItem)NotesListBox.SelectedItem;
+            // wpf 컨트롤 예외 처리
+            if (selectedIndex == -1) return;
+
+            string selectedString = (string)NotesListBox.SelectedItem;
 
             DialogResult dr = System.Windows.Forms.MessageBox.Show("선택한 지점부터 재생하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 notesNowSelectedIndex = selectedIndex;
-                long nowTime = long.Parse(selectedItem.Content.ToString().Split(',')[0]);
+                long nowTime = long.Parse(selectedString.Split(',')[0]);
                 //formEffectNowSelectedIndex = getFormEffectNowIndex(nowTime);
                 audioFile.Position = nowTime;
             }
