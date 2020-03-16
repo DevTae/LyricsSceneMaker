@@ -42,8 +42,7 @@ namespace LyricsSceneMaker_CSharp
         // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
-            if (data1 != null) data1 = data1.Replace("\r", "");
-            if (data2 != null) data2 = data2.Replace("\r", "");
+            
             if (opcode == 0)
             {
                 // descriptor 정보 받아오기
@@ -52,11 +51,14 @@ namespace LyricsSceneMaker_CSharp
                 LyricsLabel1.Visibility = Visibility.Hidden;
                 LyricsLabel2.Visibility = Visibility.Hidden;
                 FirstLastText.Visibility = Visibility.Visible;
-                FirstLastText.Content = data2;
+                data2 = data2.Replace("|", "\r\n");
+                FirstLastText.Text = data2;
                 DescriptorLabel.Text = data1 + " - " + data2;
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
+                if (data1 != null) data1 = data1.Replace("\r", "");
+                if (data2 != null) data2 = data2.Replace("\r", "");
                 if (FirstLastText.Visibility == Visibility.Visible)
                 {
                     FirstLastText.Visibility = Visibility.Hidden;
@@ -196,8 +198,10 @@ namespace LyricsSceneMaker_CSharp
             }
             LyricsLabel1.Foreground = lyrics_colors[lyricsLabel_index];
             LyricsLabel2.Foreground = lyrics_colors[lyricsLabel_index];
+            FirstLastText.Foreground = lyrics_colors[lyricsLabel_index];
             LyricsLabel1.Background = lyrics_border_colors[lyricsLabel_index];
             LyricsLabel2.Background = lyrics_border_colors[lyricsLabel_index];
+            FirstLastText.Background = lyrics_border_colors[lyricsLabel_index];
         }
 
         private int descriptor_index = 0;
