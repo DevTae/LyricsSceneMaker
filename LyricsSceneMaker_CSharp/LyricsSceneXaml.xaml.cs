@@ -65,7 +65,7 @@ namespace LyricsSceneMaker_CSharp
             }
             else if(opcode == (int)Keys.C)
             {
-
+                transformImage(data1);
             }
         }
 
@@ -115,12 +115,41 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        // 간주중
+        // 간주 화면 출력
         private void formEffectFunction1()
         {
             LyricsLabel1.Visibility = Visibility.Hidden;
             LyricsLabel2.Visibility = Visibility.Hidden;
             EffectText.Visibility = Visibility.Visible;
+        }
+
+        // 컷 전환 함수
+        private void transformImage(string data)
+        {
+            string[] datas = data.Split('|');
+            int index;
+
+            ScenePictureBox.Source = new BitmapImage(new Uri(LyricsControlXaml.image_paths[int.Parse(datas[0])], UriKind.Absolute));
+            Rectangle1.Fill = descriptor_colors[int.Parse(datas[1])];
+
+            index = int.Parse(datas[2]);
+            descriptor_index = index;
+            DescriptorLabel.Foreground = descriptor_colors[index];
+
+            index = int.Parse(datas[3]);
+            lyricsLabel_index = index;
+            LyricsLabel1.Foreground = lyrics_colors[index];
+            LyricsLabel2.Foreground = lyrics_colors[index];
+            FirstLastText.Foreground = lyrics_colors[index];
+            EffectText.Foreground = lyrics_colors[index];
+            LyricsLabel1.Background = lyrics_border_colors[index];
+            LyricsLabel2.Background = lyrics_border_colors[index];
+            FirstLastText.Background = lyrics_border_colors[index];
+            EffectText.Background = lyrics_border_colors[index];
+
+            index = int.Parse(datas[4]);
+            ahdelron_index = index;
+            AhdelronPictureBox.Source = ahdelron_pictures[index];
         }
 
         // this.dragmove 로 쉽게 창 드래그 기능을 구현할 수 있음

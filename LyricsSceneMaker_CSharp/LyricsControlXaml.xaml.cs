@@ -44,7 +44,7 @@ namespace LyricsSceneMaker_CSharp
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += new EventHandler(timer_Tick);
-            //timer.Start(); // reopen please
+            timer.Start();
 
             for(int i = 0; i < 2; i++)
             {
@@ -65,9 +65,6 @@ namespace LyricsSceneMaker_CSharp
             {
                 WatermarkColorSelector.Items.Add(i.ToString());
             }
-
-            //test
-            OpenCutMaker.IsEnabled = true;
         }
 
         // 시간 맞춰서 데이터 Scene으로 전송
@@ -75,36 +72,53 @@ namespace LyricsSceneMaker_CSharp
         {
             int size = NotesListBox.Items.Count;
 
-            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null) { }
-            else
-            // 노트 신호 보내기
-            if (long.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+            if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null)
             {
-                toscene(int.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
-                    (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
+                // nothing to do 
+            }
+            else
+            {
+                // 노트 신호 보내기
+                if (long.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+                {
+                    toscene(int.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
+                        (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
 
-                // 현재 지점 Note 정보 알려주기
-                NoteInformation.Content = (string)NotesListBox.Items[notesNowSelectedIndex];
+                    // 현재 지점 Note 정보 알려주기
+                    NoteInformation.Content = (string)NotesListBox.Items[notesNowSelectedIndex];
 
-                // 다음 가사 기다리기 시작
-                notesNowSelectedIndex++;
+                    // 다음 가사 기다리기 시작
+                    notesNowSelectedIndex++;
+                }
             }
 
-            if (EffectsListBox.Items.Count - 1 < formEffectNowSelectedIndex) { }
-            else
-            // 폼 이펙트 신호 보내기
-            if (long.Parse(((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
+            if (EffectsListBox.Items.Count - 1 < formEffectNowSelectedIndex)
             {
-                int opcode = int.Parse(((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',')[1]);
-                // if(opcode == Keys.S) 데이터 전송
+                // nothing to do 
+            }
+            else
+            {
+                // 폼 이펙트 신호 보내기
+                string[] datas = ((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',');
+                if (long.Parse(datas[0]) <= audioFile.Position)
+                {
+                    int opcode = int.Parse(datas[1]);
 
-                toscene(opcode, null, null);
+                    if (opcode == (int)Keys.C)
+                    {
+                        toscene(opcode, datas[2], null);
+                    }
+                    else
+                    {
+                        toscene(opcode, null, null);
+                    }
 
-                // 현재 지점 폼 이펙트 정보 알려주기
-                EffectInformation.Content = (string)EffectsListBox.Items[formEffectNowSelectedIndex];
+                    // 현재 지점 폼 이펙트 정보 알려주기
+                    EffectInformation.Content = (string)EffectsListBox.Items[formEffectNowSelectedIndex];
 
-                // 다음 폼 이펙트 기다리기 시작
-                formEffectNowSelectedIndex++;
+                    // 다음 폼 이펙트 기다리기 시작
+                    formEffectNowSelectedIndex++;
+                }
             }
         }
 
@@ -409,7 +423,7 @@ namespace LyricsSceneMaker_CSharp
         private void LyricsLoadButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "가사 데이터 파일 (*.txt)|*.txt";
+            ofd.Filter = "가사 데이터 파일 (*.lyrics)|*.lyrics";
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 StringBuilder sb = new StringBuilder();
@@ -433,10 +447,10 @@ namespace LyricsSceneMaker_CSharp
         private void LyricsSaveButton_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "가사 데이터 파일 (*.txt)|*.txt";
+            sfd.Filter = "가사 데이터 파일 (*.lyrics)|*.lyrics";
             sfd.InitialDirectory = @"C:\";
             sfd.RestoreDirectory = true;
-            sfd.DefaultExt = "notes";
+            sfd.DefaultExt = "lyrics";
             sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -714,29 +728,59 @@ namespace LyricsSceneMaker_CSharp
 
         private void OpenCutMaker_Click(object sender, RoutedEventArgs e)
         {
+            if(OpenCutMaker.Content.Equals("+"))
+            {
+                FirstGridColumn.Width = new GridLength(0, GridUnitType.Star);
+                ThirdGridColumn.Width = new GridLength(1, GridUnitType.Star);
+                
+                BackgroundColorSelector.IsEnabled = true;
+                ImagesListBox.IsEnabled = true;
+                ImageAddButton.IsEnabled = true;
+                //ImageListLoadButton.IsEnabled = true;
+                //ImageListSaveButton.IsEnabled = true;
+                DescriptorColorSelector.IsEnabled = true;
+                LyricsColorSelector.IsEnabled = true;
+                WatermarkColorSelector.IsEnabled = true;
+                InitialImageAddButton.IsEnabled = true;
+                ImageChangeTimeAddButton.IsEnabled = true;
+                ImageAddButton.IsEnabled = true;
+                OpenCutMaker.Content = "-";
+            }
+            else if(OpenCutMaker.Content.Equals("-"))
+            {
+                FirstGridColumn.Width = new GridLength(1, GridUnitType.Star);
+                ThirdGridColumn.Width = new GridLength(0, GridUnitType.Star);
 
-            BackgroundColorSelector.IsEnabled = true;
-            ImagesListBox.IsEnabled = true;
-            ImageAddButton.IsEnabled = true;
-            //ImageListLoadButton.IsEnabled = true;
-            //ImageListSaveButton.IsEnabled = true;
-            DescriptorColorSelector.IsEnabled = true;
-            LyricsColorSelector.IsEnabled = true;
-            WatermarkColorSelector.IsEnabled = true;
-            InitialImageAddButton.IsEnabled = true;
-            ImageAddButton.IsEnabled = true;
+                BackgroundColorSelector.IsEnabled = false;
+                ImagesListBox.IsEnabled = false;
+                ImageAddButton.IsEnabled = false;
+                //ImageListLoadButton.IsEnabled = false;
+                //ImageListSaveButton.IsEnabled = false;
+                DescriptorColorSelector.IsEnabled = false;
+                LyricsColorSelector.IsEnabled = false;
+                WatermarkColorSelector.IsEnabled = false;
+                InitialImageAddButton.IsEnabled = false;
+                ImageChangeTimeAddButton.IsEnabled = false;
+                ImageAddButton.IsEnabled = false;
+                OpenCutMaker.Content = "+";
+            }
+            
         }
 
+        // 이미지 삭제
         private void ImagesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            image_paths.RemoveAt(ImagesListBox.SelectedIndex);
-            
-            int index = ImagesListBox.SelectedIndex;
-            ImagesListBox.Items.RemoveAt(index);
+            DialogResult dr = System.Windows.Forms.MessageBox.Show("더블 클릭한 이미지를 삭제하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if(dr == System.Windows.Forms.DialogResult.OK)
+            {
+                image_paths.RemoveAt(ImagesListBox.SelectedIndex);
+                int index = ImagesListBox.SelectedIndex;
+                ImagesListBox.Items.RemoveAt(index);
+            }
         }
 
+        // 이미지 불러오기
         public static List<string> image_paths = new List<string>();
-
         private void ImageAddButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -750,16 +794,103 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        // 첫 화면 레이아웃 설정하기
+        // 첫 화면 레이아웃 추가하기
         private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
         {
+            Boolean isValid = true;
+            //Boolean isValid = false;
+            //foreach (Keys key in noteTrigger)
+            //{
+            //    if (e.Key.Equals(key))
+            //    {
+            //        isValid = true;
+            //        break;
+            //    }
+            //}
+            if (isValid)
+            {
+                int size = EffectsListBox.Items.Count;
 
+                int insertIndex = 0;
+                //long nowTime = audioFile.Position;
+                long nowTime = 0;
+                //string insertString = nowTime + "," + (int)e.Key; // opcode
+                string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
+                    + "|" + BackgroundColorSelector.SelectedIndex + "|" + DescriptorColorSelector.SelectedIndex
+                    + "|" + LyricsColorSelector.SelectedIndex + "|" + WatermarkColorSelector.SelectedIndex;
+
+                if (size == 0)
+                {
+                    EffectsListBox.Items.Insert(insertIndex, insertString);
+                }
+                else
+                {
+                    // Big-O : O(logn)
+                    // later ~ 이분탐색 구현
+                    Boolean isInserted = false;
+                    foreach (string item in EffectsListBox.Items)
+                    {
+                        if (long.Parse(item.Split(',')[0]) > nowTime)
+                        {
+                            EffectsListBox.Items.Insert(insertIndex, insertString);
+                            isInserted = true;
+                            break;
+                        }
+                        insertIndex++;
+                    }
+                    if (!isInserted) EffectsListBox.Items.Insert(size, insertString);
+                }
+                //if (formEffectNowSelectedIndex != 0) formEffectNowSelectedIndex++;
+            }
         }
 
         // 화면 전환 타이밍 추가하기
         private void ImageChangeTimeAddButton_Click(object sender, RoutedEventArgs e)
         {
+            Boolean isValid = true;
+            //Boolean isValid = false;
+            //foreach (Keys key in noteTrigger)
+            //{
+            //    if (e.Key.Equals(key))
+            //    {
+            //        isValid = true;
+            //        break;
+            //    }
+            //}
+            if (isValid)
+            {
+                int size = EffectsListBox.Items.Count;
 
+                int insertIndex = 0;
+                long nowTime = audioFile.Position;
+                //string insertString = nowTime + "," + (int)e.Key; // opcode
+                string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
+                    + "|" + BackgroundColorSelector.SelectedIndex + "|" + DescriptorColorSelector.SelectedIndex
+                    + "|" + LyricsColorSelector.SelectedIndex + "|" + WatermarkColorSelector.SelectedIndex;
+
+                if (size == 0)
+                {
+                    EffectsListBox.Items.Insert(insertIndex, insertString);
+                }
+                else
+                {
+                    // Big-O : O(logn)
+                    // later ~ 이분탐색 구현
+                    Boolean isInserted = false;
+                    foreach (string item in EffectsListBox.Items)
+                    {
+                        if (long.Parse(item.Split(',')[0]) > nowTime)
+                        {
+                            EffectsListBox.Items.Insert(insertIndex, insertString);
+                            isInserted = true;
+                            break;
+                        }
+                        insertIndex++;
+                    }
+                    if (!isInserted) EffectsListBox.Items.Insert(size, insertString);
+                }
+                formEffectNowSelectedIndex = insertIndex;
+            }
         }
 
         /// <summary>
@@ -781,7 +912,7 @@ namespace LyricsSceneMaker_CSharp
 
         private void DescriptorColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Descriptor.Foreground = LyricsSceneXaml.lyrics_colors[DescriptorColorSelector.SelectedIndex];
+            Descriptor.Foreground = LyricsSceneXaml.descriptor_colors[DescriptorColorSelector.SelectedIndex];
         }
 
         private void LyricsColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

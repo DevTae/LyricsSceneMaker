@@ -9,9 +9,9 @@
     <!--확장 전 width = 773, 확장 후 width = ?-->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="FirstGridColumn" Width="0*"/>
+            <ColumnDefinition x:Name="FirstGridColumn" Width="1*"/>
             <ColumnDefinition x:Name="SecondGridColumn" Width="1*"/>
-            <ColumnDefinition x:Name="ThirdGridColumn" Width="1*"/>
+            <ColumnDefinition x:Name="ThirdGridColumn" Width="0*"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
@@ -40,7 +40,7 @@
                         <TextBlock Text="가사 :" DockPanel.Dock="Top" Padding="5"/>
 
                         <Button Name="LyricsLoadButton" Click="LyricsLoadButton_Click" Content="Load" DockPanel.Dock="Bottom"/>
-                        <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" DockPanel.Dock="Bottom"/>
+                        <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" DockPanel.Dock="Bottom" IsEnabled="False"/>
                     </DockPanel>
                     <TextBox Name="LyricsTextBox" TabIndex="3"
                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
