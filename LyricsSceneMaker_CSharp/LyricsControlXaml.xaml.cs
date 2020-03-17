@@ -678,5 +678,35 @@ namespace LyricsSceneMaker_CSharp
         {
             Environment.Exit(0);
         }
+
+        private void OpenCutMaker_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImageAddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImageListSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImageListLoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImageChangeTimeAddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

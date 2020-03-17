@@ -57,26 +57,15 @@ namespace LyricsSceneMaker_CSharp
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
-                if (data1 != null) data1 = data1.Replace("\r", "");
-                if (data2 != null) data2 = data2.Replace("\r", "");
-                if (FirstLastText.Visibility == Visibility.Visible)
-                {
-                    FirstLastText.Visibility = Visibility.Hidden;
-                    DescriptorLabel.Visibility = Visibility.Visible;
-                    LyricsLabel1.Visibility = Visibility.Visible;
-                    LyricsLabel2.Visibility = Visibility.Visible;
-                }
-                else if (EffectText.Visibility == Visibility.Visible)
-                {
-                    EffectText.Visibility = Visibility.Hidden;
-                    LyricsLabel1.Visibility = Visibility.Visible;
-                    LyricsLabel2.Visibility = Visibility.Visible;
-                }
                 effectFunction1(data1, data2);
             }
             else if (opcode == (int)Keys.A)
             {
                 formEffectFunction1();
+            }
+            else if(opcode == (int)Keys.C)
+            {
+
             }
         }
 
@@ -87,7 +76,23 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="data2"></param>
         private void effectFunction1(string data1, string data2)
         {
-            if(data1 == null)
+            if (data1 != null) data1 = data1.Replace("\r", "");
+            if (data2 != null) data2 = data2.Replace("\r", "");
+            if (FirstLastText.Visibility == Visibility.Visible)
+            {
+                FirstLastText.Visibility = Visibility.Hidden;
+                DescriptorLabel.Visibility = Visibility.Visible;
+                LyricsLabel1.Visibility = Visibility.Visible;
+                LyricsLabel2.Visibility = Visibility.Visible;
+            }
+            else if (EffectText.Visibility == Visibility.Visible)
+            {
+                EffectText.Visibility = Visibility.Hidden;
+                LyricsLabel1.Visibility = Visibility.Visible;
+                LyricsLabel2.Visibility = Visibility.Visible;
+            }
+
+            if (data1 == null)
             {
                 LyricsLabel1.Text = "";
             }

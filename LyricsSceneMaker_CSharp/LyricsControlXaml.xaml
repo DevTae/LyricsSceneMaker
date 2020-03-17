@@ -5,42 +5,189 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
-        Title="LyricsControlXaml" Height="593" Width="773" ResizeMode="NoResize" Closing="Window_Closing">
+        Title="LyricsControlXaml" Height="500" Width="600" Closing="Window_Closing">
+    <!--확장 전 width = 773, 확장 후 width = ?-->
     <Grid>
-        <Label Content="아티스트 :" Margin="11.195,7.805,676.663,524.35" RenderTransformOrigin="0.49,-0.541"/>
-        <TextBox Name="ArtistTextBox" Margin="89.737,10,391.632,528.675" TabIndex="0"/>
-        <Label Content="노래 제목 :" Margin="10,42.609,646.318,488.503"/>
-        <TextBox Name="SongNameTextBox" Margin="89.737,45.925,391.632,494.825" TabIndex="1"/>
-        <Label Content="음악 파일 선택 :" Margin="11.195,78.133,654.887,452.979"/>
-        <Button Name="SelectFile" Click="SelectFile_Click" Content="Select File" Margin="111.513,73.375,391.632,452.979"/>
-        <Label Content="가사 :" Grid.Row="0" Margin="12.881,110.221,711.667,422.145" TabIndex="2"/>
-        <Button Name="LyricsLoadButton" Click="LyricsLoadButton_Click" Content="Load"   Margin="10,434.589,715.41,92.505"/>
-        <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" Margin="10,475.695,715.41,52.979"/>
-        <TextBox Name="LyricsTextBox" TabIndex="3"
-                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                         AcceptsReturn="True" Margin="59.733,115.221,391.632,58.9" />
-
-        <Button Name="InitializeButton" Click="InitializeButton_Click" Content="Initialize !" Margin="10,515.221,391.632,18.449"/>
-        <Label Content="Note :" Margin="397.865,1.517,312.535,524.35"/>
-        <Label Name="NoteInformation" Content="null" Margin="438.026,1.517,11,525.216"/>
-        <Label Content="Effect :" Margin="396.849,20.136,313.551,505.731"/>
-        <Label Name="EffectInformation" Content="null" Margin="441.026,20.002,8,506.731"/>
-        <Label Content="Notes:" Margin="397.865,38.228,286.402,483.262"/>
-        <ListBox Name="NotesListBox" IsEnabled="False" Margin="397.865,60.469,97.2,293.967"
-                 MouseDoubleClick="NotesListBox_MouseDoubleClick"/>
-        <Button Name="Replay" IsEnabled="False" Content="◀" Click="Replay_Click" Margin="664.121,30.465,76.641,511.256"/>
-        <Button Name="Pause" IsEnabled="False" Content="〓" Click="Pause_Click" Margin="694.759,30.465,42.31,511.256"/>
-        <Button Name="Play" IsEnabled="False" Content="▶" Click="Play_Click" Margin="729.09,30.465,10,511.094"/>
-        <Button Name="NotesSaveButton" IsEnabled="False" Content="저장" Click="NotesSaveButton_Click" Margin="397.865,274.233,188.78,260.168"/>
-        <Button Name="NotesLoadButton" IsEnabled="False" Content="불러오기" Click="NotesLoadButton_Click" Margin="582.647,274.233,10,259.437"/>
-        <ListBox x:Name="EffectsListBox" IsEnabled="False" Margin="397.849,320.657,97.2,52.979"
-            MouseDoubleClick="EffectsListBox_MouseDoubleClick"/>
-        <Button x:Name="EffectsSaveButton" IsEnabled="False" Content="저장" Click="EffectsSaveButton_Click" Margin="397.857,515.221,188.777,19.18"/>
-        <Button x:Name="EffectsLoadButton" IsEnabled="False" Content="불러오기" Click="EffectsLoadButton_Click" Margin="582.582,515.221,10.055,18.449"/>
-
-        <!--이펙트 버튼 모음집-->
-        <Button x:Name="NoteMake1" IsEnabled="False" Content="노트 추가" Click="NoteMake1_Click" Margin="675.2,60.469,9,293.967"/>
-        <Button x:Name="EffectMake1" IsEnabled="False" Content="간주 추가" Click="EffectMake1_Click" Margin="675.2,320.657,9,52.979"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="FirstGridColumn" Width="0*"/>
+            <ColumnDefinition x:Name="SecondGridColumn" Width="1*"/>
+            <ColumnDefinition x:Name="ThirdGridColumn" Width="1*"/>
+        </Grid.ColumnDefinitions>
         
+        <Grid Grid.Column="0">
+            <DockPanel>
+                <DockPanel Margin="5,5,5,5" DockPanel.Dock="Top">
+                    <TextBlock Text="아티스트 :" Padding="5"/>
+                    <TextBox Name="ArtistTextBox" TabIndex="0"/>
+                </DockPanel>
+                <DockPanel Margin="5,0,5,5" DockPanel.Dock="Top">
+                    <TextBlock Text="노래 제목 :" Padding="5"/>
+                    <TextBox Name="SongNameTextBox" TabIndex="1"/>
+                </DockPanel>
+                <DockPanel Margin="5,0,5,5" DockPanel.Dock="Top">
+                    <TextBlock Text="음악 파일 선택 :" Padding="5"/>
+                    <Button Name="SelectFile" Click="SelectFile_Click" Content="Select File" TabIndex="2"/>
+                </DockPanel>
+                <Button Name="InitializeButton" Click="InitializeButton_Click" Content="Initialize !" Margin="5,0,5,5"
+                        DockPanel.Dock="Bottom"/>
+                <DockPanel Margin="5,0,5,5">
+                    <DockPanel LastChildFill="False">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="5,5,0,0"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <TextBlock Text="가사 :" DockPanel.Dock="Top" Padding="5"/>
+
+                        <Button Name="LyricsLoadButton" Click="LyricsLoadButton_Click" Content="Load" DockPanel.Dock="Bottom"/>
+                        <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" DockPanel.Dock="Bottom"/>
+                    </DockPanel>
+                    <TextBox Name="LyricsTextBox" TabIndex="3"
+                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                         AcceptsReturn="True" Margin="5,0,0,0"/>
+                </DockPanel>
+            </DockPanel>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Top">
+                    <Label Content="Note :"/>
+                    <Label Name="NoteInformation" Content="null"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top">
+                    <Label Content="Effect :"/>
+                    <Label Name="EffectInformation" Content="null"/>
+                </DockPanel>
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="45*"/>
+                        <RowDefinition Height="45*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" LastChildFill="False">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="MinWidth" Value="25"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <TextBlock Text="Notes:" VerticalAlignment="Bottom" Margin="5,5,5,5"/>
+                        <Button Name="Play" IsEnabled="False" Content="▶" Click="Play_Click" DockPanel.Dock="Right" Margin="0,5,5,5"/>
+                        <Button Name="Pause" IsEnabled="False" Content="〓" Click="Pause_Click" DockPanel.Dock="Right" Margin="0,5,0,5"/>
+                        <Button Name="Replay" IsEnabled="False" Content="◀" Click="Replay_Click" DockPanel.Dock="Right" Margin="0,5,0,5"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="5,5,5,5"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <Grid DockPanel.Dock="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Name="NotesSaveButton" Grid.Column="0" IsEnabled="False" Content="저장" Click="NotesSaveButton_Click"/>
+                            <Button Name="NotesLoadButton" Grid.Column="1" IsEnabled="False" Content="불러오기" Click="NotesLoadButton_Click"/>
+                        </Grid>
+                        <Button x:Name="NoteMake1" IsEnabled="False" Content="노트 추가" Click="NoteMake1_Click" DockPanel.Dock="Right"/>
+                        <ListBox Name="NotesListBox" IsEnabled="False" Margin="5,5,5,5"
+                            MouseDoubleClick="NotesListBox_MouseDoubleClick"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="2">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="5,5,5,5"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <TextBlock Text="Effects:" Padding="5" DockPanel.Dock="Top"/>
+                        <Grid DockPanel.Dock="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="EffectsSaveButton" IsEnabled="False" Content="저장" Click="EffectsSaveButton_Click" Grid.Column="0"/>
+                            <Button x:Name="EffectsLoadButton" IsEnabled="False" Content="불러오기" Click="EffectsLoadButton_Click" Grid.Column="1"/>
+                        </Grid>
+
+                        <Grid DockPanel.Dock="Right">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70*"/>
+                                <RowDefinition Height="30*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="EffectMake1" IsEnabled="False" Content="간주 추가" Click="EffectMake1_Click" Grid.Row="0"/>
+                            <Button x:Name="OpenCutMaker" IsEnabled="False" Content="+" Click="OpenCutMaker_Click" Grid.Row="1"/>
+                        </Grid>
+                        <ListBox x:Name="EffectsListBox" IsEnabled="False" Margin="5,5,5,5"
+                            MouseDoubleClick="EffectsListBox_MouseDoubleClick"/>
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="80*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <Grid DockPanel.Dock="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
+                    <Button Name="ImageAddButton" Content="+" IsEnabled="False" Margin="5,5,5,5" Click="ImageAddButton_Click"
+                            Grid.Row="0"/>
+                    <Button Name="ImageListSaveButton" Content="리스트 저장" IsEnabled="False" Margin="5,5,5,5" Click="ImageListSaveButton_Click"
+                            Grid.Row="1"/>
+                    <Button Name="ImageListLoadButton" Content="리스트 불러오기" IsEnabled="False" Margin="5,5,5,5" Click="ImageListLoadButton_Click"
+                            Grid.Row="2"/>
+                </Grid>
+                <ListBox Name="ImagesListBox" IsEnabled="False" Margin="5,5,5,5"
+                    MouseDoubleClick="EffectsListBox_MouseDoubleClick"/>
+            </DockPanel>
+            <DockPanel Grid.Row="1"  Margin="5,5,5,5">
+                <DockPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Margin" Value="5,5,5,5"/>
+                    </Style>
+                </DockPanel.Resources>
+                <DockPanel DockPanel.Dock="Top">
+                    <TextBlock Text="곡이름 색:"/>
+                    <ComboBox IsEnabled="False"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
+                    <TextBlock Text="가사 색:"/>
+                    <ComboBox IsEnabled="False"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
+                    <TextBlock Text="워터마크 색:"/>
+                    <ComboBox IsEnabled="False"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="&lt;Preview&gt;" DockPanel.Dock="Top"/>
+                    <Grid DockPanel.Dock="Bottom" MaxHeight="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="InitialImageAddButton" Content="첫 장면 추가" IsEnabled="False" Margin="5,5,5,5"
+                            Click="InitialImageAddButton_Click" Grid.Column="0"/>
+                        <Button Name="ImageChangeTimeAddButton" Content="컷 추가" IsEnabled="False" Margin="5,5,5,5"
+                            Click="ImageChangeTimeAddButton_Click" Grid.Column="1"/>
+                    </Grid>
+                    <Grid>
+                        <Image Name="CutPreviewImage"/>
+                        
+                    </Grid>
+                    
+                </DockPanel>
+                
+            </DockPanel>
+        </Grid>
     </Grid>
 </Window>
