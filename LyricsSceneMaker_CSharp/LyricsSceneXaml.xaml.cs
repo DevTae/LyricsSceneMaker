@@ -98,19 +98,17 @@ namespace LyricsSceneMaker_CSharp
             }
             else
             {
-                //LyricsLabel1.Visibility = Visibility.Hidden;
-                //LyricsLabel1.Visibility = Visibility.Visible;
                 LyricsLabel1.Text = data1;
             }
 
             if(data2 == null)
             {
-                LyricsLabel2.Text = "";
+                LyricsLabel2.Visibility = Visibility.Hidden;
+                //LyricsLabel2.Text = "";
             }
             else
             {
-                //LyricsLabel2.Visibility = Visibility.Hidden;
-                //LyricsLabel2.Visibility = Visibility.Visible;
+                LyricsLabel2.Visibility = Visibility.Visible;
                 LyricsLabel2.Text = data2;
             }
         }
