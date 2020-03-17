@@ -797,6 +797,10 @@ namespace LyricsSceneMaker_CSharp
         // 첫 화면 레이아웃 추가하기
         private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ImagesListBox.SelectedIndex == -1 || BackgroundColorSelector.SelectedIndex == -1 ||
+                DescriptorColorSelector.SelectedIndex == -1 || LyricsColorSelector.SelectedIndex == -1 ||
+                WatermarkColorSelector.SelectedIndex == -1) return;
+                
             Boolean isValid = true;
             //Boolean isValid = false;
             //foreach (Keys key in noteTrigger)
@@ -847,6 +851,10 @@ namespace LyricsSceneMaker_CSharp
         // 화면 전환 타이밍 추가하기
         private void ImageChangeTimeAddButton_Click(object sender, RoutedEventArgs e)
         {
+            if (ImagesListBox.SelectedIndex == -1 || BackgroundColorSelector.SelectedIndex == -1 ||
+                DescriptorColorSelector.SelectedIndex == -1 || LyricsColorSelector.SelectedIndex == -1 ||
+                WatermarkColorSelector.SelectedIndex == -1) return;
+
             Boolean isValid = true;
             //Boolean isValid = false;
             //foreach (Keys key in noteTrigger)
