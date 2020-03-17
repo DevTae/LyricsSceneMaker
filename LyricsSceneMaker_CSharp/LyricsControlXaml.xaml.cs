@@ -816,8 +816,8 @@ namespace LyricsSceneMaker_CSharp
                 long nowTime = 0;
                 //string insertString = nowTime + "," + (int)e.Key; // opcode
                 string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
-                    + "|" + BackgroundColorSelector.SelectedIndex + "|" + DescriptorColorSelector.SelectedIndex
-                    + "|" + LyricsColorSelector.SelectedIndex + "|" + WatermarkColorSelector.SelectedIndex;
+                    + "!" + BackgroundColorSelector.SelectedIndex + "!" + DescriptorColorSelector.SelectedIndex
+                    + "!" + LyricsColorSelector.SelectedIndex + "!" + WatermarkColorSelector.SelectedIndex;
 
                 if (size == 0)
                 {
@@ -865,8 +865,8 @@ namespace LyricsSceneMaker_CSharp
                 long nowTime = audioFile.Position;
                 //string insertString = nowTime + "," + (int)e.Key; // opcode
                 string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
-                    + "|" + BackgroundColorSelector.SelectedIndex + "|" + DescriptorColorSelector.SelectedIndex
-                    + "|" + LyricsColorSelector.SelectedIndex + "|" + WatermarkColorSelector.SelectedIndex;
+                    + "!" + BackgroundColorSelector.SelectedIndex + "!" + DescriptorColorSelector.SelectedIndex
+                    + "!" + LyricsColorSelector.SelectedIndex + "!" + WatermarkColorSelector.SelectedIndex;
 
                 if (size == 0)
                 {

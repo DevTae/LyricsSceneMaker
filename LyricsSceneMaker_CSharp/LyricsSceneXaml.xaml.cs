@@ -124,7 +124,7 @@ namespace LyricsSceneMaker_CSharp
         // 컷 전환 함수
         private void transformImage(string data)
         {
-            string[] datas = data.Split('|');
+            string[] datas = data.Split('!');
             int index;
 
             ScenePictureBox.Source = new BitmapImage(new Uri(LyricsControlXaml.image_paths[int.Parse(datas[0])], UriKind.Absolute));
