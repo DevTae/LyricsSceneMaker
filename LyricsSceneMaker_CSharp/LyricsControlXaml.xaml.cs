@@ -298,10 +298,8 @@ namespace LyricsSceneMaker_CSharp
                 dr = System.Windows.Forms.MessageBox.Show("더블 클릭한 노트를 삭제하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == System.Windows.Forms.DialogResult.OK)
                 {
-                    ///////////////////////////
                     NotesListBox.Items.RemoveAt(selectedIndex);
-
-                    notesNowSelectedIndex--;
+                    if(notesNowSelectedIndex > 0) notesNowSelectedIndex--;
                 }
             }
             outputDevice.Play();
@@ -343,7 +341,7 @@ namespace LyricsSceneMaker_CSharp
                 if (dr == System.Windows.Forms.DialogResult.OK)
                 {
                     EffectsListBox.Items.RemoveAt(selectedIndex);
-                    formEffectNowSelectedIndex--;
+                    if (formEffectNowSelectedIndex > 0) formEffectNowSelectedIndex--;
                 }
             }
             outputDevice.Play();
