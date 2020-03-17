@@ -382,6 +382,16 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        private void EffectsListBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
+
+        private void EffectsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
         // NAudio 라이브러리를 통한 mp3 파일 재생 함수
         private void Replay_Click(object sender, RoutedEventArgs e)
         {
@@ -442,6 +452,16 @@ namespace LyricsSceneMaker_CSharp
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void NoteMake1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EffectMake1_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
