@@ -298,7 +298,9 @@ namespace LyricsSceneMaker_CSharp
                 dr = System.Windows.Forms.MessageBox.Show("더블 클릭한 노트를 삭제하시겠습니까?", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == System.Windows.Forms.DialogResult.OK)
                 {
+                    ///////////////////////////
                     NotesListBox.Items.RemoveAt(selectedIndex);
+
                     notesNowSelectedIndex--;
                 }
             }

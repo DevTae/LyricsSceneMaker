@@ -65,16 +65,18 @@ namespace LyricsSceneMaker_CSharp
                     DescriptorLabel.Visibility = Visibility.Visible;
                     LyricsLabel1.Visibility = Visibility.Visible;
                     LyricsLabel2.Visibility = Visibility.Visible;
-                    effectFunction1(data1, data2);
                 }
-                else
+                else if (EffectText.Visibility == Visibility.Visible)
                 {
-                    effectFunction1(data1, data2);
+                    EffectText.Visibility = Visibility.Hidden;
+                    LyricsLabel1.Visibility = Visibility.Visible;
+                    LyricsLabel2.Visibility = Visibility.Visible;
                 }
+                effectFunction1(data1, data2);
             }
             else if (opcode == (int)Keys.A)
             {
-                //formEffectFunction1();
+                formEffectFunction1();
             }
         }
 
@@ -85,13 +87,31 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="data2"></param>
         private void effectFunction1(string data1, string data2)
         {
-            LyricsLabel1.Text = data1;
-            LyricsLabel2.Text = data2;
+            if(data1 == null)
+            {
+                LyricsLabel1.Text = "";
+            }
+            else
+            {
+                LyricsLabel1.Text = data1;
+            }
+
+            if(data2 == null)
+            {
+                LyricsLabel2.Text = "";
+            }
+            else
+            {
+                LyricsLabel2.Text = data2;
+            }
         }
 
+        // 간주중
         private void formEffectFunction1()
         {
-            // mp4 혹은 gif 눈내리거나 비내리거나 사탕내리거나 천둥치거나 등등 자연효과가 제일 어울릴듯 해보임.
+            LyricsLabel1.Visibility = Visibility.Hidden;
+            LyricsLabel2.Visibility = Visibility.Hidden;
+            EffectText.Visibility = Visibility.Visible;
         }
 
         // this.dragmove 로 쉽게 창 드래그 기능을 구현할 수 있음
@@ -126,6 +146,7 @@ namespace LyricsSceneMaker_CSharp
         //    return new SolidColorBrush(System.Windows.Media.Color.FromArgb(a, r, g, b));
         //}
 
+        // 백그라운드 이미지 설정
         private void ScenePictureBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DialogResult dr = System.Windows.Forms.MessageBox.Show("백그라운드 이미지 변경 : 예(Yes)\r\n가우시안 블러 레디우스 변경(+10) : 아니요(No)\r\n해당 없음 : 취소(Cancel)", "Question", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -171,6 +192,7 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // 워터마크 이미지 설정
         private int ahdelron_index = 0;
         private void AhdelronPictureBox_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -185,6 +207,7 @@ namespace LyricsSceneMaker_CSharp
             AhdelronPictureBox.Source = ahdelron_pictures[ahdelron_index];
         }
 
+        // 가사 색깔 설정
         private int lyricsLabel_index = 0;
         private void LyricsLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -199,11 +222,14 @@ namespace LyricsSceneMaker_CSharp
             LyricsLabel1.Foreground = lyrics_colors[lyricsLabel_index];
             LyricsLabel2.Foreground = lyrics_colors[lyricsLabel_index];
             FirstLastText.Foreground = lyrics_colors[lyricsLabel_index];
+            EffectText.Foreground = lyrics_colors[lyricsLabel_index];
             LyricsLabel1.Background = lyrics_border_colors[lyricsLabel_index];
             LyricsLabel2.Background = lyrics_border_colors[lyricsLabel_index];
             FirstLastText.Background = lyrics_border_colors[lyricsLabel_index];
+            EffectText.Background = lyrics_border_colors[lyricsLabel_index];
         }
 
+        // 곡 이름 색깔 설정
         private int descriptor_index = 0;
         private void DescriptorLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
