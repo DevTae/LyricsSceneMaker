@@ -130,22 +130,22 @@ namespace LyricsSceneMaker_CSharp
         }
 
         // 화면 테마 모드
-        private BitmapImage[] ahdelron_pictures = new BitmapImage[] {
+        public static BitmapImage[] ahdelron_pictures = new BitmapImage[] {
             new BitmapImage(new Uri(@"images\아무레도_검은색.png", UriKind.RelativeOrAbsolute)),
             new BitmapImage(new Uri(@"images\아무래도_하얀색.png", UriKind.RelativeOrAbsolute))
         };
 
-        private SolidColorBrush[] descriptor_colors = new SolidColorBrush[] {
+        public static SolidColorBrush[] descriptor_colors = new SolidColorBrush[] {
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0, 0, 0)), // 검은색
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)) // 하얀색
         };
 
-        private SolidColorBrush[] lyrics_colors = new SolidColorBrush[] {
+        public static SolidColorBrush[] lyrics_colors = new SolidColorBrush[] {
             new SolidColorBrush(Colors.White), // 하얀색
             new SolidColorBrush(Colors.Black) // 검은색
         };
 
-        private SolidColorBrush[] lyrics_border_colors = new SolidColorBrush[] {
+        public static SolidColorBrush[] lyrics_border_colors = new SolidColorBrush[] {
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x60, 0, 0, 0)), // 검은색
             new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x60, 0xFF, 0xFF, 0xFF)) // 하얀색
         };

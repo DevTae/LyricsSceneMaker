@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
-        Title="LyricsControlXaml" Height="500" Width="600" Closing="Window_Closing">
+        Title="LyricsControlXaml" Height="600" Width="600" Closing="Window_Closing">
     <!--확장 전 width = 773, 확장 후 width = ?-->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -137,18 +137,18 @@
                 <Grid DockPanel.Dock="Right">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
+                        <!--<RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>-->
                     </Grid.RowDefinitions>
-                    <Button Name="ImageAddButton" Content="+" IsEnabled="False" Margin="5,5,5,5" Click="ImageAddButton_Click"
+                    <Button Name="ImageAddButton" Content="이미지 추가" IsEnabled="False" Margin="5,5,5,5" Click="ImageAddButton_Click"
                             Grid.Row="0"/>
-                    <Button Name="ImageListSaveButton" Content="리스트 저장" IsEnabled="False" Margin="5,5,5,5" Click="ImageListSaveButton_Click"
+                    <!--<Button Name="ImageListSaveButton" Content="리스트 저장" IsEnabled="False" Margin="5,5,5,5" Click="ImageListSaveButton_Click"
                             Grid.Row="1"/>
                     <Button Name="ImageListLoadButton" Content="리스트 불러오기" IsEnabled="False" Margin="5,5,5,5" Click="ImageListLoadButton_Click"
-                            Grid.Row="2"/>
+                            Grid.Row="2"/>-->
                 </Grid>
                 <ListBox Name="ImagesListBox" IsEnabled="False" Margin="5,5,5,5"
-                    MouseDoubleClick="EffectsListBox_MouseDoubleClick"/>
+                    MouseDoubleClick="ImagesListBox_MouseDoubleClick" SelectionChanged="ImagesListBox_SelectionChanged"/>
             </DockPanel>
             <DockPanel Grid.Row="1"  Margin="5,5,5,5">
                 <DockPanel.Resources>
@@ -157,32 +157,61 @@
                     </Style>
                 </DockPanel.Resources>
                 <DockPanel DockPanel.Dock="Top">
+                    <TextBlock Text="백그라운드 색:"/>
+                    <ComboBox Name="BackgroundColorSelector" IsEnabled="False" SelectionChanged="BackgroundColorSelector_SelectionChanged"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
                     <TextBlock Text="곡이름 색:"/>
-                    <ComboBox IsEnabled="False"/>
+                    <ComboBox Name="DescriptorColorSelector" IsEnabled="False" SelectionChanged="DescriptorColorSelector_SelectionChanged"/>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
                     <TextBlock Text="가사 색:"/>
-                    <ComboBox IsEnabled="False"/>
+                    <ComboBox Name="LyricsColorSelector" IsEnabled="False" SelectionChanged="LyricsColorSelector_SelectionChanged"/>
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
                     <TextBlock Text="워터마크 색:"/>
-                    <ComboBox IsEnabled="False"/>
+                    <ComboBox Name="WatermarkColorSelector" IsEnabled="False" SelectionChanged="WatermarkColorSelector_SelectionChanged"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock Text="&lt;Preview&gt;" DockPanel.Dock="Top"/>
-                    <Grid DockPanel.Dock="Bottom" MaxHeight="50">
+                    <Grid DockPanel.Dock="Bottom" MaxHeight="50" Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50*"/>
                             <ColumnDefinition Width="50*"/>
                         </Grid.ColumnDefinitions>
-                        <Button Name="InitialImageAddButton" Content="첫 장면 추가" IsEnabled="False" Margin="5,5,5,5"
-                            Click="InitialImageAddButton_Click" Grid.Column="0"/>
-                        <Button Name="ImageChangeTimeAddButton" Content="컷 추가" IsEnabled="False" Margin="5,5,5,5"
-                            Click="ImageChangeTimeAddButton_Click" Grid.Column="1"/>
+                        <Button Name="InitialImageAddButton" Content="첫 장면 추가" IsEnabled="False"
+                            Click="InitialImageAddButton_Click" Grid.Column="0" Margin="0,0,5,0"/>
+                        <Button Name="ImageChangeTimeAddButton" Content="컷 추가" IsEnabled="False"
+                            Click="ImageChangeTimeAddButton_Click" Grid.Column="2" Margin="5,0,0,0"/>
                     </Grid>
+
                     <Grid>
-                        <Image Name="CutPreviewImage"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="35*"/>
+                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="30*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            
+                        </Grid.ColumnDefinitions>
                         
+                        <Rectangle Name="Rectangle1" Fill="Black" Grid.RowSpan="8"/>
+                        <Image Name="PreviewImage" Grid.RowSpan="8"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Name="WatermarkImage" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <TextBlock Name="Descriptor" Grid.Row="1" Text="Song Name" FontSize="10" Foreground="White" TextAlignment="Center"/>
+                        <TextBlock Name="Lyrics1" Grid.Row="3" Text="&lt;Preview1&gt;" FontSize="10" Foreground="White" Background="#66000000" TextAlignment="Center" Padding="1"/>
+                        <TextBlock Name="Lyrics2" Grid.Row="5" Text="&lt;Preview2&gt;" FontSize="8" Foreground="White" Background="#66000000" TextAlignment="Center" Padding="1"/>
                     </Grid>
                     
                 </DockPanel>

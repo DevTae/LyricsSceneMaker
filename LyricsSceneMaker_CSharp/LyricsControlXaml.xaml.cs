@@ -44,7 +44,30 @@ namespace LyricsSceneMaker_CSharp
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            //timer.Start(); // reopen please
+
+            for(int i = 0; i < 2; i++)
+            {
+                BackgroundColorSelector.Items.Add(i.ToString());
+            }
+
+            foreach (SolidColorBrush color in LyricsSceneXaml.descriptor_colors)
+            {
+                DescriptorColorSelector.Items.Add(color.ToString());
+            }
+
+            foreach (SolidColorBrush color in LyricsSceneXaml.lyrics_colors)
+            {
+                LyricsColorSelector.Items.Add(color.ToString());
+            }
+
+            for (int i = 0; i < LyricsSceneXaml.ahdelron_pictures.Length; i++)
+            {
+                WatermarkColorSelector.Items.Add(i.ToString());
+            }
+
+            //test
+            OpenCutMaker.IsEnabled = true;
         }
 
         // 시간 맞춰서 데이터 Scene으로 전송
@@ -72,7 +95,10 @@ namespace LyricsSceneMaker_CSharp
             // 폼 이펙트 신호 보내기
             if (long.Parse(((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
             {
-                toscene(int.Parse(((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',')[1]), null, null);
+                int opcode = int.Parse(((string)EffectsListBox.Items[formEffectNowSelectedIndex]).Split(',')[1]);
+                // if(opcode == Keys.S) 데이터 전송
+
+                toscene(opcode, null, null);
 
                 // 현재 지점 폼 이펙트 정보 알려주기
                 EffectInformation.Content = (string)EffectsListBox.Items[formEffectNowSelectedIndex];
@@ -136,7 +162,7 @@ namespace LyricsSceneMaker_CSharp
             EffectsSaveButton.IsEnabled = true;
             NoteMake1.IsEnabled = true;
             EffectMake1.IsEnabled = true;
-            
+            OpenCutMaker.IsEnabled = true;
 
             // Song 개체 생성
             song = new Song(SongNameTextBox.Text, ArtistTextBox.Text, SelectFile.Content.ToString(), lines_lyrics);
@@ -679,34 +705,92 @@ namespace LyricsSceneMaker_CSharp
             Environment.Exit(0);
         }
 
+
+        /// <summary>
+        /// 컷 전환을 위한 기능 개발
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void OpenCutMaker_Click(object sender, RoutedEventArgs e)
         {
 
+            BackgroundColorSelector.IsEnabled = true;
+            ImagesListBox.IsEnabled = true;
+            ImageAddButton.IsEnabled = true;
+            //ImageListLoadButton.IsEnabled = true;
+            //ImageListSaveButton.IsEnabled = true;
+            DescriptorColorSelector.IsEnabled = true;
+            LyricsColorSelector.IsEnabled = true;
+            WatermarkColorSelector.IsEnabled = true;
+            InitialImageAddButton.IsEnabled = true;
+            ImageAddButton.IsEnabled = true;
         }
+
+        private void ImagesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            image_paths.RemoveAt(ImagesListBox.SelectedIndex);
+            ImagesListBox.Items.RemoveAt(ImagesListBox.SelectedIndex);
+        }
+
+        public static List<string> image_paths = new List<string>();
 
         private void ImageAddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "사진 파일 (*.jpg;*.jpeg;*.png;*.jfif;*.gif;)|*.jpg;*.jpeg;*.png;*.jfif;*.gif;";
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                image_paths.AddRange(ofd.FileNames);
+                foreach(string data in ofd.FileNames)
+                    ImagesListBox.Items.Add(data);
+            }
         }
 
-        private void ImageListSaveButton_Click(object sender, RoutedEventArgs e)
+        // 첫 화면 레이아웃 설정하기
+        private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void ImageListLoadButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        // 화면 전환 타이밍 추가하기
         private void ImageChangeTimeAddButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 미리보기 레이아웃 색깔 변경 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            PreviewImage.Source = new BitmapImage(new Uri(ImagesListBox.SelectedItem.ToString(), UriKind.Absolute));
+        }
 
+        private void BackgroundColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Rectangle1.Fill = LyricsSceneXaml.descriptor_colors[BackgroundColorSelector.SelectedIndex];
+        }
+
+        private void DescriptorColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Descriptor.Foreground = LyricsSceneXaml.lyrics_colors[DescriptorColorSelector.SelectedIndex];
+        }
+
+        private void LyricsColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Lyrics1.Foreground = LyricsSceneXaml.lyrics_colors[LyricsColorSelector.SelectedIndex];
+            Lyrics2.Foreground = LyricsSceneXaml.lyrics_colors[LyricsColorSelector.SelectedIndex];
+            Lyrics1.Background = LyricsSceneXaml.lyrics_border_colors[LyricsColorSelector.SelectedIndex];
+            Lyrics2.Background = LyricsSceneXaml.lyrics_border_colors[LyricsColorSelector.SelectedIndex];
+        }
+
+        private void WatermarkColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WatermarkImage.Source = LyricsSceneXaml.ahdelron_pictures[WatermarkColorSelector.SelectedIndex];
         }
     }
 }
