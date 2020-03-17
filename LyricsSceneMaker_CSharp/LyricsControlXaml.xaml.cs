@@ -730,7 +730,9 @@ namespace LyricsSceneMaker_CSharp
         private void ImagesListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             image_paths.RemoveAt(ImagesListBox.SelectedIndex);
-            ImagesListBox.Items.RemoveAt(ImagesListBox.SelectedIndex);
+            
+            int index = ImagesListBox.SelectedIndex;
+            ImagesListBox.Items.RemoveAt(index);
         }
 
         public static List<string> image_paths = new List<string>();
@@ -767,7 +769,9 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="e"></param>
         private void ImagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PreviewImage.Source = new BitmapImage(new Uri(ImagesListBox.SelectedItem.ToString(), UriKind.Absolute));
+            if (ImagesListBox.SelectedIndex == -1) return;
+            string selectedText = ImagesListBox.SelectedItem.ToString();
+            PreviewImage.Source = new BitmapImage(new Uri(selectedText, UriKind.Absolute));
         }
 
         private void BackgroundColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
