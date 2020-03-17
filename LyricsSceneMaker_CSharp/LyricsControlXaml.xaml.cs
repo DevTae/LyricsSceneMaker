@@ -411,7 +411,7 @@ namespace LyricsSceneMaker_CSharp
             sfd.InitialDirectory = @"C:\";
             sfd.RestoreDirectory = true;
             sfd.DefaultExt = "notes";
-            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text;
+            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FileStream fs = null;
@@ -452,7 +452,7 @@ namespace LyricsSceneMaker_CSharp
             sfd.InitialDirectory = @"C:\";
             sfd.RestoreDirectory = true;
             sfd.DefaultExt = "notes";
-            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text;
+            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FileStream fs = null;
@@ -542,7 +542,7 @@ namespace LyricsSceneMaker_CSharp
             sfd.InitialDirectory = @"C:\";
             sfd.RestoreDirectory = true;
             sfd.DefaultExt = "effects";
-            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text;
+            sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FileStream fs = null;

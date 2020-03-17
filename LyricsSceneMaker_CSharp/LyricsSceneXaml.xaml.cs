@@ -93,6 +93,8 @@ namespace LyricsSceneMaker_CSharp
             }
             else
             {
+                //LyricsLabel1.Visibility = Visibility.Hidden;
+                //LyricsLabel1.Visibility = Visibility.Visible;
                 LyricsLabel1.Text = data1;
             }
 
@@ -102,6 +104,8 @@ namespace LyricsSceneMaker_CSharp
             }
             else
             {
+                //LyricsLabel2.Visibility = Visibility.Hidden;
+                //LyricsLabel2.Visibility = Visibility.Visible;
                 LyricsLabel2.Text = data2;
             }
         }
