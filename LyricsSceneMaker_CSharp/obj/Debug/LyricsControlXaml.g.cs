@@ -312,6 +312,7 @@ namespace LyricsSceneMaker_CSharp
         internal System.Windows.Controls.Button EffectsLoadButton;
         internal System.Windows.Controls.Button NoteMake1;
         internal System.Windows.Controls.Button EffectMake1;
+        internal System.Windows.Controls.Label EffectInformation;
     }
 }
 
