@@ -652,6 +652,13 @@ namespace LyricsSceneMaker_CSharp
                 if (dr != System.Windows.Forms.DialogResult.OK) return;
             }
 
+            if(ImagesListBox.Items.Count == 0)
+            {
+                dr = System.Windows.Forms.MessageBox.Show("장면 이미지 파일을 모두 추가한게 맞습니까?", "Question",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr != System.Windows.Forms.DialogResult.OK) return;
+            }
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "폼 이펙트 데이터 파일 (*.effects)|*.effects";
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
