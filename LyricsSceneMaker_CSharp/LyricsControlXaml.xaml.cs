@@ -743,6 +743,8 @@ namespace LyricsSceneMaker_CSharp
                 WatermarkColorSelector.IsEnabled = true;
                 InitialImageAddButton.IsEnabled = true;
                 ImageChangeTimeAddButton.IsEnabled = true;
+                BlurTextBox.IsEnabled = true;
+                ImageChangeNoteTimeAddButton.IsEnabled = true;
                 ImageAddButton.IsEnabled = true;
                 OpenCutMaker.Content = "-";
             }
@@ -761,6 +763,8 @@ namespace LyricsSceneMaker_CSharp
                 WatermarkColorSelector.IsEnabled = false;
                 InitialImageAddButton.IsEnabled = false;
                 ImageChangeTimeAddButton.IsEnabled = false;
+                BlurTextBox.IsEnabled = false;
+                ImageChangeNoteTimeAddButton.IsEnabled = false;
                 ImageAddButton.IsEnabled = false;
                 OpenCutMaker.Content = "+";
             }
@@ -794,12 +798,49 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        // 첫 화면 레이아웃 추가하기
-        private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
+        // 장면 전환하는데 필요한 데이터 반환
+        private string GetInsertStringForScene(long nowTime)
+        {
+            return nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
+                    + "!" + BackgroundColorSelector.SelectedIndex + "!" + DescriptorColorSelector.SelectedIndex
+                    + "!" + LyricsColorSelector.SelectedIndex + "!" + WatermarkColorSelector.SelectedIndex
+                    + "!" + BlurTextBox.Text;
+        }
+
+        // 장면 타이밍 추가 가능한지 확인하는 함수
+        private bool IsPossibleToAddScene()
         {
             if (ImagesListBox.SelectedIndex == -1 || BackgroundColorSelector.SelectedIndex == -1 ||
                 DescriptorColorSelector.SelectedIndex == -1 || LyricsColorSelector.SelectedIndex == -1 ||
-                WatermarkColorSelector.SelectedIndex == -1) return;
+                WatermarkColorSelector.SelectedIndex == -1 || !IsValidBlurValue(BlurTextBox.Text)) return false;
+            return true;
+        }
+
+        // 블러 텍스트박스 값이 유효한지 확인하는 함수
+        private bool IsValidBlurValue(string text)
+        {
+            double data;
+            if (double.TryParse(text, out data))
+            {
+                if (data >= 0 && data <= 100)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // 첫 화면 레이아웃 추가하기
+        private void InitialImageAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsPossibleToAddScene()) return;
                 
             Boolean isValid = true;
             //Boolean isValid = false;
@@ -819,9 +860,7 @@ namespace LyricsSceneMaker_CSharp
                 //long nowTime = audioFile.Position;
                 long nowTime = 0;
                 //string insertString = nowTime + "," + (int)e.Key; // opcode
-                string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
-                    + "!" + BackgroundColorSelector.SelectedIndex + "!" + DescriptorColorSelector.SelectedIndex
-                    + "!" + LyricsColorSelector.SelectedIndex + "!" + WatermarkColorSelector.SelectedIndex;
+                string insertString = GetInsertStringForScene(nowTime);
 
                 if (size == 0)
                 {
@@ -848,12 +887,64 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // 노트 리스트 선택한 타이밍에 추가하기
+        private void ImageChangeNoteTimeAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedIndex = NotesListBox.SelectedIndex;
+            string data = (string)NotesListBox.Items[selectedIndex];
+
+            if (selectedIndex == -1) return;
+
+            if (!IsPossibleToAddScene()) return;
+
+            Boolean isValid = true;
+            //Boolean isValid = false;
+            //foreach (Keys key in noteTrigger)
+            //{
+            //    if (e.Key.Equals(key))
+            //    {
+            //        isValid = true;
+            //        break;
+            //    }
+            //}
+            if (isValid)
+            {
+                int size = EffectsListBox.Items.Count;
+
+                int insertIndex = 0;
+                long nowTime = long.Parse(data.Split(',')[0]);
+                //string insertString = nowTime + "," + (int)e.Key; // opcode
+                string insertString = GetInsertStringForScene(nowTime);
+
+                if (size == 0)
+                {
+                    EffectsListBox.Items.Insert(insertIndex, insertString);
+                }
+                else
+                {
+                    // Big-O : O(logn)
+                    // later ~ 이분탐색 구현
+                    Boolean isInserted = false;
+                    foreach (string item in EffectsListBox.Items)
+                    {
+                        if (long.Parse(item.Split(',')[0]) > nowTime)
+                        {
+                            EffectsListBox.Items.Insert(insertIndex, insertString);
+                            isInserted = true;
+                            break;
+                        }
+                        insertIndex++;
+                    }
+                    if (!isInserted) EffectsListBox.Items.Insert(size, insertString);
+                }
+                //formEffectNowSelectedIndex = insertIndex;
+            }
+        }
+
         // 화면 전환 타이밍 추가하기
         private void ImageChangeTimeAddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ImagesListBox.SelectedIndex == -1 || BackgroundColorSelector.SelectedIndex == -1 ||
-                DescriptorColorSelector.SelectedIndex == -1 || LyricsColorSelector.SelectedIndex == -1 ||
-                WatermarkColorSelector.SelectedIndex == -1) return;
+            if (!IsPossibleToAddScene()) return;
 
             Boolean isValid = true;
             //Boolean isValid = false;
@@ -872,9 +963,7 @@ namespace LyricsSceneMaker_CSharp
                 int insertIndex = 0;
                 long nowTime = audioFile.Position;
                 //string insertString = nowTime + "," + (int)e.Key; // opcode
-                string insertString = nowTime + "," + (int)Keys.C + "," + ImagesListBox.SelectedIndex
-                    + "!" + BackgroundColorSelector.SelectedIndex + "!" + DescriptorColorSelector.SelectedIndex
-                    + "!" + LyricsColorSelector.SelectedIndex + "!" + WatermarkColorSelector.SelectedIndex;
+                string insertString = GetInsertStringForScene(nowTime);
 
                 if (size == 0)
                 {
@@ -934,6 +1023,14 @@ namespace LyricsSceneMaker_CSharp
         private void WatermarkColorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WatermarkImage.Source = LyricsSceneXaml.ahdelron_pictures[WatermarkColorSelector.SelectedIndex];
+        }
+
+        private void BlurTextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if(IsValidBlurValue(BlurTextBox.Text))
+            {
+                BlurValue.Radius = double.Parse(BlurTextBox.Text);
+            }
         }
     }
 }

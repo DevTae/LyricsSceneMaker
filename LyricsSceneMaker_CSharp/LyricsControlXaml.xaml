@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
-        Title="LyricsControlXaml" Height="600" Width="600" Closing="Window_Closing">
+        Title="LyricsControlXaml" Height="700" Width="600" Closing="Window_Closing">
     <!--확장 전 width = 773, 확장 후 width = ?-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FirstGridColumn" Width="1*"/>
             <ColumnDefinition x:Name="SecondGridColumn" Width="1*"/>
-            <ColumnDefinition x:Name="ThirdGridColumn" Width="0*"/>
+            <ColumnDefinition x:Name="ThirdGridColumn" Width="1*"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
@@ -172,15 +172,22 @@
                     <TextBlock Text="워터마크 색:"/>
                     <ComboBox Name="WatermarkColorSelector" IsEnabled="False" SelectionChanged="WatermarkColorSelector_SelectionChanged"/>
                 </DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
+                    <TextBlock Text="블러 계수:"/>
+                    <TextBox Name="BlurTextBox" IsEnabled="False" SelectionChanged="BlurTextBox_SelectionChanged"/>
+                </DockPanel>
                 <DockPanel>
                     <TextBlock Text="&lt;Preview&gt;" DockPanel.Dock="Top"/>
                     <Grid DockPanel.Dock="Bottom" MaxHeight="50" Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Button Name="InitialImageAddButton" Content="첫 장면 추가" IsEnabled="False"
                             Click="InitialImageAddButton_Click" Grid.Column="0" Margin="0,0,5,0"/>
+                        <Button Name="ImageChangeNoteTimeAddButton" Content="노트에 추가" IsEnabled="False"
+                            Click="ImageChangeNoteTimeAddButton_Click" Grid.Column="1"/>
                         <Button Name="ImageChangeTimeAddButton" Content="컷 추가" IsEnabled="False"
                             Click="ImageChangeTimeAddButton_Click" Grid.Column="2" Margin="5,0,0,0"/>
                     </Grid>
@@ -199,9 +206,13 @@
                         <Grid.ColumnDefinitions>
                             
                         </Grid.ColumnDefinitions>
-                        
-                        <Rectangle Name="Rectangle1" Fill="Black" Grid.RowSpan="8"/>
-                        <Image Name="PreviewImage" Grid.RowSpan="8"/>
+                        <Grid Grid.RowSpan="8">
+                            <Grid.Effect>
+                                <BlurEffect x:Name="BlurValue" Radius="0"/>
+                            </Grid.Effect>
+                            <Rectangle Name="Rectangle1" Fill="Black"/>
+                            <Image Name="PreviewImage" />
+                        </Grid>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80*"/>
