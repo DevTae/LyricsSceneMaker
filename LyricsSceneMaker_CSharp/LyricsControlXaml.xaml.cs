@@ -12,6 +12,8 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -863,6 +865,7 @@ namespace LyricsSceneMaker_CSharp
         private bool IsValidBlurValue(string text)
         {
             double data;
+            text = text.Replace("b", ""); // b는 bounce의 첫글자
             if (double.TryParse(text, out data))
             {
                 if (data >= 0 && data <= 100)
@@ -1099,11 +1102,36 @@ namespace LyricsSceneMaker_CSharp
             WatermarkImage.Source = LyricsSceneXaml.ahdelron_pictures[WatermarkColorSelector.SelectedIndex];
         }
 
-        private void BlurTextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        double blur_memo_data;
+        private void BlurTextBox_TextChanged(object sender, RoutedEventArgs e)
         {
             if(IsValidBlurValue(BlurTextBox.Text))
             {
-                BlurValue.Radius = double.Parse(BlurTextBox.Text);
+                if(BlurTextBox.Text.Contains("b"))
+                {
+                    var animation = new DoubleAnimation
+                    {
+                        From = blur_memo_data,
+                        To = double.Parse(BlurTextBox.Text.Replace("b", "")),
+                        Duration = TimeSpan.FromMilliseconds(300),
+                        AutoReverse = true
+                    };
+                    PreviewImage.Effect = new BlurEffect();
+                    PreviewImage.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+                }
+                else
+                {
+                    var animation = new DoubleAnimation
+                    {
+                        From = blur_memo_data,
+                        To = double.Parse(BlurTextBox.Text),
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        AutoReverse = false
+                    };
+                    blur_memo_data = double.Parse(BlurTextBox.Text);
+                    PreviewImage.Effect = new BlurEffect();
+                    PreviewImage.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+                }
             }
         }
 
@@ -1129,5 +1157,6 @@ namespace LyricsSceneMaker_CSharp
                 ImageModifyButton.Visibility = Visibility.Hidden;
             }
         }
+
     }
 }

@@ -174,7 +174,7 @@
                 </DockPanel>
                 <DockPanel DockPanel.Dock="Top" Margin="0,5,0,0">
                     <TextBlock Text="블러 계수:"/>
-                    <TextBox Name="BlurTextBox" IsEnabled="False" SelectionChanged="BlurTextBox_SelectionChanged"/>
+                    <TextBox Name="BlurTextBox" IsEnabled="False" TextChanged="BlurTextBox_TextChanged"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock Name="PreviewTextBlock" Text="&lt;Preview&gt; - 일반모드" DockPanel.Dock="Top" MouseDown="PreviewTextBlock_MouseDown"

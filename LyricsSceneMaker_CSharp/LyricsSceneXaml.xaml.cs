@@ -12,6 +12,8 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -122,6 +124,7 @@ namespace LyricsSceneMaker_CSharp
         }
 
         // 컷 전환 함수
+        double blur_memo_data;
         private void transformImage(string data)
         {
             string[] datas = data.Split('!');
@@ -172,10 +175,30 @@ namespace LyricsSceneMaker_CSharp
 
             if (data_length >= i++)
             {
-                double value;
-                if (double.TryParse(datas[5], out value))
+                if (datas[p].Contains("b"))
                 {
-                    blurEffect.Radius = value;
+                    var animation = new DoubleAnimation
+                    {
+                        From = blur_memo_data,
+                        To = double.Parse(datas[p++].Replace("b", "")),
+                        Duration = TimeSpan.FromMilliseconds(300),
+                        AutoReverse = true
+                    };
+                    ScenePictureBox.Effect = new BlurEffect();
+                    ScenePictureBox.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
+                }
+                else
+                {
+                    var animation = new DoubleAnimation
+                    {
+                        From = blur_memo_data,
+                        To = double.Parse(datas[p++]),
+                        Duration = TimeSpan.FromMilliseconds(1000),
+                        AutoReverse = false
+                    };
+                    blur_memo_data = (double)animation.To;
+                    ScenePictureBox.Effect = new BlurEffect();
+                    ScenePictureBox.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
                 }
             }
 
