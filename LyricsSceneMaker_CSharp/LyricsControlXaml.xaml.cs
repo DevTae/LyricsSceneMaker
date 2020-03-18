@@ -483,8 +483,6 @@ namespace LyricsSceneMaker_CSharp
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "가사 데이터 파일 (*.lyrics)|*.lyrics";
-            sfd.InitialDirectory = @"C:\";
-            sfd.RestoreDirectory = true;
             sfd.DefaultExt = "lyrics";
             sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -524,8 +522,6 @@ namespace LyricsSceneMaker_CSharp
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "노트 데이터 파일 (*.notes)|*.notes";
-            sfd.InitialDirectory = @"C:\";
-            sfd.RestoreDirectory = true;
             sfd.DefaultExt = "notes";
             sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -614,8 +610,6 @@ namespace LyricsSceneMaker_CSharp
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "폼 이펙트 데이터 파일 (*.effects)|*.effects";
-            sfd.InitialDirectory = @"C:\";
-            sfd.RestoreDirectory = true;
             sfd.DefaultExt = "effects";
             sfd.FileName = ArtistTextBox.Text + "-" + SongNameTextBox.Text.Replace("|", " ");
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
