@@ -125,32 +125,60 @@ namespace LyricsSceneMaker_CSharp
         private void transformImage(string data)
         {
             string[] datas = data.Split('!');
-            int index;
+            int index, i = 1, p = 0;
+            int data_length = datas.Length;
 
-            ScenePictureBox.Source = new BitmapImage(new Uri(LyricsControlXaml.image_paths[int.Parse(datas[0])], UriKind.Absolute));
-            Rectangle1.Fill = descriptor_colors[int.Parse(datas[1])];
+            if (data_length >= i++)
+                if (int.TryParse(datas[p++], out index))
+                {
+                    ScenePictureBox.Source = new BitmapImage(new Uri(LyricsControlXaml.image_paths[index], UriKind.Absolute));
+                }
 
-            index = int.Parse(datas[2]);
-            descriptor_index = index;
-            DescriptorLabel.Foreground = descriptor_colors[index];
 
-            index = int.Parse(datas[3]);
-            lyricsLabel_index = index;
-            LyricsLabel1.Foreground = lyrics_colors[index];
-            LyricsLabel2.Foreground = lyrics_colors[index];
-            FirstLastText.Foreground = lyrics_colors[index];
-            EffectText.Foreground = lyrics_colors[index];
-            LyricsLabel1.Background = lyrics_border_colors[index];
-            LyricsLabel2.Background = lyrics_border_colors[index];
-            FirstLastText.Background = lyrics_border_colors[index];
-            EffectText.Background = lyrics_border_colors[index];
+            if (data_length >= i++)
+                if (int.TryParse(datas[p++], out index))
+                {
+                    Rectangle1.Fill = descriptor_colors[index];
+                }
 
-            index = int.Parse(datas[4]);
-            ahdelron_index = index;
-            AhdelronPictureBox.Source = ahdelron_pictures[index];
+            if (data_length >= i++)
 
-            double value = double.Parse(datas[5]);
-            blurEffect.Radius = value;
+                if (int.TryParse(datas[p++], out index))
+                {
+                    descriptor_index = index;
+                    DescriptorLabel.Foreground = descriptor_colors[index];
+                }
+
+            if (data_length >= i++)
+                if (int.TryParse(datas[p++], out index))
+                {
+                    lyricsLabel_index = index;
+                    LyricsLabel1.Foreground = lyrics_colors[index];
+                    LyricsLabel2.Foreground = lyrics_colors[index];
+                    FirstLastText.Foreground = lyrics_colors[index];
+                    EffectText.Foreground = lyrics_colors[index];
+                    LyricsLabel1.Background = lyrics_border_colors[index];
+                    LyricsLabel2.Background = lyrics_border_colors[index];
+                    FirstLastText.Background = lyrics_border_colors[index];
+                    EffectText.Background = lyrics_border_colors[index];
+                }
+
+            if (data_length >= i++)
+                if (int.TryParse(datas[p++], out index))
+                {
+                    ahdelron_index = index;
+                    AhdelronPictureBox.Source = ahdelron_pictures[index];
+                }
+
+            if (data_length >= i++)
+            {
+                double value;
+                if (double.TryParse(datas[5], out value))
+                {
+                    blurEffect.Radius = value;
+                }
+            }
+
         }
 
         // this.dragmove 로 쉽게 창 드래그 기능을 구현할 수 있음

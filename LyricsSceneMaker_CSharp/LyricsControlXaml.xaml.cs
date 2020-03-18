@@ -111,16 +111,30 @@ namespace LyricsSceneMaker_CSharp
                     if (opcode == (int)Keys.C)
                     {
                         // 편집모드일 경우에는 항상 활성화 시킴
-                        if(PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
+                        if (PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
                         {
                             sceneNowSelectedIndex = formEffectNowSelectedIndex;
                             string[] monitoring = datas[2].Split('!');
-                            ImagesListBox.SelectedIndex = int.Parse(monitoring[0]);
-                            BackgroundColorSelector.SelectedIndex = int.Parse(monitoring[1]);
-                            DescriptorColorSelector.SelectedIndex = int.Parse(monitoring[2]);
-                            LyricsColorSelector.SelectedIndex = int.Parse(monitoring[3]);
-                            WatermarkColorSelector.SelectedIndex = int.Parse(monitoring[4]);
-                            BlurTextBox.Text = monitoring[5];
+                            int i = 1;
+                            int monitoring_length = monitoring.Length;
+
+                            if (monitoring_length >= i++)
+                                ImagesListBox.SelectedIndex = int.Parse(monitoring[0]);
+
+                            if (monitoring_length >= i++)
+                                BackgroundColorSelector.SelectedIndex = int.Parse(monitoring[1]);
+
+                            if (monitoring_length >= i++)
+                                DescriptorColorSelector.SelectedIndex = int.Parse(monitoring[2]);
+
+                            if (monitoring_length >= i++)
+                                LyricsColorSelector.SelectedIndex = int.Parse(monitoring[3]);
+
+                            if (monitoring_length >= i++)
+                                WatermarkColorSelector.SelectedIndex = int.Parse(monitoring[4]);
+
+                            if (monitoring_length >= i++)
+                                BlurTextBox.Text = monitoring[5];
                         }
                         toscene(opcode, datas[2], null);
                     }
@@ -745,7 +759,7 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
-        // 컨트롤 추가 시 여기서 보강좀 부탁
+        // 모드 전환 이벤트
         private void OpenCutMaker_Click(object sender, RoutedEventArgs e)
         {
             if(OpenCutMaker.Content.Equals("+"))
@@ -1086,7 +1100,7 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
-        // 일반모드 / 편집모드 정할 수 있게 하는 것
+        // 일반모드 / 편집모드 변환 이벤트
         private void PreviewTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(PreviewTextBlock.Text.Equals("<Preview> - 일반모드"))
