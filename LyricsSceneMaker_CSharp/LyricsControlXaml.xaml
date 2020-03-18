@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricsSceneMaker_CSharp"
         mc:Ignorable="d"
-        Title="LyricsControlXaml" Height="700" Width="600" Closing="Window_Closing">
+        Title="LyricsControlXaml" Height="550" Width="600" Closing="Window_Closing" ResizeMode="NoResize">
     <!--확장 전 width = 773, 확장 후 width = ?-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="FirstGridColumn" Width="1*"/>
             <ColumnDefinition x:Name="SecondGridColumn" Width="1*"/>
-            <ColumnDefinition x:Name="ThirdGridColumn" Width="1*"/>
+            <ColumnDefinition x:Name="ThirdGridColumn" Width="0*"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
@@ -177,7 +177,8 @@
                     <TextBox Name="BlurTextBox" IsEnabled="False" SelectionChanged="BlurTextBox_SelectionChanged"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="&lt;Preview&gt;" DockPanel.Dock="Top"/>
+                    <TextBlock Name="PreviewTextBlock" Text="&lt;Preview&gt; - 일반모드" DockPanel.Dock="Top" MouseDown="PreviewTextBlock_MouseDown"
+                               Cursor="Hand"/>
                     <Grid DockPanel.Dock="Bottom" MaxHeight="50" Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -190,6 +191,8 @@
                             Click="ImageChangeNoteTimeAddButton_Click" Grid.Column="1"/>
                         <Button Name="ImageChangeTimeAddButton" Content="컷 추가" IsEnabled="False"
                             Click="ImageChangeTimeAddButton_Click" Grid.Column="2" Margin="5,0,0,0"/>
+                        <Button Name="ImageModifyButton" Content="수정" IsEnabled="False" Visibility="Hidden" Grid.ColumnSpan="3"
+                                Click="ImageModifyButton_Click"/>
                     </Grid>
 
                     <Grid>

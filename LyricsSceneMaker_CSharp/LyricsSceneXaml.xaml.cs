@@ -148,6 +148,9 @@ namespace LyricsSceneMaker_CSharp
             index = int.Parse(datas[4]);
             ahdelron_index = index;
             AhdelronPictureBox.Source = ahdelron_pictures[index];
+
+            double value = double.Parse(datas[5]);
+            blurEffect.Radius = value;
         }
 
         // this.dragmove 로 쉽게 창 드래그 기능을 구현할 수 있음

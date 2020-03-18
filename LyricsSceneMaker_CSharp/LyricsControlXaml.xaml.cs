@@ -29,6 +29,7 @@ namespace LyricsSceneMaker_CSharp
         private Song song;
         private int notesNowSelectedIndex = 0;
         private int formEffectNowSelectedIndex = 0;
+        private int sceneNowSelectedIndex = -1;
 
         // 특수효과 키 추가하려면 이 변수를 수정하면 됨. // 필요 없을듯
         //private Keys[] noteTrigger = { Keys.Enter, Keys.Space };
@@ -87,6 +88,9 @@ namespace LyricsSceneMaker_CSharp
                     // 현재 지점 Note 정보 알려주기
                     NoteInformation.Content = (string)NotesListBox.Items[notesNowSelectedIndex];
 
+                    // NotesListBox SelectedIndex 변경
+                    NotesListBox.SelectedIndex = notesNowSelectedIndex;
+
                     // 다음 가사 기다리기 시작
                     notesNowSelectedIndex++;
                 }
@@ -106,12 +110,27 @@ namespace LyricsSceneMaker_CSharp
 
                     if (opcode == (int)Keys.C)
                     {
+                        // 편집모드일 경우에는 항상 활성화 시킴
+                        if(PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
+                        {
+                            sceneNowSelectedIndex = formEffectNowSelectedIndex;
+                            string[] monitoring = datas[2].Split('!');
+                            ImagesListBox.SelectedIndex = int.Parse(monitoring[0]);
+                            BackgroundColorSelector.SelectedIndex = int.Parse(monitoring[1]);
+                            DescriptorColorSelector.SelectedIndex = int.Parse(monitoring[2]);
+                            LyricsColorSelector.SelectedIndex = int.Parse(monitoring[3]);
+                            WatermarkColorSelector.SelectedIndex = int.Parse(monitoring[4]);
+                            BlurTextBox.Text = monitoring[5];
+                        }
                         toscene(opcode, datas[2], null);
                     }
                     else
                     {
                         toscene(opcode, null, null);
                     }
+
+                    // EffectsListBox SelectedIndex 변경
+                    EffectsListBox.SelectedIndex = formEffectNowSelectedIndex;
 
                     // 현재 지점 폼 이펙트 정보 알려주기
                     EffectInformation.Content = (string)EffectsListBox.Items[formEffectNowSelectedIndex];
@@ -726,6 +745,7 @@ namespace LyricsSceneMaker_CSharp
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
+        // 컨트롤 추가 시 여기서 보강좀 부탁
         private void OpenCutMaker_Click(object sender, RoutedEventArgs e)
         {
             if(OpenCutMaker.Content.Equals("+"))
@@ -746,6 +766,7 @@ namespace LyricsSceneMaker_CSharp
                 BlurTextBox.IsEnabled = true;
                 ImageChangeNoteTimeAddButton.IsEnabled = true;
                 ImageAddButton.IsEnabled = true;
+                ImageModifyButton.IsEnabled = true;
                 OpenCutMaker.Content = "-";
             }
             else if(OpenCutMaker.Content.Equals("-"))
@@ -766,6 +787,7 @@ namespace LyricsSceneMaker_CSharp
                 BlurTextBox.IsEnabled = false;
                 ImageChangeNoteTimeAddButton.IsEnabled = false;
                 ImageAddButton.IsEnabled = false;
+                ImageModifyButton.IsEnabled = false;
                 OpenCutMaker.Content = "+";
             }
             
@@ -990,6 +1012,37 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // 씬 설정 변경을 적용하는 이벤트
+        private void ImageModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsPossibleToAddScene()) return;
+
+            Boolean isValid = true;
+            //Boolean isValid = false;
+            //foreach (Keys key in noteTrigger)
+            //{
+            //    if (e.Key.Equals(key))
+            //    {
+            //        isValid = true;
+            //        break;
+            //    }
+            //}
+            if (isValid)
+            {
+                int size = EffectsListBox.Items.Count;
+                if (size == 0 || sceneNowSelectedIndex == -1) return;
+
+                long nowTime = long.Parse(EffectsListBox.Items[sceneNowSelectedIndex].ToString().Split(',')[0]);
+                //string insertString = nowTime + "," + (int)e.Key; // opcode
+                string insertString = GetInsertStringForScene(nowTime);
+
+                EffectsListBox.Items.RemoveAt(sceneNowSelectedIndex);
+                EffectsListBox.Items.Insert(sceneNowSelectedIndex, insertString);
+
+                formEffectNowSelectedIndex = sceneNowSelectedIndex;
+            }
+        }
+
         /// <summary>
         /// 미리보기 레이아웃 색깔 변경 이벤트
         /// </summary>
@@ -1030,6 +1083,29 @@ namespace LyricsSceneMaker_CSharp
             if(IsValidBlurValue(BlurTextBox.Text))
             {
                 BlurValue.Radius = double.Parse(BlurTextBox.Text);
+            }
+        }
+
+        // 일반모드 / 편집모드 정할 수 있게 하는 것
+        private void PreviewTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(PreviewTextBlock.Text.Equals("<Preview> - 일반모드"))
+            {
+                // 편집모드로 변경
+                PreviewTextBlock.Text = "<Preview> - 편집모드";
+                InitialImageAddButton.Visibility = Visibility.Hidden;
+                ImageChangeNoteTimeAddButton.Visibility = Visibility.Hidden;
+                ImageChangeTimeAddButton.Visibility = Visibility.Hidden;
+                ImageModifyButton.Visibility = Visibility.Visible;
+            }
+            else if(PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
+            {
+                // 일반모드로 변경
+                PreviewTextBlock.Text = "<Preview> - 일반모드";
+                InitialImageAddButton.Visibility = Visibility.Visible;
+                ImageChangeNoteTimeAddButton.Visibility = Visibility.Visible;
+                ImageChangeTimeAddButton.Visibility = Visibility.Visible;
+                ImageModifyButton.Visibility = Visibility.Hidden;
             }
         }
     }
