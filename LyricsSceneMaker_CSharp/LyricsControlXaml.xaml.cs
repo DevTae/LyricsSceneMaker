@@ -32,6 +32,7 @@ namespace LyricsSceneMaker_CSharp
         private int notesNowSelectedIndex = 0;
         private int formEffectNowSelectedIndex = 0;
         private int sceneNowSelectedIndex = -1;
+        private Boolean isPopMode = false;
 
         // 특수효과 키 추가하려면 이 변수를 수정하면 됨. // 필요 없을듯
         //private Keys[] noteTrigger = { Keys.Enter, Keys.Space };
@@ -77,15 +78,23 @@ namespace LyricsSceneMaker_CSharp
 
             if (size == 0 || size - 1 < notesNowSelectedIndex || audioFile == null || outputDevice == null)
             {
-                // nothing to do 
+                // nothing to do
             }
             else
             {
                 // 노트 신호 보내기
                 if (long.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[0]) <= audioFile.Position)
                 {
-                    toscene(int.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
-                        (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
+                    // 알맞은 신호 보내기
+                    if(isPopMode)
+                    {
+                        // 한글 한 줄, 영어 한 줄씩 보내기
+                    }
+                    else
+                    {
+                        toscene(int.Parse(((string)NotesListBox.Items[notesNowSelectedIndex]).Split(',')[1]), song.Lyrics[notesNowSelectedIndex],
+                            (song.Lyrics.Length > notesNowSelectedIndex + 1) ? song.Lyrics[notesNowSelectedIndex + 1] : null);
+                    }
 
                     // 현재 지점 Note 정보 알려주기
                     NoteInformation.Content = (string)NotesListBox.Items[notesNowSelectedIndex];
@@ -100,7 +109,7 @@ namespace LyricsSceneMaker_CSharp
 
             if (EffectsListBox.Items.Count - 1 < formEffectNowSelectedIndex)
             {
-                // nothing to do 
+                // nothing to do
             }
             else
             {
@@ -191,6 +200,14 @@ namespace LyricsSceneMaker_CSharp
             // 가사 입력된 것을 string[] 배열에 저장해준다.
             string[] lines_lyrics = LyricsTextBox.Text.Split('\n');
 
+            // Song 개체 생성
+            song = new Song(SongNameTextBox.Text, ArtistTextBox.Text, SelectFile.Content.ToString(), lines_lyrics);
+            notesNowSelectedIndex = 0;
+            formEffectNowSelectedIndex = 0;
+
+            // 모두 변환했을 때 song Lyrics와 같지 않을 경우 실패를 반환
+
+
             // 모드 변환 (곡 정보 입력 창 -> 가사 싱크 맞추는 폼)
             // 컨트롤 좌측 이동 및 크기 작아지게
             ArtistTextBox.IsEnabled = false;
@@ -213,11 +230,6 @@ namespace LyricsSceneMaker_CSharp
             NoteMake1.IsEnabled = true;
             EffectMake1.IsEnabled = true;
             OpenCutMaker.IsEnabled = true;
-
-            // Song 개체 생성
-            song = new Song(SongNameTextBox.Text, ArtistTextBox.Text, SelectFile.Content.ToString(), lines_lyrics);
-            notesNowSelectedIndex = 0;
-            formEffectNowSelectedIndex = 0;
 
             // Scene 폼에 곡 이름, 아티스트 정보를 넘겨준다.
             toscene(0, ArtistTextBox.Text, SongNameTextBox.Text);
@@ -649,7 +661,7 @@ namespace LyricsSceneMaker_CSharp
                 if (dr != System.Windows.Forms.DialogResult.OK) return;
             }
 
-            if(ImagesListBox.Items.Count == 0)
+            if(!isPopMode && ImagesListBox.Items.Count == 0)
             {
                 dr = System.Windows.Forms.MessageBox.Show("장면 이미지 파일을 모두 추가한게 맞습니까?", "Question",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -1090,6 +1102,7 @@ namespace LyricsSceneMaker_CSharp
         {
             TurnToPopMode.IsEnabled = false;
             toscene(-1, null, null);
+            isPopMode = true;
 
             // 컷 전환 버튼 삭제
             EffectButtonGrid.Children.Remove((UIElement)FindName("OpenCutMaker"));
@@ -1104,10 +1117,10 @@ namespace LyricsSceneMaker_CSharp
             DockPanel1.Children.Add(AddKorLyricsButton);
         }
 
-        // 한글 가사 추가 이벤트
+        // 한글 가사 추가 이벤트 // 아직 개발 안된 부분.
         private void AddKorLyricsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         /// <summary>
