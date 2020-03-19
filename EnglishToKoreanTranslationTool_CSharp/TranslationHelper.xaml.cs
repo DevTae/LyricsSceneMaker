@@ -22,6 +22,9 @@ namespace EnglishToKoreanTranslationTool_CSharp
     {
         // TODO: 모르는 단어를 찾아봤을 때는 단어장에 저장해서 다음에 똑같은 단어가 나온다면 도움을 줄 수 있게 하면 좋겠다.
 
+        string[] lyrics_data = null;
+        System.Windows.Controls.ListView EngLyricsListView;
+
         public TranslationHelper()
         {
             InitializeComponent();
@@ -52,15 +55,28 @@ namespace EnglishToKoreanTranslationTool_CSharp
         // 불러온 영어 자막을 바탕으로 초기 세팅하기 // 가정 : 이미 가공된 lyrics 파일이어야 함.
         private void InitializeButton_Click(object sender, RoutedEventArgs e)
         {
+            if (EngLyricsTextBox.Text.Equals("")) return;
+
             EngLyricsLoadButton.IsEnabled = false;
+            InitializeButton.IsEnabled = false;
+
+            // 가사 정보 인지하기
+            lyrics_data = EngLyricsTextBox.Text.Split('\n');
+            for(int i = 0; i < lyrics_data.Length; i++)
+            {
+                lyrics_data[i] = lyrics_data[i].Replace("\r", "");
+            }
+            
+            // 리스트뷰 컨트롤 추가하기
             LeftDock.Children.Remove((UIElement)FindName("EngLyricsTextBox"));
-            System.Windows.Controls.ListView listView = new System.Windows.Controls.ListView();
-            listView.Name = "EngLyricsListView";
-            listView.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x4C, 0xFF, 0xFF, 0xFF));
-            listView.Foreground = new SolidColorBrush(Colors.Black);
-            listView.FontFamily = new FontFamily("/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar");
-            listView.FontSize = 18;
-            LeftDock.Children.Add(listView);
+            EngLyricsListView = new System.Windows.Controls.ListView();
+            EngLyricsListView.Name = "EngLyricsListView";
+            EngLyricsListView.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x4C, 0xFF, 0xFF, 0xFF));
+            EngLyricsListView.Foreground = new SolidColorBrush(Colors.Black);
+            EngLyricsListView.FontFamily = new FontFamily("/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar");
+            EngLyricsListView.FontSize = 18;
+            LeftDock.Children.Add(EngLyricsListView);
+            
         }
 
         // 번역할 데이터 힌트 추기
@@ -76,6 +92,12 @@ namespace EnglishToKoreanTranslationTool_CSharp
             {
 
             }
+        }
+
+        // 리스트뷰에 값 추가하기 (실패한 상태로)
+        private void RejectButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         // 리스트뷰에 값 추가하기
@@ -95,5 +117,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
         {
 
         }
+
+        
     }
 }
