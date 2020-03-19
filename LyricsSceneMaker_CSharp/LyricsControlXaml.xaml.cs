@@ -1120,7 +1120,7 @@ namespace LyricsSceneMaker_CSharp
         // 한글 가사 추가 이벤트 // 아직 개발 안된 부분.
         private void AddKorLyricsButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            // 만약 활성화가 됐다 InitializeButton.IsEnabled == false --> 버튼 무응답
         }
 
         /// <summary>
