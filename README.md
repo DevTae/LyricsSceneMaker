@@ -26,15 +26,21 @@ Developer & Design : ¾Æµ¨·Ð(ahdelron)
 
 <br/>
 
-* ¹ÂÁ÷ Æû
+**¹ÂÁ÷ Æû**
+<br/>
+
 ![Ä¸3Ã³](https://user-images.githubusercontent.com/55177359/76708440-27b29300-673a-11ea-8077-4c6a65ee2422.PNG)
 
 <br/>
 
-* Àå¸é °ü¸®Æû
+**Àå¸é °ü¸®Æû**
+<br/>
+
 ![Ä¸23Ã³](https://user-images.githubusercontent.com/55177359/76875885-81d76380-68b4-11ea-8eef-a9b059feb763.PNG)
 
 <br/>
 
-* ¹ø¿ªµµ¿òÅø Æû
+**¹ø¿ª µµ¿ò µµ±¸ Æû**
+<br/>
+
 ![Ä¸Ã³](https://user-images.githubusercontent.com/55177359/77083846-79606380-6a41-11ea-9011-565eb8c459cc.PNG)
