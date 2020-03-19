@@ -25,11 +25,12 @@ namespace LyricsSceneMaker_CSharp
     /// </summary>
     public partial class LyricsSceneXaml : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
+
         public LyricsSceneXaml()
         {
             InitializeComponent();
             LyricsControlXaml.toscene += new toScene(receive_data);
-            DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(20);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
@@ -44,37 +45,26 @@ namespace LyricsSceneMaker_CSharp
         // delegate 함수 피호출 함수
         void receive_data(int opcode, string data1, string data2)
         {
-            
-            if (opcode == 0)
+            if (opcode == -1)
             {
-                // descriptor 정보 받아오기
-                // 맨 처음 화면
-                DescriptorLabel.Visibility = Visibility.Hidden;
-                LyricsLabel1.Visibility = Visibility.Hidden;
-                LyricsLabel2.Visibility = Visibility.Hidden;
-                FirstLastText.Visibility = Visibility.Visible;
-                if(data2.Contains("|"))
-                {
-                    FirstLastText.Text = data1 + " - " + data2.Split('|')[0];
-                }
-                else
-                {
-                    FirstLastText.Text = data1 + " - " + data2;
-                }
-                data2 = data2.Replace("|", "\r\n");
-                DescriptorLabel.Text = data1 + " - " + data2;
+                // 팝송 전환 모드
+                TurnToPopMode();
+            }
+            else if (opcode == 0)
+            {
+                GetInitialData(data1, data2);
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
             {
-                effectFunction1(data1, data2);
+                EffectFunction1(data1, data2);
             }
             else if (opcode == (int)Keys.A)
             {
-                formEffectFunction1();
+                FormEffectFunction1();
             }
             else if(opcode == (int)Keys.C)
             {
-                transformImage(data1);
+                TransformImage(data1);
             }
         }
 
@@ -83,7 +73,7 @@ namespace LyricsSceneMaker_CSharp
         /// </summary>
         /// <param name="data1"></param>
         /// <param name="data2"></param>
-        private void effectFunction1(string data1, string data2)
+        private void EffectFunction1(string data1, string data2)
         {
             if (data1 != null) data1 = data1.Replace("\r", "");
             if (data2 != null) data2 = data2.Replace("\r", "");
@@ -123,7 +113,7 @@ namespace LyricsSceneMaker_CSharp
         }
 
         // 간주 화면 출력
-        private void formEffectFunction1()
+        private void FormEffectFunction1()
         {
             LyricsLabel1.Visibility = Visibility.Hidden;
             LyricsLabel2.Visibility = Visibility.Hidden;
@@ -132,7 +122,7 @@ namespace LyricsSceneMaker_CSharp
 
         // 컷 전환 함수
         double blur_memo_data;
-        private void transformImage(string data)
+        private void TransformImage(string data)
         {
             string[] datas = data.Split('!');
             int index, i = 1, p = 0;
@@ -209,6 +199,45 @@ namespace LyricsSceneMaker_CSharp
                 }
             }
 
+        }
+
+        // 팝송 모드 전환 함수
+        private void TurnToPopMode()
+        {
+            timer.Stop();
+            Rectangle1.Fill = new SolidColorBrush(Colors.Green);
+            CDImage.Visibility = Visibility.Hidden;
+            CDShadow.Visibility = Visibility.Hidden;
+            lyrics_border_colors = new SolidColorBrush[] {
+                    new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0, 0, 0)), // 검은색
+                    new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF)) // 하얀색
+            };
+            LyricsLabel1.Background = lyrics_border_colors[lyricsLabel_index];
+            LyricsLabel2.Background = lyrics_border_colors[lyricsLabel_index];
+            FirstLastText.Background = lyrics_border_colors[lyricsLabel_index];
+            EffectText.Background = lyrics_border_colors[lyricsLabel_index];
+            ScenePictureBox.Source = null;
+        }
+
+        // 첫 화면에 필요한 데이터 받기 함수
+        private void GetInitialData(string data1, string data2)
+        {
+            // descriptor 정보 받아오기
+            // 맨 처음 화면
+            DescriptorLabel.Visibility = Visibility.Hidden;
+            LyricsLabel1.Visibility = Visibility.Hidden;
+            LyricsLabel2.Visibility = Visibility.Hidden;
+            FirstLastText.Visibility = Visibility.Visible;
+            if (data2.Contains("|"))
+            {
+                FirstLastText.Text = data1 + " - " + data2.Split('|')[0];
+            }
+            else
+            {
+                FirstLastText.Text = data1 + " - " + data2;
+            }
+            data2 = data2.Replace("|", "\r\n");
+            DescriptorLabel.Text = data1 + " - " + data2;
         }
 
         // this.dragmove 로 쉽게 창 드래그 기능을 구현할 수 있음

@@ -24,7 +24,7 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="Images/cd-shadow.png" Margin="1040,45,100,100" Width="40" Height="15"/>
+            <Image Name="CDShadow" Grid.Row="0" Source="Images/cd-shadow.png" Margin="1040,45,100,100" Width="40" Height="15"/>
             <Image Name="CDImage" Grid.Row="0" Source="Images/cd-icon.png" Margin="1040,5,100,100" Width="40" Height="40" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>

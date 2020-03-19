@@ -31,16 +31,17 @@
                 <Button Name="InitializeButton" Click="InitializeButton_Click" Content="Initialize !" Margin="5,0,5,5"
                         DockPanel.Dock="Bottom"/>
                 <DockPanel Margin="5,0,5,5">
-                    <DockPanel LastChildFill="False">
+                    <DockPanel Name="DockPanel1" LastChildFill="False">
                         <DockPanel.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Margin" Value="5,5,0,0"/>
                             </Style>
                         </DockPanel.Resources>
                         <TextBlock Text="가사 :" DockPanel.Dock="Top" Padding="5"/>
-
+                        
                         <Button Name="LyricsLoadButton" Click="LyricsLoadButton_Click" Content="Load" DockPanel.Dock="Bottom"/>
                         <Button Name="LyricsSaveButton" Click="LyricsSaveButton_Click" Content="Save" DockPanel.Dock="Bottom" IsEnabled="False"/>
+                        <Button Name="TurnToPopMode" Click="TurnToPopMode_Click" Content="팝송 모드" DockPanel.Dock="Bottom"/>
                     </DockPanel>
                     <TextBox Name="LyricsTextBox" TabIndex="3"
                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
@@ -78,7 +79,7 @@
                         <Button Name="Replay" IsEnabled="False" Content="◀" Click="Replay_Click" DockPanel.Dock="Right" Margin="0,5,0,5"/>
                     </DockPanel>
 
-                    <DockPanel Grid.Row="1">
+                    <DockPanel Name="DockPanel2" Grid.Row="1">
                         <DockPanel.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Margin" Value="5,5,5,5"/>
@@ -97,7 +98,7 @@
                             MouseDoubleClick="NotesListBox_MouseDoubleClick"/>
                     </DockPanel>
 
-                    <DockPanel Grid.Row="2">
+                    <DockPanel Name="DockPanel3" Grid.Row="2">
                         <DockPanel.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Margin" Value="5,5,5,5"/>
@@ -113,7 +114,7 @@
                             <Button x:Name="EffectsLoadButton" IsEnabled="False" Content="불러오기" Click="EffectsLoadButton_Click" Grid.Column="1"/>
                         </Grid>
 
-                        <Grid DockPanel.Dock="Right">
+                        <Grid Name="EffectButtonGrid" DockPanel.Dock="Right">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="70*"/>
                                 <RowDefinition Height="30*"/>

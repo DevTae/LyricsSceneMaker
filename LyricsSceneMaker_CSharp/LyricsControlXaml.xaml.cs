@@ -199,6 +199,7 @@ namespace LyricsSceneMaker_CSharp
             LyricsTextBox.IsReadOnly = true;
             InitializeButton.IsEnabled = false;
             LyricsLoadButton.IsEnabled = false;
+            TurnToPopMode.IsEnabled = false;
             LyricsSaveButton.IsEnabled = true;
             Pause.IsEnabled = true;
             Play.IsEnabled = true;
@@ -1061,6 +1062,54 @@ namespace LyricsSceneMaker_CSharp
             }
         }
 
+        // 일반모드 / 편집모드 변환 이벤트
+        private void PreviewTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (PreviewTextBlock.Text.Equals("<Preview> - 일반모드"))
+            {
+                // 편집모드로 변경
+                PreviewTextBlock.Text = "<Preview> - 편집모드";
+                InitialImageAddButton.Visibility = Visibility.Hidden;
+                ImageChangeNoteTimeAddButton.Visibility = Visibility.Hidden;
+                ImageChangeTimeAddButton.Visibility = Visibility.Hidden;
+                ImageModifyButton.Visibility = Visibility.Visible;
+            }
+            else if (PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
+            {
+                // 일반모드로 변경
+                PreviewTextBlock.Text = "<Preview> - 일반모드";
+                InitialImageAddButton.Visibility = Visibility.Visible;
+                ImageChangeNoteTimeAddButton.Visibility = Visibility.Visible;
+                ImageChangeTimeAddButton.Visibility = Visibility.Visible;
+                ImageModifyButton.Visibility = Visibility.Hidden;
+            }
+        }
+
+        // 팝송모드 변환 이벤트
+        private void TurnToPopMode_Click(object sender, RoutedEventArgs e)
+        {
+            TurnToPopMode.IsEnabled = false;
+            toscene(-1, null, null);
+
+            // 컷 전환 버튼 삭제
+            EffectButtonGrid.Children.Remove((UIElement)FindName("OpenCutMaker"));
+            Grid.SetRowSpan(EffectMake1, 2);
+
+            // 팝송 해석본 불러오기 버튼 추가
+            System.Windows.Controls.Button AddKorLyricsButton = new System.Windows.Controls.Button();
+            AddKorLyricsButton.Name = "AddKorLyricsButton";
+            AddKorLyricsButton.Click += AddKorLyricsButton_Click;
+            AddKorLyricsButton.Content = "한글 추가";
+            DockPanel.SetDock(AddKorLyricsButton, Dock.Bottom);
+            DockPanel1.Children.Add(AddKorLyricsButton);
+        }
+
+        // 한글 가사 추가 이벤트
+        private void AddKorLyricsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// 미리보기 레이아웃 색깔 변경 이벤트
         /// </summary>
@@ -1128,29 +1177,5 @@ namespace LyricsSceneMaker_CSharp
                 }
             }
         }
-
-        // 일반모드 / 편집모드 변환 이벤트
-        private void PreviewTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if(PreviewTextBlock.Text.Equals("<Preview> - 일반모드"))
-            {
-                // 편집모드로 변경
-                PreviewTextBlock.Text = "<Preview> - 편집모드";
-                InitialImageAddButton.Visibility = Visibility.Hidden;
-                ImageChangeNoteTimeAddButton.Visibility = Visibility.Hidden;
-                ImageChangeTimeAddButton.Visibility = Visibility.Hidden;
-                ImageModifyButton.Visibility = Visibility.Visible;
-            }
-            else if(PreviewTextBlock.Text.Equals("<Preview> - 편집모드"))
-            {
-                // 일반모드로 변경
-                PreviewTextBlock.Text = "<Preview> - 일반모드";
-                InitialImageAddButton.Visibility = Visibility.Visible;
-                ImageChangeNoteTimeAddButton.Visibility = Visibility.Visible;
-                ImageChangeTimeAddButton.Visibility = Visibility.Visible;
-                ImageModifyButton.Visibility = Visibility.Hidden;
-            }
-        }
-
     }
 }
