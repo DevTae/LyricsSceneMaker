@@ -53,8 +53,15 @@ namespace LyricsSceneMaker_CSharp
                 LyricsLabel1.Visibility = Visibility.Hidden;
                 LyricsLabel2.Visibility = Visibility.Hidden;
                 FirstLastText.Visibility = Visibility.Visible;
+                if(data2.Contains("|"))
+                {
+                    FirstLastText.Text = data1 + " - " + data2.Split('|')[0];
+                }
+                else
+                {
+                    FirstLastText.Text = data1 + " - " + data2;
+                }
                 data2 = data2.Replace("|", "\r\n");
-                FirstLastText.Text = data2;
                 DescriptorLabel.Text = data1 + " - " + data2;
             }
             else if (opcode == (int)Keys.Enter || opcode == (int)Keys.Space)
