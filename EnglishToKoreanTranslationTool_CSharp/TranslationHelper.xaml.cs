@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
     {
         // TODO: 모르는 단어를 찾아봤을 때는 단어장에 저장해서 다음에 똑같은 단어가 나온다면 도움을 줄 수 있게 하면 좋겠다.
 
-        string[] lyrics_data = null;
+        List<Lyric> lyrics = new List<Lyric>();
         System.Windows.Controls.ListView EngLyricsListView;
 
         public TranslationHelper()
@@ -59,29 +60,126 @@ namespace EnglishToKoreanTranslationTool_CSharp
 
             EngLyricsLoadButton.IsEnabled = false;
             InitializeButton.IsEnabled = false;
+            RejectButton.IsEnabled = true;
+            AfterTextBox.IsEnabled = true;
+            SubmitButton.IsEnabled = true;
+            KorLyricsLoadButton.IsEnabled = true;
+            KorLyricsSaveButton.IsEnabled = true;
 
             // 가사 정보 인지하기
-            lyrics_data = EngLyricsTextBox.Text.Split('\n');
+            string[] lyrics_data = EngLyricsTextBox.Text.Split('\n');
             for(int i = 0; i < lyrics_data.Length; i++)
             {
                 lyrics_data[i] = lyrics_data[i].Replace("\r", "");
             }
-            
-            // 리스트뷰 컨트롤 추가하기
+
+            for (int i = 0; i < lyrics_data.Length; i++)
+            {
+                lyrics.Add(new Lyric() { index = i + 1, isSuccess = false, engLyric = lyrics_data[i], korLyric = null });
+            }
+
+            // 리스트뷰 컨트롤 설정하기
             LeftDock.Children.Remove((UIElement)FindName("EngLyricsTextBox"));
             EngLyricsListView = new System.Windows.Controls.ListView();
             EngLyricsListView.Name = "EngLyricsListView";
             EngLyricsListView.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x4C, 0xFF, 0xFF, 0xFF));
             EngLyricsListView.Foreground = new SolidColorBrush(Colors.Black);
-            EngLyricsListView.FontFamily = new FontFamily("/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar");
-            EngLyricsListView.FontSize = 18;
+            EngLyricsListView.FontSize = 12;
+            EngLyricsListView.SelectionChanged += EngLyricsListView_SelectionChanged;
+
+            GridView engGridView = new GridView();
+            GridView korGridView = new GridView();
+            GridViewColumn col;
+
+            col = new GridViewColumn();
+            col.Header = "n";
+            col.Width = 30;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("index");
+            engGridView.Columns.Add(col);
+
+            col = new GridViewColumn();
+            col.Header = "n";
+            col.Width = 30;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("index");
+            korGridView.Columns.Add(col);
+
+            col = new GridViewColumn();
+            col.Header = "상태";
+            col.Width = 50;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("isSuccess");
+            engGridView.Columns.Add(col);
+
+            col = new GridViewColumn();
+            col.Header = "상태";
+            col.Width = 50;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("isSuccess");
+            korGridView.Columns.Add(col);
+
+            col = new GridViewColumn();
+            col.Header = "Eng Lyric";
+            col.Width = 200;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("engLyric");
+            engGridView.Columns.Add(col);
+
+            col = new GridViewColumn();
+            col.Header = "Kor Lyric";
+            col.Width = 200;
+            col.DisplayMemberBinding = new System.Windows.Data.Binding("korLyric");
+            korGridView.Columns.Add(col);
+
+            EngLyricsListView.View = engGridView;
+            KorLyricsListView.View = korGridView;
+
+            // 리스트뷰 컨트롤 추가하기
             LeftDock.Children.Add(EngLyricsListView);
-            
+
+            // 리스트뷰 List<Lyric> 정보와 연결
+            EngLyricsListView.ItemsSource = lyrics;
+            KorLyricsListView.ItemsSource = lyrics;
         }
 
-        // 번역할 데이터 힌트 추기
+        // 선택한 데이터 가져오기
+        private void EngLyricsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BeforeTextBlock.Text = lyrics[EngLyricsListView.SelectedIndex].engLyric;
+            AfterTextBox.Text = lyrics[EngLyricsListView.SelectedIndex].korLyric;
+            SetHintObjects();
+        }
+
+        // 선택한 데이터 가져오기
+        private void KorLyricsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BeforeTextBlock.Text = lyrics[KorLyricsListView.SelectedIndex].engLyric;
+            AfterTextBox.Text = lyrics[KorLyricsListView.SelectedIndex].korLyric;
+            SetHintObjects();
+        }
+
+        // 번역할 데이터 힌트 주기
+        private void SetHintObjects()
+        {
+            // 올라와져 있는 버튼 삭제
+            wrapPanel.Children.RemoveRange(0, wrapPanel.Children.Count);
+
+            // 새로운 버튼 등록
+            string[] hints = BeforeTextBlock.Text.Split(' ');
+            
+            foreach (string hint in hints)
+            {
+                System.Windows.Controls.Button button = new System.Windows.Controls.Button();
+                button.Content = hint;
+                button.Click += Button_Click;
+                button.Background = new SolidColorBrush(Colors.Transparent);
+                wrapPanel.Children.Add(button);
+            }
+
+            // 번역본 추가
+
+        }
+
+        // 힌트 바탕으로 검색창 띄어줌
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // 검색어 유도 : ~ 슬랭, ~ 회화, ~ meaning
             try
             {
                 if (sender == null) return;
@@ -115,9 +213,8 @@ namespace EnglishToKoreanTranslationTool_CSharp
         // 지금까지 진행한 가사 번역본 저장하기
         private void KorLyricsSaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // false 이면 가사 앞에 false| 붙이고 공백이면 | 붙이기 저 두개없으면 true로 판단 // 바꾸면 notify해줘야함
         }
 
-        
     }
 }

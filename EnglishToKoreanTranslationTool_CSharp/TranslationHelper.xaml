@@ -91,6 +91,7 @@
                        FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="20"/>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button Name="SubmitButton"
+                        IsEnabled="False"
                         Content="Submit"
                         Click="SubmitButton_Click"
                         Background="#4CFFFFFF" 
@@ -98,6 +99,7 @@
                         FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"
                         DockPanel.Dock="Right"/>
                 <Button Name="RejectButton"
+                        IsEnabled="False"
                         Content="Reject"
                         Click="RejectButton_Click"
                         Background="#4CFFFFFF"
@@ -105,6 +107,7 @@
                         FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"
                         DockPanel.Dock="Left"/>
                 <TextBox Name="AfterTextBox"
+                         IsEnabled="False"
                          AcceptsReturn="True"
                          HorizontalScrollBarVisibility="Auto"
                          VerticalScrollBarVisibility="Auto"
@@ -124,7 +127,7 @@
                        Margin="10,5,10,5"
                        DockPanel.Dock="Top"
                        TextWrapping="WrapWithOverflow"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="17"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19"/>
                 <TextBlock Name="GoogleSaid" 
                        Text="구글번역기 said &quot;나는 그것이 꽤 쉽다고 생각해.&quot;" 
                        Background="#60ffffff"
@@ -133,10 +136,10 @@
                        Margin="10,5,10,5"
                        DockPanel.Dock="Top"
                        TextWrapping="WrapWithOverflow"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="17"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19"/>
             </DockPanel>
 
-            <WrapPanel Margin="10,0,10,10">
+            <WrapPanel Name="wrapPanel" Margin="10,0,10,10">
                 <WrapPanel.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Margin" Value="3"/>
@@ -144,12 +147,12 @@
                         <Setter Property="Background" Value="Transparent"/>
                     </Style>
                 </WrapPanel.Resources>
-                <Button Content="I" Click="Button_Click"/>
+                <!--<Button Content="I" Click="Button_Click"/>
                 <Button Content="think" Click="Button_Click"/>
                 <Button Content="that" Click="Button_Click"/>
                 <Button Content="is" Click="Button_Click"/>
                 <Button Content="so" Click="Button_Click"/>
-                <Button Content="easy." Click="Button_Click"/>
+                <Button Content="easy." Click="Button_Click"/>-->
             </WrapPanel>
         </DockPanel>
 
@@ -169,19 +172,23 @@
                 </Grid.ColumnDefinitions>
                 <Button Name="KorLyricsLoadButton"
                         Grid.Column="1"
+                        IsEnabled="False"
                     Content="Load lyrics"
                     Click="KorLyricsLoadButton_Click"
                     Margin="0,5,5,5"
                     Background="#4CFFFFFF" FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"/>
                 <Button Name="KorLyricsSaveButton"
                         Grid.Column="0"
+                        IsEnabled="False"
                     Content="Save lyrics"
                     Click="KorLyricsSaveButton_Click"
                     Margin="0,5,5,5"
                     Background="#4CFFFFFF" FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"/>
             </Grid>
-            <ListView Background="#60ffffff"
-                      FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18">
+            <ListView Name="KorLyricsListView"
+                      Background="#60ffffff"
+                      FontSize="12"
+                      SelectionChanged="KorLyricsListView_SelectionChanged">
                 
             </ListView>
         </DockPanel>
