@@ -242,24 +242,83 @@ namespace EnglishToKoreanTranslationTool_CSharp
         // 진행중이던 가사 번역본 불러오기
         private void KorLyricsLoadButton_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "노래 가사 데이터 파일 (*.lyrics)|*.lyrics";
+            ofd.DefaultExt = "lyrics";
 
+            string data = string.Empty;
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+                    StreamReader sr = new StreamReader(fs);
+                    data = sr.ReadToEnd();
+                    sr.Close();
+                    fs.Close();
+                    System.Windows.Forms.MessageBox.Show("로딩 성공!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("로딩 실패!", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            // 파싱 시작
+            string[] datas = data.Split('\n');
+            int length = datas.Length;
+
+            for(int i = 0; i < length; i++)
+            {
+                if(datas[i].Contains("[false data]"))
+                {
+                    lyrics[i].isSuccess = false;
+                    lyrics[i].korLyric = datas[i].Replace("[false data]", "");
+                }
+                else
+                {
+                    lyrics[i].isSuccess = true;
+                    lyrics[i].korLyric = datas[i];
+                }
+                
+            }
+
+            EngLyricsListView.Items.Refresh();
+            KorLyricsListView.Items.Refresh();
         }
 
         // 지금까지 진행한 가사 번역본 저장하기
         private void KorLyricsSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // false 이면 가사 앞에 false| 붙이고 공백이면 | 붙이기 저 두개없으면 true로 판단 // 바꾸면 notify해줘야함
             StringBuilder sb = new StringBuilder();
-            foreach(Lyric lyric in lyrics)
+            
+            for(int i = 0; i < lyrics.Count; i++)
             {
+                Lyric lyric = lyrics[i];
                 string korLyric = lyric.korLyric;
                 if (lyric.isSuccess)
                 {
-                    sb.Append(korLyric + "\n");
+                    if (lyrics.Count - 1 != i)
+                    {
+                        sb.Append(korLyric + "\n");
+                    }
+                    else
+                    {
+                        sb.Append(korLyric);
+                    }
                 }
                 else
                 {
-                    sb.Append("[false data]" + korLyric + "\n");
+                    if (lyrics.Count - 1 != i)
+                    {
+                        sb.Append("[false data]" + korLyric + "\n");
+                    }
+                    else
+                    {
+                        sb.Append("[false data]" + korLyric);
+                    }
                 }
             }
 
