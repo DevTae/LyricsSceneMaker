@@ -87,7 +87,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
             EngLyricsListView.Name = "EngLyricsListView";
             EngLyricsListView.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x4C, 0xFF, 0xFF, 0xFF));
             EngLyricsListView.Foreground = new SolidColorBrush(Colors.Black);
-            EngLyricsListView.FontSize = 12;
+            EngLyricsListView.FontSize = 13;
             EngLyricsListView.SelectionChanged += EngLyricsListView_SelectionChanged;
 
             GridView engGridView = new GridView();

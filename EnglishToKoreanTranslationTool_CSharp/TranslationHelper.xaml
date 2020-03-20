@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnglishToKoreanTranslationTool_CSharp"
         mc:Ignorable="d"
-        Title="TranslationHelper" Height="500" Width="800" ResizeMode="NoResize" 
+        Title="TranslationHelper" Height="600" Width="900" ResizeMode="NoResize" 
         WindowStyle="None" Background="Transparent" AllowsTransparency="False">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,7 +34,7 @@
                        Foreground="Black"
                        TextAlignment="Center"
                        Margin="0,5,0,5"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18" 
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19" 
                        Background="#23ffffff"/>
             <Grid DockPanel.Dock="Bottom">
                 <Grid.ColumnDefinitions>
@@ -61,7 +61,7 @@
                      VerticalScrollBarVisibility="Auto"
                      Background="#4CFFFFFF"
                      Foreground="Black"
-                     FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18"/>
+                     FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19"/>
         </DockPanel>
 
         <DockPanel Grid.Column="1" Margin="0,25,5,10">
@@ -73,7 +73,7 @@
                        Margin="10,5,10,5"
                        DockPanel.Dock="Top"
                        TextWrapping="WrapWithOverflow" 
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="20"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="21"/>
             <TextBlock Text="↓" 
                        Background="Transparent"
                        Foreground="White"
@@ -88,7 +88,7 @@
                        Margin="10,5,10,5"
                        DockPanel.Dock="Top"
                        TextWrapping="WrapWithOverflow"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="20"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="21"/>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button Name="RejectButton"
                         IsEnabled="False"
@@ -116,7 +116,7 @@
                          Foreground="Black"
                          Margin="10,0,5,0"    
                          DockPanel.Dock="Left"
-                         FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18"/>
+                         FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19"/>
             </DockPanel>
 
             <DockPanel DockPanel.Dock="Bottom">
@@ -130,7 +130,7 @@
                        TextWrapping="WrapWithOverflow"
                        Cursor="Hand"
                        MouseDown="PapagoSaid_MouseDown"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="19"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="20"/>
             </DockPanel>
 
             <WrapPanel Name="wrapPanel" Margin="10,0,10,10">
@@ -158,7 +158,7 @@
                        Margin="0,5,0,5"
                        DockPanel.Dock="Top"
                        TextWrapping="WrapWithOverflow"
-                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="17"/>
+                       FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18"/>
             <Grid DockPanel.Dock="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -181,7 +181,7 @@
             </Grid>
             <ListView Name="KorLyricsListView"
                       Background="#60ffffff"
-                      FontSize="12"
+                      FontSize="13"
                       SelectionChanged="KorLyricsListView_SelectionChanged">
                 
             </ListView>
