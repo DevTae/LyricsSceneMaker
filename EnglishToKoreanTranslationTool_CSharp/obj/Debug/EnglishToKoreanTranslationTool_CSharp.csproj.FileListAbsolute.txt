@@ -12,3 +12,4 @@ C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\EnglishToKoreanTranslationTo
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\EnglishToKoreanTranslationTool_CSharp\obj\Debug\EnglishToKoreanTranslationTool_CSharp.pdb
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\EnglishToKoreanTranslationTool_CSharp\obj\Debug\TranslationHelper.g.cs
 C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\EnglishToKoreanTranslationTool_CSharp\obj\Debug\TranslationHelper.baml
+C:\Users\fmkms\source\repos\LyricsSceneMaker_CSharp\EnglishToKoreanTranslationTool_CSharp\obj\Debug\EnglishToKoreanTranslationTool_CSharp.csproj.ResolveComReference.cache

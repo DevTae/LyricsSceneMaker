@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -42,8 +44,8 @@ namespace EnglishToKoreanTranslationTool_CSharp
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "가사 데이터 파일 (*.lyrics)|*.lyrics";
-            
-            if(ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
                 StreamReader bs = new StreamReader(fs);
@@ -172,8 +174,14 @@ namespace EnglishToKoreanTranslationTool_CSharp
                 wrapPanel.Children.Add(button);
             }
 
-            // 번역본 추가
+            // 파파고 TextBlock 이름 처리
+            PapagoSaid.Text = "파파고 said \"" + BeforeTextBlock.Text + "\" equals ~.";
+        }
 
+        // 파파고 번역본 가져오기
+        private void PapagoSaid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("Chrome.exe", "https://papago.naver.com/?sk=en&tk=ko&hn=0&st=" + BeforeTextBlock.Text.Replace(" ", "%20"));
         }
 
         // 힌트 바탕으로 검색창 띄어줌
@@ -185,6 +193,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
                 if (sender == null) return;
                 System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
                 string toFindData = button.Content.ToString();
+                System.Diagnostics.Process.Start("Chrome.exe", "https://www.google.com/search?q=" + toFindData + "%20어휘%20슬랭%20문법");
             }
             catch
             {
@@ -215,6 +224,5 @@ namespace EnglishToKoreanTranslationTool_CSharp
         {
             // false 이면 가사 앞에 false| 붙이고 공백이면 | 붙이기 저 두개없으면 true로 판단 // 바꾸면 notify해줘야함
         }
-
     }
 }
