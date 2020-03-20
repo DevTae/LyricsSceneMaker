@@ -14,7 +14,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         
-        <Border CornerRadius="10" Grid.ColumnSpan="3">
+        <Border Grid.ColumnSpan="3">
             <Label Grid.ColumnSpan="3"
                    MouseDown="Border_MouseDown"
                    Height="20"
@@ -90,6 +90,14 @@
                        TextWrapping="WrapWithOverflow"
                        FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="20"/>
             <DockPanel DockPanel.Dock="Bottom">
+                <Button Name="RejectButton"
+                        IsEnabled="False"
+                        Content="Reject"
+                        Click="RejectButton_Click"
+                        Background="#4CFFFFFF"
+                        Margin="0,0,10,0"
+                        FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"
+                        DockPanel.Dock="Right"/>
                 <Button Name="SubmitButton"
                         IsEnabled="False"
                         Content="Submit"
@@ -98,14 +106,7 @@
                         Margin="0,0,5,0"
                         FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"
                         DockPanel.Dock="Right"/>
-                <Button Name="RejectButton"
-                        IsEnabled="False"
-                        Content="Reject"
-                        Click="RejectButton_Click"
-                        Background="#4CFFFFFF"
-                        Margin="5,0,5,0"
-                        FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Nickainley Normal"
-                        DockPanel.Dock="Left"/>
+                
                 <TextBox Name="AfterTextBox"
                          IsEnabled="False"
                          AcceptsReturn="True"
@@ -113,7 +114,7 @@
                          VerticalScrollBarVisibility="Auto"
                          Background="#4CFFFFFF"
                          Foreground="Black"
-                         Margin="5,0,5,0"    
+                         Margin="10,0,5,0"    
                          DockPanel.Dock="Left"
                          FontFamily="/EnglishToKoreanTranslationTool_CSharp;component/Fonts/#Cafe24 Shiningstar" FontSize="18"/>
             </DockPanel>

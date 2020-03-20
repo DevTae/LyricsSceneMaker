@@ -27,6 +27,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
 
         List<Lyric> lyrics = new List<Lyric>();
         System.Windows.Controls.ListView EngLyricsListView;
+        private int nowSelected = -1;
 
         public TranslationHelper()
         {
@@ -138,11 +139,14 @@ namespace EnglishToKoreanTranslationTool_CSharp
             // 리스트뷰 List<Lyric> 정보와 연결
             EngLyricsListView.ItemsSource = lyrics;
             KorLyricsListView.ItemsSource = lyrics;
+            EngLyricsListView.SelectedIndex = 0;
         }
 
         // 선택한 데이터 가져오기
         private void EngLyricsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            KorLyricsListView.SelectedIndex = EngLyricsListView.SelectedIndex;
+            nowSelected = EngLyricsListView.SelectedIndex;
             BeforeTextBlock.Text = lyrics[EngLyricsListView.SelectedIndex].engLyric;
             AfterTextBox.Text = lyrics[EngLyricsListView.SelectedIndex].korLyric;
             SetHintObjects();
@@ -151,6 +155,8 @@ namespace EnglishToKoreanTranslationTool_CSharp
         // 선택한 데이터 가져오기
         private void KorLyricsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            EngLyricsListView.SelectedIndex = KorLyricsListView.SelectedIndex;
+            nowSelected = KorLyricsListView.SelectedIndex;
             BeforeTextBlock.Text = lyrics[KorLyricsListView.SelectedIndex].engLyric;
             AfterTextBox.Text = lyrics[KorLyricsListView.SelectedIndex].korLyric;
             SetHintObjects();
@@ -193,24 +199,44 @@ namespace EnglishToKoreanTranslationTool_CSharp
                 if (sender == null) return;
                 System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
                 string toFindData = button.Content.ToString();
-                System.Diagnostics.Process.Start("Chrome.exe", "https://www.google.com/search?q=" + toFindData + "%20어휘%20슬랭%20문법");
-            }
-            catch
-            {
-
-            }
+                System.Diagnostics.Process.Start("Chrome.exe", "https://www.google.com/search?q=" + toFindData + "%20뜻");
+            } catch { }
         }
 
         // 리스트뷰에 값 추가하기 (실패한 상태로)
         private void RejectButton_Click(object sender, RoutedEventArgs e)
         {
+            Lyric lyric = lyrics.ElementAt(nowSelected);
+            lyric.isSuccess = false;
+            lyric.korLyric = AfterTextBox.Text;
+            EngLyricsListView.Items.Refresh();
+            KorLyricsListView.Items.Refresh();
 
+            // 다음 가사로 옮기기
+            if (nowSelected + 1 < lyrics.Count)
+            {
+                nowSelected++;
+                EngLyricsListView.SelectedIndex = nowSelected;
+                EngLyricsListView.SelectedIndex = nowSelected;
+            }
         }
 
         // 리스트뷰에 값 추가하기
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            Lyric lyric = lyrics.ElementAt(nowSelected);
+            lyric.isSuccess = true;
+            lyric.korLyric = AfterTextBox.Text;
+            EngLyricsListView.Items.Refresh();
+            KorLyricsListView.Items.Refresh();
 
+            // 다음 가사로 옮기기
+            if (nowSelected + 1 < lyrics.Count)
+            {
+                nowSelected++;
+                EngLyricsListView.SelectedIndex = nowSelected;
+                EngLyricsListView.SelectedIndex = nowSelected;
+            }
         }
 
         // 진행중이던 가사 번역본 불러오기
