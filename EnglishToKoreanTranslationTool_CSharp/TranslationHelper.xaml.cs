@@ -78,7 +78,7 @@ namespace EnglishToKoreanTranslationTool_CSharp
 
             for (int i = 0; i < lyrics_data.Length; i++)
             {
-                lyrics.Add(new Lyric() { index = i + 1, isSuccess = false, engLyric = lyrics_data[i], korLyric = null });
+                lyrics.Add(new Lyric() { index = i + 1, isSuccess = false, engLyric = lyrics_data[i], korLyric = string.Empty });
             }
 
             // 리스트뷰 컨트롤 설정하기
@@ -249,6 +249,40 @@ namespace EnglishToKoreanTranslationTool_CSharp
         private void KorLyricsSaveButton_Click(object sender, RoutedEventArgs e)
         {
             // false 이면 가사 앞에 false| 붙이고 공백이면 | 붙이기 저 두개없으면 true로 판단 // 바꾸면 notify해줘야함
+            StringBuilder sb = new StringBuilder();
+            foreach(Lyric lyric in lyrics)
+            {
+                string korLyric = lyric.korLyric;
+                if (lyric.isSuccess)
+                {
+                    sb.Append(korLyric + "\n");
+                }
+                else
+                {
+                    sb.Append("[false data]" + korLyric + "\n");
+                }
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "노래 가사 데이터 파일 (*.lyrics)|*.lyrics";
+            sfd.DefaultExt = "lyrics";
+            
+            if(sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    FileStream os = new FileStream(sfd.FileName, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(os);
+                    sw.Write(sb.ToString());
+                    sw.Close();
+                    os.Close();
+                    System.Windows.Forms.MessageBox.Show("저장 성공!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("저장 실패!", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
