@@ -10,7 +10,7 @@
 
 <br/>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-YFasrx02Us" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![예시](https://i.ytimg.com/vi/-YFasrx02Us/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCAyaSJ7o96lN6QMu9wkdPutgsbcQ)](https://youtu.be/-YFasrx02Us)
 
 <br/>
 <br/>
