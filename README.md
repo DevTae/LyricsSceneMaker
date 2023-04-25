@@ -20,6 +20,8 @@
 
 ### How to use?
 
+  - [여기](https://github.com/DevTae/LyricsSceneMaker/archive/refs/heads/master.zip)를 눌러 프로젝트를 다운 받습니다.
+  - 압축을 풀고, LyricsSceneMaker_CSharp/bin/Debug/LyricsSceneMaker_CSharp.exe 를 실행합니다.
   - **곡의 정보**(곡, 가수 이름, 가사, 배경 이미지)를 준비하고 프로그램에 적용한다.
   - 재생한 뒤에 노래 박자에 맞게 **노트 트리거에 등록된 키**를 눌러 싱크를 맞춘다.
   - 가사를 타이밍에 맞게 모두 입력했다면 처음부터 재생하면 된다.
